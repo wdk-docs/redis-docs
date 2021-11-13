@@ -1,5 +1,5 @@
 ---
-title: "Lua 5.4 Reference Manual"
+title: "参考手册"
 linkTitle: ""
 weight: 1
 ---
