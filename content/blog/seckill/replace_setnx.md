@@ -1,7 +1,8 @@
 ---
 title: "Redis 使用 Lua 脚本替代 SETNX / DECR 保证原子性"
 linkTitle: "替代 SETNX/DECR"
-date: " 2020-01-05 23:14:20"
+date: "2020-01-05 23:14:20"
+author: "Laravel"
 ---
 
 > https://learnku.com/articles/39265

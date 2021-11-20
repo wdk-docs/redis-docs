@@ -5,9 +5,9 @@ date: "2016-02-08"
 author: "Kleppmann"
 ---
 
-> https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html
+> <https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html>
 
-> https://martin.kleppmann.com/
+> <https://martin.kleppmann.com/>
 
 As part of the research for my book, I came across an algorithm called Redlock on the Redis website.
 The algorithm claims to implement fault-tolerant distributed locks (or rather, leases [1]) on top of Redis, and the page asks for feedback from people who are into distributed systems.

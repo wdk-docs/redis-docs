@@ -1,7 +1,7 @@
 ---
-title: "Node Redlock"
-linkTitle: "Node Redlock"
-weight: 2
+title: "Node Redlock5"
+linkTitle: ""
+weight: 3
 ---
 
 [![Continuous Integration](https://github.com/mike-marcacci/node-redlock/workflows/Continuous%20Integration/badge.svg)](https://github.com/mike-marcacci/node-redlock/actions/workflows/ci.yml)
@@ -33,7 +33,7 @@ Redis 做了它的事情，并把它的故障转移到还没有同步你的锁�
 这就是为什么 redlock 允许你指定多个独立的节点/集群:
 通过要求它们之间达成一致，我们可以安全地取出或故障转移少数节点，而不会使活动锁失效。
 
-要了解更多的算法，请查看[redis dislock 页面](http://redis.io/topics/distlock).
+要了解更多的算法，请查看[redis distlock 页面](http://redis.io/topics/distlock).
 
 ## 我怎么检查东西是否上锁了?
 
@@ -41,10 +41,9 @@ Redis 做了它的事情，并把它的故障转移到还没有同步你的锁�
 例如，如果您在一个网络分区的较小一端，您将无法获得锁，但您不知道另一端是否存在锁;你只知道你不能保证你的独家经营权。
 重试行为使情况更加复杂，在获取多个资源上的锁时更是如此。
 
-也就是说，对于许多任务来说，尝试使用 `retryCount=0` 锁定就足够了， 并将失败视为资源被"locked"或(更准确地说)"unavailable"。
+也就是说，对于许多任务来说，尝试使用 `retryCount=0` 锁定就足够了， 并将失败视为资源被 `locked` 或(更准确地说) `unavailable`。
 
-Note that with there will be unlimited retries until the lock is aquired.
-注意，使用' retryCount=-1 '将有无限的重试，直到获得锁。
+> 注意，使用' retryCount=-1 '将有无限的重试，直到获得锁。
 
 ## 安装
 
@@ -56,7 +55,7 @@ npm install --save redlock
 
 Redlock 被设计成使用[ioredis](https://github.com/luin/ioredis) 来保持它的客户端连接和处理集群协议。
 
-一个 redlock 对象实例化一个至少一个 redis 客户端和一个可选的' options '对象的数组。
+一个 redlock 对象实例化一个至少一个 redis 客户端和一个可选的`options`对象的数组。
 Redlock 对象的属性不应该在第一次使用后更改，因为这样做可能会对活锁产生意想不到的后果。
 
 ```ts
@@ -100,37 +99,32 @@ const redlock = new Redlock(
 因为 redlock 是为高可用性而设计的，所以它并不关心是否有少数 redis 实例/集群在操作中失败。
 
 但是，监视和记录这种情况是很有帮助的。
-当 Redlock 遇到错误时，它会触发一个"error"事件，即使该错误在正常操作中被忽略。
+当 Redlock 遇到错误时，它会触发一个 `error` 事件，即使该错误在正常操作中被忽略。
 
 ```ts
 redlock.on("error", (error) => {
-  // Ignore cases where a resource is explicitly marked as locked on a client.
+  // 忽略资源在客户端显式标记为锁定的情况。
   if (error instanceof ResourceLockedError) {
     return;
   }
-
-  // Log all other errors.
+  // 日志其他所有错误.
   console.error(error);
 });
 ```
 
-此外，`Lock`和`ExecutionError`类的`attempt`属性上提供了`per-attempt`和`per-client`统计信息(包括错误)。
+此外，`Lock` 和 `ExecutionError` 类的 `attempt` 属性上提供了 `per-attempt` 和 `per-client` 统计信息(包括错误)。
 
 ## 使用
 
-`using`方法在自动扩展锁的上下文中包装并执行例程，返回例程值的承诺。
-在自动扩展失败的情况下，将更新一个 AbortSignal，以表明该例程的终止是正确的，并将遇到的错误传递下去。
+`using` 方法在自动扩展锁的上下文中包装并执行例程，返回例程值的承诺。
+在自动扩展失败的情况下，将更新一个 `AbortSignal` ，以表明该例程的终止是正确的，并将遇到的错误传递下去。
 
 ```ts
 await redlock.using([senderId, recipientId], 5000, async (signal) => {
   // Do something...
   await something();
-
-  // Make sure any necessary lock extension has not failed.
-  if (signal.aborted) {
-    throw signal.error;
-  }
-
+  // 确保任何必要的锁扩展没有失败。
+  if (signal.aborted) throw signal.error;
   // Do something else...
   await somethingElse();
 });
@@ -141,16 +135,12 @@ await redlock.using([senderId, recipientId], 5000, async (signal) => {
 ```ts
 // Acquire a lock.
 let lock = await redlock.acquire(["a"], 5000);
-
 // Do something...
 await something();
-
 // Extend the lock.
 lock = await lock.extend(5000);
-
 // Do something else...
 await somethingElse();
-
 // Release the lock.
 await lock.release();
 ```

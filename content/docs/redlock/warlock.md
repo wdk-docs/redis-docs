@@ -1,7 +1,7 @@
 ---
 title: "warlock"
 linkTitle: ""
-weight: 3
+weight: 5
 ---
 
 > https://github.com/thedeveloper/warlock
