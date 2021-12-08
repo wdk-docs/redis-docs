@@ -1,0 +1,1040 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis-docs – lua</title>
+    <link>http://example.org/docs/lua/</link>
+    <description>Recent content in lua on redis-docs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://example.org/docs/lua/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 关于</title>
+      <link>http://example.org/docs/lua/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/lua/about/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;什么是-lua&#34;&gt;什么是 Lua?&lt;/h2&gt;
+&lt;p&gt;Lua is a powerful, efficient, lightweight, embeddable scripting language.
+It supports procedural programming, object-oriented programming, functional programming, data-driven programming, and data description.&lt;/p&gt;
+&lt;p&gt;Lua combines simple procedural syntax with powerful data description constructs based on associative arrays and extensible semantics.
+Lua is dynamically typed, runs by interpreting bytecode with a register-based virtual machine, and has automatic memory management with incremental garbage collection, making it ideal for configuration, scripting, and rapid prototyping.&lt;/p&gt;
+&lt;h2 id=&#34;lua-来自哪里&#34;&gt;Lua 来自哪里?&lt;/h2&gt;
+&lt;p&gt;Lua is designed, implemented, and maintained by a team at PUC-Rio, the Pontifical Catholic University of Rio de Janeiro in Brazil.
+Lua was born and raised in Tecgraf, formerly the Computer Graphics Technology Group of PUC-Rio.
+Lua is now housed at LabLua, a laboratory of the Department of Computer Science of PUC-Rio.&lt;/p&gt;
+&lt;h2 id=&#34;whats-in-a-name&#34;&gt;What&amp;rsquo;s in a name?&lt;/h2&gt;
+&lt;p&gt;&amp;ldquo;Lua&amp;rdquo; (pronounced LOO-ah) means &amp;ldquo;Moon&amp;rdquo; in Portuguese.
+As such, it is neither an acronym nor an abbreviation, but a noun.
+More specifically, &amp;ldquo;Lua&amp;rdquo; is a name, the name of the Earth&amp;rsquo;s moon and the name of the language.
+Like most names, it should be written in lower case with an initial capital, that is, &amp;ldquo;Lua&amp;rdquo;.
+Please do not write it as &amp;ldquo;LUA&amp;rdquo;, which is both ugly and confusing, because then it becomes an acronym with different meanings for different people.
+So, please, write &amp;ldquo;Lua&amp;rdquo; right!&lt;/p&gt;
+&lt;h2 id=&#34;加入社区&#34;&gt;加入社区&lt;/h2&gt;
+&lt;p&gt;There are several meeting places for the Lua community where you can go to learn and help others and contribute in other ways.
+One of the focal points is the mailing list, which is very active and friendly.&lt;/p&gt;
+&lt;p&gt;You can meet part of the Lua community in person by attending a Lua Workshop.&lt;/p&gt;
+&lt;h2 id=&#34;支持-lua&#34;&gt;支持 Lua&lt;/h2&gt;
+&lt;p&gt;You can help to support the Lua project by buying a book published by Lua.org and by making a donation.&lt;/p&gt;
+&lt;p&gt;You can also help to spread the word about Lua by buying Lua products at Zazzle.&lt;/p&gt;
+&lt;p&gt;Lua.org is an Amazon Associate and we get commissions for qualifying purchases made through links in this site.&lt;/p&gt;
+&lt;h2 id=&#34;为什么选择-lua&#34;&gt;为什么选择 Lua?&lt;/h2&gt;
+&lt;h3 id=&#34;lua-是一种经过验证的健壮的语言&#34;&gt;Lua 是一种经过验证的、健壮的语言&lt;/h3&gt;
+&lt;p&gt;Lua has been used in many industrial applications (e.g., Adobe&amp;rsquo;s Photoshop Lightroom), with an emphasis on embedded systems (e.g., the Ginga middleware for digital TV in Brazil) and games (e.g., World of Warcraft and Angry Birds).
+Lua is currently the leading scripting language in games.
+Lua has a solid reference manual and there are several books about it.
+Several versions of Lua have been released and used in real applications since its creation in 1993.
+Lua featured in HOPL III, the Third ACM SIGPLAN History of Programming Languages Conference, in 2007.
+Lua won the Front Line Award 2011 from the Game Developers Magazine.&lt;/p&gt;
+&lt;h3 id=&#34;lua-快速的&#34;&gt;Lua 快速的&lt;/h3&gt;
+&lt;p&gt;Lua has a deserved reputation for performance.
+To claim to be &amp;ldquo;as fast as Lua&amp;rdquo; is an aspiration of other scripting languages.
+Several benchmarks show Lua as the fastest language in the realm of interpreted scripting languages.
+Lua is fast not only in fine-tuned benchmark programs, but in real life too.
+Substantial fractions of large applications have been written in Lua.&lt;/p&gt;
+&lt;p&gt;If you need even more speed, try LuaJIT, an independent implementation of Lua using a just-in-time compiler.&lt;/p&gt;
+&lt;h3 id=&#34;lua-是可移植的&#34;&gt;Lua 是可移植的&lt;/h3&gt;
+&lt;p&gt;Lua is distributed in a small package and builds out-of-the-box in all platforms that have a standard C compiler.
+Lua runs on all flavors of Unix and Windows, on mobile devices (running Android, iOS, BREW, Symbian, Windows Phone), on embedded microprocessors (such as ARM and Rabbit, for applications like Lego MindStorms), on IBM mainframes, etc.&lt;/p&gt;
+&lt;p&gt;For specific reasons why Lua is a good choice also for constrained devices, read this summary by Mike Pall.
+See also a poster created by Timm Müller.&lt;/p&gt;
+&lt;h3 id=&#34;lua-是可嵌入的&#34;&gt;Lua 是可嵌入的&lt;/h3&gt;
+&lt;p&gt;Lua is a fast language engine with small footprint that you can embed easily into your application.
+Lua has a simple and well documented API that allows strong integration with code written in other languages.
+It is easy to extend Lua with libraries written in other languages.
+It is also easy to extend programs written in other languages with Lua.
+Lua has been used to extend programs written not only in C and C++, but also in Java, C#, Smalltalk, Fortran, Ada, Erlang, and even in other scripting languages, such as Perl and Ruby.&lt;/p&gt;
+&lt;h3 id=&#34;lua-功能强大但简单&#34;&gt;Lua 功能强大(但简单)&lt;/h3&gt;
+&lt;p&gt;A fundamental concept in the design of Lua is to provide meta-mechanisms for implementing features, instead of providing a host of features directly in the language.
+For example, although Lua is not a pure object-oriented language, it does provide meta-mechanisms for implementing classes and inheritance.
+Lua&amp;rsquo;s meta-mechanisms bring an economy of concepts and keep the language small, while allowing the semantics to be extended in unconventional ways.&lt;/p&gt;
+&lt;h3 id=&#34;lua-是小的&#34;&gt;Lua 是小的&lt;/h3&gt;
+&lt;p&gt;Adding Lua to an application does not bloat it.
+The tarball for Lua 5.4.3, which contains source code and documentation, takes 350K compressed and 1.3M uncompressed.
+The source contains around 29000 lines of C.
+Under 64-bit Linux, the Lua interpreter built with all standard Lua libraries takes 278K and the Lua library takes 466K.&lt;/p&gt;
+&lt;h3 id=&#34;lua-开源的&#34;&gt;Lua 开源的&lt;/h3&gt;
+&lt;p&gt;Lua is free open-source software, distributed under a very liberal license (the well-known MIT license).
+It may be used for any purpose, including commercial purposes, at absolutely no cost.
+Just download it and use it.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 参考手册</title>
+      <link>http://example.org/docs/lua/manual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/lua/manual/</guid>
+      <description>
+        
+        
+        &lt;p&gt;The reference manual is the official definition of the Lua language.
+For a complete introduction to Lua programming, see the book Programming in Lua.&lt;/p&gt;
+&lt;p&gt;start · contents · index · other versions
+Copyright © 2020–2021 Lua.org, PUC-Rio. Freely available under the terms of the Lua license.&lt;/p&gt;
+&lt;h2 id=&#34;contents&#34;&gt;Contents&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;– Introduction&lt;/li&gt;
+&lt;li&gt;– Basic Concepts
+&lt;ol&gt;
+&lt;li&gt;– Values and Types&lt;/li&gt;
+&lt;li&gt;– Environments and the Global Environment&lt;/li&gt;
+&lt;li&gt;– Error Handling&lt;/li&gt;
+&lt;li&gt;– Metatables and Metamethods&lt;/li&gt;
+&lt;li&gt;– Garbage Collection
+&lt;ol&gt;
+&lt;li&gt;– Incremental Garbage Collection&lt;/li&gt;
+&lt;li&gt;– Generational Garbage Collection&lt;/li&gt;
+&lt;li&gt;– Garbage-Collection Metamethods&lt;/li&gt;
+&lt;li&gt;– Weak Tables&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– Coroutines&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– The Language
+&lt;ol&gt;
+&lt;li&gt;– Lexical Conventions&lt;/li&gt;
+&lt;li&gt;– Variables&lt;/li&gt;
+&lt;li&gt;– Statements
+&lt;ol&gt;
+&lt;li&gt;– Blocks&lt;/li&gt;
+&lt;li&gt;– Chunks&lt;/li&gt;
+&lt;li&gt;– Assignment&lt;/li&gt;
+&lt;li&gt;– Control Structures&lt;/li&gt;
+&lt;li&gt;– For Statement&lt;/li&gt;
+&lt;li&gt;– Function Calls as Statements&lt;/li&gt;
+&lt;li&gt;– Local Declarations&lt;/li&gt;
+&lt;li&gt;– To-be-closed Variables&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– Expressions
+&lt;ol&gt;
+&lt;li&gt;– Arithmetic Operators&lt;/li&gt;
+&lt;li&gt;– Bitwise Operators&lt;/li&gt;
+&lt;li&gt;– Coercions and Conversions&lt;/li&gt;
+&lt;li&gt;– Relational Operators&lt;/li&gt;
+&lt;li&gt;– Logical Operators&lt;/li&gt;
+&lt;li&gt;– Concatenation&lt;/li&gt;
+&lt;li&gt;– The Length Operator&lt;/li&gt;
+&lt;li&gt;– Precedence&lt;/li&gt;
+&lt;li&gt;– Table Constructors&lt;/li&gt;
+&lt;li&gt;– Function Calls&lt;/li&gt;
+&lt;li&gt;– Function Definitions&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– Visibility Rules&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– The Application Program Interface
+&lt;ol&gt;
+&lt;li&gt;– The Stack
+&lt;ol&gt;
+&lt;li&gt;– Stack Size&lt;/li&gt;
+&lt;li&gt;– Valid and Acceptable Indices&lt;/li&gt;
+&lt;li&gt;– Pointers to strings&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– C Closures&lt;/li&gt;
+&lt;li&gt;– Registry&lt;/li&gt;
+&lt;li&gt;– Error Handling in C
+&lt;ol&gt;
+&lt;li&gt;– Status Codes&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– Handling Yields in C&lt;/li&gt;
+&lt;li&gt;– Functions and Types&lt;/li&gt;
+&lt;li&gt;– The Debug Interface&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– The Auxiliary Library
+5.1 – Functions and Types&lt;/li&gt;
+&lt;li&gt;– The Standard Libraries
+&lt;ol&gt;
+&lt;li&gt;– Basic Functions&lt;/li&gt;
+&lt;li&gt;– Coroutine Manipulation&lt;/li&gt;
+&lt;li&gt;– Modules&lt;/li&gt;
+&lt;li&gt;– String Manipulation
+&lt;ol&gt;
+&lt;li&gt;– Patterns&lt;/li&gt;
+&lt;li&gt;– Format Strings for Pack and Unpack&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– UTF-8 Support&lt;/li&gt;
+&lt;li&gt;– Table Manipulation&lt;/li&gt;
+&lt;li&gt;– Mathematical Functions&lt;/li&gt;
+&lt;li&gt;– Input and Output Facilities&lt;/li&gt;
+&lt;li&gt;– Operating System Facilities&lt;/li&gt;
+&lt;li&gt;– The Debug Library&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– Lua Standalone&lt;/li&gt;
+&lt;li&gt;– Incompatibilities with the Previous Version
+&lt;ol&gt;
+&lt;li&gt;– Incompatibilities in the Language&lt;/li&gt;
+&lt;li&gt;– Incompatibilities in the Libraries&lt;/li&gt;
+&lt;li&gt;– Incompatibilities in the API&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;– The Complete Syntax of Lua&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;index&#34;&gt;Index&lt;/h2&gt;
+&lt;h3 id=&#34;lua-functions&#34;&gt;Lua functions&lt;/h3&gt;
+&lt;p&gt;basic
+_G
+_VERSION
+assert
+collectgarbage
+dofile
+error
+getmetatable
+ipairs
+load
+loadfile
+next
+pairs
+pcall
+print
+rawequal
+rawget
+rawlen
+rawset
+require
+select
+setmetatable
+tonumber
+tostring
+type
+warn
+xpcall
+coroutine
+coroutine.close
+coroutine.create
+coroutine.isyieldable
+coroutine.resume
+coroutine.running
+coroutine.status
+coroutine.wrap
+coroutine.yield
+debug
+debug.debug
+debug.gethook
+debug.getinfo
+debug.getlocal
+debug.getmetatable
+debug.getregistry
+debug.getupvalue
+debug.getuservalue
+debug.sethook
+debug.setlocal
+debug.setmetatable
+debug.setupvalue
+debug.setuservalue
+debug.traceback
+debug.upvalueid
+debug.upvaluejoin
+io
+io.close
+io.flush
+io.input
+io.lines
+io.open
+io.output
+io.popen
+io.read
+io.stderr
+io.stdin
+io.stdout
+io.tmpfile
+io.type
+io.write
+file:close
+file:flush
+file:lines
+file:read
+file:seek
+file:setvbuf
+file:write&lt;/p&gt;
+&lt;p&gt;math
+math.abs
+math.acos
+math.asin
+math.atan
+math.ceil
+math.cos
+math.deg
+math.exp
+math.floor
+math.fmod
+math.huge
+math.log
+math.max
+math.maxinteger
+math.min
+math.mininteger
+math.modf
+math.pi
+math.rad
+math.random
+math.randomseed
+math.sin
+math.sqrt
+math.tan
+math.tointeger
+math.type
+math.ult
+os
+os.clock
+os.date
+os.difftime
+os.execute
+os.exit
+os.getenv
+os.remove
+os.rename
+os.setlocale
+os.time
+os.tmpname
+package
+package.config
+package.cpath
+package.loaded
+package.loadlib
+package.path
+package.preload
+package.searchers
+package.searchpath
+string
+string.byte
+string.char
+string.dump
+string.find
+string.format
+string.gmatch
+string.gsub
+string.len
+string.lower
+string.match
+string.pack
+string.packsize
+string.rep
+string.reverse
+string.sub
+string.unpack
+string.upper
+table
+table.concat
+table.insert
+table.move
+table.pack
+table.remove
+table.sort
+table.unpack
+utf8
+utf8.char
+utf8.charpattern
+utf8.codepoint
+utf8.codes
+utf8.len
+utf8.offset&lt;/p&gt;
+&lt;h3 id=&#34;metamethods&#34;&gt;metamethods&lt;/h3&gt;
+&lt;p&gt;**add
+**band
+**bnot
+**bor
+**bxor
+**call
+**close
+**concat
+**div
+**eq
+**gc
+**idiv
+**index
+**le
+**len
+**lt
+**metatable
+**mod
+**mode
+**mul
+**name
+**newindex
+**pairs
+**pow
+**shl
+**shr
+**sub
+**tostring
+__unm&lt;/p&gt;
+&lt;h3 id=&#34;environment-variables&#34;&gt;environment variables&lt;/h3&gt;
+&lt;p&gt;LUA_CPATH
+LUA_CPATH_5_4
+LUA_INIT
+LUA_INIT_5_4
+LUA_PATH
+LUA_PATH_5_4&lt;/p&gt;
+&lt;h3 id=&#34;c-api&#34;&gt;C API&lt;/h3&gt;
+&lt;p&gt;lua_Alloc
+lua_CFunction
+lua_Debug
+lua_Hook
+lua_Integer
+lua_KContext
+lua_KFunction
+lua_Number
+lua_Reader
+lua_State
+lua_Unsigned
+lua_WarnFunction
+lua_Writer
+lua_absindex
+lua_arith
+lua_atpanic
+lua_call
+lua_callk
+lua_checkstack
+lua_close
+lua_closeslot
+lua_compare
+lua_concat
+lua_copy
+lua_createtable
+lua_dump
+lua_error
+lua_gc
+lua_getallocf
+lua_getextraspace
+lua_getfield
+lua_getglobal
+lua_gethook
+lua_gethookcount
+lua_gethookmask
+lua_geti
+lua_getinfo
+lua_getiuservalue
+lua_getlocal
+lua_getmetatable
+lua_getstack
+lua_gettable
+lua_gettop
+lua_getupvalue
+lua_insert
+lua_isboolean
+lua_iscfunction
+lua_isfunction
+lua_isinteger
+lua_islightuserdata
+lua_isnil
+lua_isnone
+lua_isnoneornil
+lua_isnumber
+lua_isstring
+lua_istable
+lua_isthread
+lua_isuserdata
+lua_isyieldable
+lua_len
+lua_load
+lua_newstate
+lua_newtable
+lua_newthread
+lua_newuserdatauv
+lua_next
+lua_numbertointeger
+lua_pcall
+lua_pcallk
+lua_pop
+lua_pushboolean
+lua_pushcclosure
+lua_pushcfunction
+lua_pushfstring
+lua_pushglobaltable
+lua_pushinteger
+lua_pushlightuserdata
+lua_pushliteral
+lua_pushlstring
+lua_pushnil
+lua_pushnumber
+lua_pushstring
+lua_pushthread
+lua_pushvalue
+lua_pushvfstring
+lua_rawequal
+lua_rawget
+lua_rawgeti
+lua_rawgetp
+lua_rawlen
+lua_rawset
+lua_rawseti
+lua_rawsetp
+lua_register
+lua_remove
+lua_replace
+lua_resetthread
+lua_resume
+lua_rotate
+lua_setallocf
+lua_setfield
+lua_setglobal
+lua_sethook
+lua_seti
+lua_setiuservalue
+lua_setlocal
+lua_setmetatable
+lua_settable
+lua_settop
+lua_setupvalue
+lua_setwarnf
+lua_status
+lua_stringtonumber
+lua_toboolean
+lua_tocfunction
+lua_toclose
+lua_tointeger
+lua_tointegerx
+lua_tolstring
+lua_tonumber
+lua_tonumberx
+lua_topointer
+lua_tostring
+lua_tothread
+lua_touserdata
+lua_type
+lua_typename
+lua_upvalueid
+lua_upvalueindex
+lua_upvaluejoin
+lua_version
+lua_warning
+lua_xmove
+lua_yield
+lua_yieldk&lt;/p&gt;
+&lt;h3 id=&#34;auxiliary-library&#34;&gt;auxiliary library&lt;/h3&gt;
+&lt;p&gt;luaL_Buffer
+luaL_Reg
+luaL_Stream
+luaL_addchar
+luaL_addgsub
+luaL_addlstring
+luaL_addsize
+luaL_addstring
+luaL_addvalue
+luaL_argcheck
+luaL_argerror
+luaL_argexpected
+luaL_buffaddr
+luaL_buffinit
+luaL_buffinitsize
+luaL_bufflen
+luaL_buffsub
+luaL_callmeta
+luaL_checkany
+luaL_checkinteger
+luaL_checklstring
+luaL_checknumber
+luaL_checkoption
+luaL_checkstack
+luaL_checkstring
+luaL_checktype
+luaL_checkudata
+luaL_checkversion
+luaL_dofile
+luaL_dostring
+luaL_error
+luaL_execresult
+luaL_fileresult
+luaL_getmetafield
+luaL_getmetatable
+luaL_getsubtable
+luaL_gsub
+luaL_len
+luaL_loadbuffer
+luaL_loadbufferx
+luaL_loadfile
+luaL_loadfilex
+luaL_loadstring
+luaL_newlib
+luaL_newlibtable
+luaL_newmetatable
+luaL_newstate
+luaL_openlibs
+luaL_opt
+luaL_optinteger
+luaL_optlstring
+luaL_optnumber
+luaL_optstring
+luaL_prepbuffer
+luaL_prepbuffsize
+luaL_pushfail
+luaL_pushresult
+luaL_pushresultsize
+luaL_ref
+luaL_requiref
+luaL_setfuncs
+luaL_setmetatable
+luaL_testudata
+luaL_tolstring
+luaL_traceback
+luaL_typeerror
+luaL_typename
+luaL_unref
+luaL_where
+standard library
+luaopen_base
+luaopen_coroutine
+luaopen_debug
+luaopen_io
+luaopen_math
+luaopen_os
+luaopen_package
+luaopen_string
+luaopen_table
+luaopen_utf8
+constants
+LUA_ERRERR
+LUA_ERRFILE
+LUA_ERRMEM
+LUA_ERRRUN
+LUA_ERRSYNTAX
+LUA_HOOKCALL
+LUA_HOOKCOUNT
+LUA_HOOKLINE
+LUA_HOOKRET
+LUA_HOOKTAILCALL
+LUAL_BUFFERSIZE
+LUA_MASKCALL
+LUA_MASKCOUNT
+LUA_MASKLINE
+LUA_MASKRET
+LUA_MAXINTEGER
+LUA_MININTEGER
+LUA_MINSTACK
+LUA_MULTRET
+LUA_NOREF
+LUA_OK
+LUA_OPADD
+LUA_OPBAND
+LUA_OPBNOT
+LUA_OPBOR
+LUA_OPBXOR
+LUA_OPDIV
+LUA_OPEQ
+LUA_OPIDIV
+LUA_OPLE
+LUA_OPLT
+LUA_OPMOD
+LUA_OPMUL
+LUA_OPPOW
+LUA_OPSHL
+LUA_OPSHR
+LUA_OPSUB
+LUA_OPUNM
+LUA_REFNIL
+LUA_REGISTRYINDEX
+LUA_RIDX_GLOBALS
+LUA_RIDX_MAINTHREAD
+LUA_TBOOLEAN
+LUA_TFUNCTION
+LUA_TLIGHTUSERDATA
+LUA_TNIL
+LUA_TNONE
+LUA_TNUMBER
+LUA_TSTRING
+LUA_TTABLE
+LUA_TTHREAD
+LUA_TUSERDATA
+LUA_USE_APICHECK
+LUA_YIELD&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 入门</title>
+      <link>http://example.org/docs/lua/start/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/lua/start/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;欢迎&#34;&gt;欢迎!&lt;/h2&gt;
+&lt;p&gt;Lua is a powerful and fast programming language that is easy to learn and use and to embed into your application.&lt;/p&gt;
+&lt;p&gt;Lua is designed to be a lightweight embeddable scripting language.
+It is used for all sorts of applications, from games to web applications and image processing.&lt;/p&gt;
+&lt;p&gt;See the about page for details and some reasons why you should choose Lua.&lt;/p&gt;
+&lt;p&gt;See what Lua programs look and feel like in the live demo.&lt;/p&gt;
+&lt;h2 id=&#34;学习&#34;&gt;学习&lt;/h2&gt;
+&lt;p&gt;A good place to start learning Lua is the book Programming in Lua, available in paperback and as an e-book.
+The first edition is freely available online.
+See also course notes based on this book.&lt;/p&gt;
+&lt;p&gt;The official definition of the Lua language is given in the reference manual.&lt;/p&gt;
+&lt;p&gt;See the documentation page and the wiki for more.&lt;/p&gt;
+&lt;h2 id=&#34;获得帮助&#34;&gt;获得帮助&lt;/h2&gt;
+&lt;p&gt;Our community is friendly and will most probably help you if you need.
+Just visit the mailing list, the chat room, and stackoverflow.&lt;/p&gt;
+&lt;p&gt;If you need help in Portuguese, join the Lua BR mailing list and visit pt.stackoverflow.&lt;/p&gt;
+&lt;p&gt;See also the FAQ, the community-maintained wiki and LuaFaq, and the much longer uFAQ.&lt;/p&gt;
+&lt;h2 id=&#34;工具&#34;&gt;工具&lt;/h2&gt;
+&lt;p&gt;If you need to complement the standard Lua libraries to handle more complex tasks, visit LuaRocks, the main repository of Lua modules.
+See also Awesome Lua, a curated list of quality Lua packages and resources.
+The lua-users wiki lists many user-contributed addons for Lua.&lt;/p&gt;
+&lt;h2 id=&#34;支持&#34;&gt;支持&lt;/h2&gt;
+&lt;p&gt;You can help to support the Lua project by buying a book published by Lua.org and by making a donation.&lt;/p&gt;
+&lt;p&gt;You can also help to spread the word about Lua by buying Lua products at Zazzle.&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;Use the live demo to play with Lua if you don&amp;rsquo;t want to install anything on your computer.&lt;/p&gt;
+&lt;p&gt;To run Lua programs on your computer, you&amp;rsquo;ll need a standalone Lua interpreter and perhaps some additional Lua libraries.
+Pre-compiled Lua libraries and executables are available at LuaBinaries.
+Use your favorite text editor to write your Lua programs.
+Make sure to save your programs as plain text.
+If you want an IDE, try ZeroBrane Studio.&lt;/p&gt;
+&lt;p&gt;If you use Windows, try LuaDist, a multi-platform distribution of the Lua that includes batteries.&lt;/p&gt;
+&lt;p&gt;If you use Linux or Mac OS X, Lua is either already installed on your system or there is a Lua package for it.
+Make sure you get the latest release of Lua (currently 5.4.3).&lt;/p&gt;
+&lt;p&gt;Lua is also quite easy to build from source, as explained below.&lt;/p&gt;
+&lt;h3 id=&#34;从代码源安装&#34;&gt;从代码源安装&lt;/h3&gt;
+&lt;p&gt;Lua is very easy to build and install.
+Just download it and follow the instructions in the package.&lt;/p&gt;
+&lt;p&gt;Here is a simple terminal session that downloads the current release of Lua and builds it in a Linux system:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;curl -R -O http://www.lua.org/ftp/lua-5.4.3.tar.gz
+tar zxf lua-5.4.3.tar.gz
+cd lua-5.4.3
+make all test
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you don&amp;rsquo;t have curl, try wget.
+If you use Windows and want to build Lua from source, there are detailed instructions in the wiki.&lt;/p&gt;
+&lt;h3 id=&#34;签入&#34;&gt;签入&lt;/h3&gt;
+&lt;p&gt;To embed Lua into your C or C++ program, you&amp;rsquo;ll need the Lua headers to compile your program and a Lua library to link with it.
+If you&amp;rsquo;re getting a ready-made Lua package for your platform, you&amp;rsquo;ll probably need the development package as well.
+Otherwise, just download Lua and add its source directory to your project.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 下载</title>
+      <link>http://example.org/docs/lua/download/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/lua/download/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;source&#34;&gt;Source&lt;/h2&gt;
+&lt;p&gt;Lua is free software distributed in source code.
+It may be used for any purpose, including commercial purposes, at absolutely no cost.&lt;/p&gt;
+&lt;p&gt;All versions are available for download.
+The current version is Lua 5.4 and its current release is Lua 5.4.3.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;download lua-5.4.3.tar.gz
+2021-03-15, 350K
+md5: ef63ed2ecfb713646a7fcc583cf5f352
+sha1: 1dda2ef23a9828492b4595c0197766de6e784bc7
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+&lt;p&gt;The main repository of Lua modules is LuaRocks.
+See also Awesome Lua.
+Pre-compiled Lua libraries and executables are available at LuaBinaries.
+The lua-users wiki lists many user-contributed addons for Lua.&lt;/p&gt;
+&lt;h2 id=&#34;giving-credit&#34;&gt;Giving credit&lt;/h2&gt;
+&lt;p&gt;If you use Lua, please give us credit, according to our license.
+A nice way to give us further credit is to include a Lua logo and a link to our site in a web page for your product.&lt;/p&gt;
+&lt;h2 id=&#34;building&#34;&gt;Building&lt;/h2&gt;
+&lt;p&gt;Lua is implemented in pure ANSI C and compiles unmodified in all platforms that have an ANSI C compiler.
+Lua also compiles cleanly as C++.&lt;/p&gt;
+&lt;p&gt;Lua is very easy to build and install.
+There are detailed instructions in the package but here is a simple terminal session that downloads the current release of Lua and builds it in Linux:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;curl -R -O http://www.lua.org/ftp/lua-5.4.3.tar.gz
+tar zxf lua-5.4.3.tar.gz
+cd lua-5.4.3
+make all test
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you have trouble building Lua, read the FAQ.&lt;/p&gt;
+&lt;p&gt;If you don&amp;rsquo;t have the time or the inclination to compile Lua yourself, get a binary or try the live demo.&lt;/p&gt;
+&lt;p&gt;Giving credit
+If you use Lua, please give us credit, according to our license.
+A nice way to give us further credit is to include a Lua logo and a link to our site in a web page for your product.&lt;/p&gt;
+&lt;h2 id=&#34;supporting-lua&#34;&gt;Supporting Lua&lt;/h2&gt;
+&lt;p&gt;You can help to support the Lua project by buying a book published by Lua.org and by making a donation.&lt;/p&gt;
+&lt;p&gt;You can also help to spread the word about Lua by buying Lua products at Zazzle.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 文档</title>
+      <link>http://example.org/docs/lua/docs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/lua/docs/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;reference-manual&#34;&gt;Reference manual&lt;/h2&gt;
+&lt;p&gt;The official definition of the Lua language is its reference manual, which describes the syntax and the semantics of Lua, the standard libraries, and the C API.&lt;/p&gt;
+&lt;p&gt;The reference manual for Lua 5.4 is available online in English only.&lt;/p&gt;
+&lt;p&gt;The reference manual for Lua 5.3 is available online in English and Russian.&lt;/p&gt;
+&lt;p&gt;The reference manual for Lua 5.2 is available online in English, Portuguese, and Polish.&lt;/p&gt;
+&lt;p&gt;The reference manual for Lua 5.1 is available online in English, Portuguese, Spanish, German, and Polish. It is also available as a book in English.&lt;/p&gt;
+&lt;h2 id=&#34;technical-documentation&#34;&gt;Technical documentation&lt;/h2&gt;
+&lt;p&gt;For more technical information, see the Frequently Asked Questions (FAQ) and some old seminar slides. For detailed technical information on specific topics, see our old series of Lua Technical Notes and the wiki at lua-users.org, specially the tutorial. You may also browse the source code.&lt;/p&gt;
+&lt;h2 id=&#34;papers&#34;&gt;Papers&lt;/h2&gt;
+&lt;p&gt;There are many papers and theses related to Lua. Here are the main ones written by the Lua team. See also the LabLua publications.&lt;/p&gt;
+&lt;p&gt;The main academic paper about Lua discusses the philosophy behind its design:&lt;/p&gt;
+&lt;p&gt;Lua – an extensible extension language
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+Software: Practice &amp;amp; Experience 26 #6 (1996) 635–652. [doi]
+This paper was awarded the first prize (technological category) in the II Compaq Award for Research and Development in Computer Science in 1997. This award was a joint venture of Compaq Computer in Brazil, the Brazilian Ministry of Science and Technology, and the Brazilian Academy of Sciences.&lt;/p&gt;
+&lt;p&gt;For an overview of how Lua is designed, see&lt;/p&gt;
+&lt;p&gt;A look at the design of Lua
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+Communications of the ACM 61 #11 (2018) 114–123. [doi · video]
+For a short exposition of the API design, see&lt;/p&gt;
+&lt;p&gt;Passing a language through the eye of a needle
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+ACM Queue 9 #5 (May 2011) 20–29. [doi · acm]
+Communications of the ACM 54 #7 (July 2011) 38–43. [doi · acm]
+It is also available in Portuguese:&lt;/p&gt;
+&lt;p&gt;Passando uma linguagem pelo buraco de uma agulha
+por R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+ACM Queue 9 #5 (May 2011) 20–29.
+For details on the implementation of Lua, see&lt;/p&gt;
+&lt;p&gt;The implementation of Lua 5.0
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+Journal of Universal Computer Science 11 #7 (2005) 1159–1176. [doi · slides]
+For details on the role of first-class functions in Lua, see&lt;/p&gt;
+&lt;p&gt;First-class functions in an imperative world
+by R. Ierusalimschy,
+Journal of Universal Computer Science 23 #1 (2017) 112–126. [doi · slides]
+For a discussion of coroutines in Lua, see&lt;/p&gt;
+&lt;p&gt;Coroutines in Lua
+by A. L. de Moura, N. Rodriguez, R. Ierusalimschy,
+Journal of Universal Computer Science 10 #7 (2004) 910–925. [doi · slides]
+For a complete history of Lua till 2006, see&lt;/p&gt;
+&lt;p&gt;The evolution of Lua
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+Proceedings of ACM HOPL III (2007) 2-1–2-26. [doi · slides]
+For a history of Lua till 2001, see&lt;/p&gt;
+&lt;p&gt;The evolution of an extension language: a history of Lua
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+Proceedings of V Brazilian Symposium on Programming Languages (2001) B-14–B-28. [ps]
+The first paper describing Lua has some historical interest:&lt;/p&gt;
+&lt;p&gt;The design and implementation of a language for extending applications
+by L. H. de Figueiredo, R. Ierusalimschy, W. Celes,
+Proceedings of XXI Brazilian Seminar on Software and Hardware (1994) 273–283. [ps]
+For an early expository article, see&lt;/p&gt;
+&lt;p&gt;Lua: an extensible embedded language
+by L. H. de Figueiredo, R. Ierusalimschy, W. Celes,
+Dr. Dobb&amp;rsquo;s Journal 21 #12 (Dec 1996) 26–33. [ddj]
+For introductory texts in Portuguese, see&lt;/p&gt;
+&lt;p&gt;Uma introdução à programação em Lua
+by R. Ierusalimschy, JAI 2009 (Jul 2009).&lt;/p&gt;
+&lt;p&gt;A linguagem Lua e suas aplicações em jogos
+by W. Celes, L. H. Figueiredo, R. Ierusalimschy
+WJogos 2004 (Oct 2004). [slides]&lt;/p&gt;
+&lt;h2 id=&#34;books&#34;&gt;Books&lt;/h2&gt;
+&lt;p&gt;Lua books are available at the main online stores and also as e-books at Feisty Duck. When you buy a copy of a book published by Lua.org, you help to support the Lua project.&lt;/p&gt;
+&lt;p&gt;Reference manual
+The official definition of the Lua language:&lt;/p&gt;
+&lt;p&gt;Lua 5.1 Reference Manual
+by R. Ierusalimschy, L. H. de Figueiredo, W. Celes,
+Lua.org, August 2006
+ISBN 8590379833&lt;/p&gt;
+&lt;p&gt;The reference manuals for later versions of Lua are available online.
+Programming in Lua
+A detailed and authoritative introduction to all aspects of Lua programming, by Lua&amp;rsquo;s chief architect:&lt;/p&gt;
+&lt;p&gt;Programming in Lua
+by R. Ierusalimschy
+Lua.org, fourth edition, August 2016
+ISBN 8590379868
+(also available as an e-book)&lt;/p&gt;
+&lt;p&gt;The fourth edition is aimed at Lua 5.3 and marks a complete reorganization of the text. The first edition is available online. It was aimed at Lua 5.0 and is still largely relevant.&lt;/p&gt;
+&lt;p&gt;The third edition was aimed at Lua 5.2 and remains quite relevant. It is available in English, Portuguese, and Russian:&lt;/p&gt;
+&lt;p&gt;Programming in Lua
+by Roberto Ierusalimschy
+Lua.org, third edition, January 2013
+ISBN 859037985X
+(also available as e-book)&lt;/p&gt;
+&lt;p&gt;Programando em Lua
+por Roberto Ierusalimschy
+LTC, January 2015
+ISBN 9788521626992&lt;/p&gt;
+&lt;p&gt;Programmirovanie na iazyke Lua
+by Roberto Ierusalimschy
+DMK-press, 2014
+ISBN 5940747671&lt;/p&gt;
+&lt;p&gt;The second edition remains relevant and is available in German, Korean, Chinese, and Japanese:&lt;/p&gt;
+&lt;p&gt;Programmieren mit Lua
+von Roberto Ierusalimschy
+Open Source Press, September 2006
+ISBN 3937514228&lt;/p&gt;
+&lt;p&gt;Programming in Lua
+by Roberto Ierusalimschy
+Insight, June 2007
+ISBN 9788991268302&lt;/p&gt;
+&lt;p&gt;Programming in Lua
+by Roberto Ierusalimschy
+Publishing House of Electronic Industry, May 2008
+ISBN 9787121061875&lt;/p&gt;
+&lt;p&gt;Programming in Lua
+by Roberto Ierusalimschy
+ASCII Media Works, Aug 2009
+ISBN 9784048677974&lt;/p&gt;
+&lt;p&gt;Lua Programming Gems
+A collection of articles recording some of the existing wisdom and practice on how to program well in Lua:&lt;/p&gt;
+&lt;p&gt;Lua Programming Gems
+edited by L. H. de Figueiredo, W. Celes, R. Ierusalimschy, Lua.org, December 2008
+ISBN 9788590379843
+(also available as e-book)&lt;/p&gt;
+&lt;p&gt;Other books
+There are also books about Lua written by other authors:&lt;/p&gt;
+&lt;p&gt;Coding With Roblox Lua in 24 Hours: The Official Roblox Guide
+by Roblox Corporation. Sams Publishing, 2021, ISBN 9780136829423.&lt;/p&gt;
+&lt;p&gt;Coding Roblox Games Made Easy: The ultimate guide to creating games with Roblox Studio and Lua programming
+by Zander Brumbaugh. Packt Publishing, 2021, ISBN 9781800561991.&lt;/p&gt;
+&lt;p&gt;Initiation à la création de jeux vidéo en Lua avec Löve2D
+by Anthony Cardinale. Éditions D-BookeR, 2020, ISBN 9782822709675.&lt;/p&gt;
+&lt;p&gt;Lua Quick Reference (second edition)
+by Mitchell. Triple Quasar Books, 2020, ISBN 9780991237951.&lt;/p&gt;
+&lt;p&gt;Developing Games on the Raspberry Pi: App Programming with Lua and LÖVE
+by Seth Kenlon. Apress, 2019, ISBN 9781484241707.&lt;/p&gt;
+&lt;p&gt;Lua Programming using Roblox
+by SimTek Game Development. Independently published, 2019, ISBN 9781693427443.&lt;/p&gt;
+&lt;p&gt;Introdução à linguagem Lua
+by José Augusto N. G. Manzano. Novatec, 2018, ISBN 9788575226681.&lt;/p&gt;
+&lt;p&gt;Lua Quick Start Guide
+by Gabor Szauer, Packt Publishing, 2018, ISBN 9781789343229.&lt;/p&gt;
+&lt;p&gt;Creating Solid APIs with Lua
+by Tyler Neylon. O&amp;rsquo;Reilly Media, 2017, ISBN 9781491986301.&lt;/p&gt;
+&lt;p&gt;Le guide de Lua et ses applications - Manuel d&amp;rsquo;apprentissage (2e édition)
+by Pierre Chapuis, Etiene Dalcol, Cyril Doillon, Sylvain Fabre, Philippe Lhoste, Hisham Muhammad, and Patrick Rapin. Éditions D-BookeR, 2016, ISBN 9782822704076.&lt;/p&gt;
+&lt;p&gt;Le guide de Lua et ses applications - Manuel de référence (2e édition)
+by Pierre Chapuis, Cyril Doillon, Sylvain Fabre, Philippe Lhoste, and Patrick Rapin. Éditions D-BookeR, 2016, ISBN 9782822704083.&lt;/p&gt;
+&lt;p&gt;Lua Game Development Cookbook
+by Mario Kasuba. Packt Publishing, 2015, ISBN 1849515506.&lt;/p&gt;
+&lt;p&gt;ROBLOX Lua: Scripting for Beginners
+by Douglas Snipp. CreateSpace, 2015, ISBN 1508728313.&lt;/p&gt;
+&lt;p&gt;Seven More Languages in Seven Weeks: Languages That Are Shaping the Future
+by Bruce Tate, Ian Dees, Frederic Daoud, Jack Moffitt. Pragmatic Bookshelf, 2014, ISBN 1941222153.&lt;/p&gt;
+&lt;p&gt;Learning Game AI Programming with Lua
+by David Young. Packt Publishing, 2014, ISBN 1783281332.&lt;/p&gt;
+&lt;p&gt;Lua Programming
+by Mark Otaris and others, Wikibooks, 2014.&lt;/p&gt;
+&lt;p&gt;Introduction to Programming with Lua and the Corona Game Lab
+by Robert Cook. Cook&amp;rsquo;s Books, 2014. ASIN B00IQGAC8A.&lt;/p&gt;
+&lt;p&gt;Create Mobile Games with Corona: Build with Lua on iOS and Android
+by Silvia Domenech. Pragmatic Bookshelf, 2013, ISBN 1937785572.&lt;/p&gt;
+&lt;p&gt;CryENGINE Game Programming with C++, C#, and Lua
+by Filip Lundgren and Ruan Pearce. Packt Publishing, 2013, ISBN 1849695903.&lt;/p&gt;
+&lt;p&gt;LÖVE for Lua Game Programming
+by Darmie Akinlaja. Packt Publishing, 2013, ISBN 1782161600.&lt;/p&gt;
+&lt;p&gt;ComputerCraft: Lua Programming in Minecraft
+by Matthew Monk and Simon Monk. CreateSpace, 2013, ISBN 1481927655.&lt;/p&gt;
+&lt;p&gt;Learn Lua for iOS Game Development
+by Jayant Varma. Apress, 2012, ISBN 1430246626.&lt;/p&gt;
+&lt;p&gt;Le guide de Lua et ses applications
+by Cyril Doillon, Sylvain Fabre, Philippe Lhoste, and Patrick Rapin. Éditions D-BookeR, 2012, ISBN 9782822700054.&lt;/p&gt;
+&lt;p&gt;Lua - Programação de Computadores
+by José Augusto N. G. Manzano. self-published, 2012, ISBN 9788591311576.&lt;/p&gt;
+&lt;p&gt;Lua: Einsatz von Lua in Embedded Systems
+by Claus Kühnel and Daniel Zwirner. Skript Verlag Kuehnel, 2012, ISBN 3907857151.&lt;/p&gt;
+&lt;p&gt;Basic ROBLOX Lua Programming
+by Brandon John LaRouche. CreateSpace, 2012, ISBN 1475026048.&lt;/p&gt;
+&lt;p&gt;Numerical Methods for Nonlinear Engineering Models
+by John R. Hauser. Springer, 2009, ISBN 9781402099199.&lt;/p&gt;
+&lt;p&gt;Lua: Einsatz von Lua zur Messwerterfassung
+by Claus Kühnel and Daniel Zwirner. Skript Verlag Kuehnel, 2009, ISBN 3907857127.&lt;/p&gt;
+&lt;p&gt;Beginning Lua with World of Warcraft Add-ons
+by Paul Emmerich. Apress, 2009, ISBN 1430223715.&lt;/p&gt;
+&lt;p&gt;First Lua Programming, the most popular application development lightweight script!
+by Miki Shimizu. Softbank Creative, 2008, ISBN 4777514137.&lt;/p&gt;
+&lt;p&gt;Scripting Language for Game Development and Efficient C/C++ to Implement Embedded Lua
+by Makoto Hamanaka. Softbank Creative, 2008, ISBN 4797348550.&lt;/p&gt;
+&lt;p&gt;World of Warcraft Programming
+by James Whitehead II, Bryan McLemore, and Matthew Orlando. Wiley, 2008, ISBN 0470229810.&lt;/p&gt;
+&lt;p&gt;Introduction to Lua programming
+by Yutaka Ueno. Softbank Creative, 2007, ISBN 4797342722.&lt;/p&gt;
+&lt;p&gt;Beginning Lua Programming
+by Kurt Jung and Aaron Brown. Wrox, 2007, ISBN 0470069171.&lt;/p&gt;
+&lt;p&gt;Programming Game AI by Example
+by Mat Buckland. Jones &amp;amp; Bartlett Learning, 2005, ISBN 9781556220784.&lt;/p&gt;
+&lt;p&gt;Game Development with Lua
+by Paul Schuytema and Mark Manyen. Charles River Media, 2005, ISBN 1584504048.&lt;/p&gt;
+&lt;p&gt;Game Programming with Python, Lua, and Ruby
+by Tom Gutschmidt. Course Technology PTR, 2003, ISBN 1592000770.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 社区</title>
+      <link>http://example.org/docs/lua/community/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/lua/community/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;meeting-places&#34;&gt;Meeting places&lt;/h2&gt;
+&lt;p&gt;There are several places you can go to meet other people that use Lua. A good starting point is lua-users.org, a collaborative meeting place built for and by Lua users.&lt;/p&gt;
+&lt;p&gt;One of the focal points of the Lua community is our mailing list, which is very active and friendly; it has over 2500 subscribers from all over the world, including several Lua experts and the Lua team.&lt;/p&gt;
+&lt;p&gt;Other meeting places are stackoverflow, the chat room, a Telegram group, a Discord room, and a forum. For discussions in Portuguese, join the Lua BR mailing list and visit pt.stackoverflow.&lt;/p&gt;
+&lt;p&gt;If you want to meet in person, join a user group, find a user group near you, attend a Lua Workshop or a LuaConf.&lt;/p&gt;
+&lt;h2 id=&#34;contributing&#34;&gt;Contributing&lt;/h2&gt;
+&lt;p&gt;You can contribute to the community in several ways: answer questions about Lua (in the mailing list, in the chat room, in stackoverflow, and elsewhere), collaborate in the lua-users wiki, answer our survey, add a Lua logo to your web page, tell us about third-party sites related to Lua and papers and theses about Lua, and write tools and libraries for Lua and add them to LuaRocks.&lt;/p&gt;
+&lt;h2 id=&#34;supporting-lua&#34;&gt;Supporting Lua&lt;/h2&gt;
+&lt;p&gt;You can help to support the Lua project by buying a book published by Lua.org and by making a donation.&lt;/p&gt;
+&lt;p&gt;You can help to spread the word about Lua by buying Lua products at Zazzle.&lt;/p&gt;
+&lt;h2 id=&#34;workshop&#34;&gt;Workshop&lt;/h2&gt;
+&lt;p&gt;The main goal of the Lua workshop is to allow the Lua community to get together and meet in person and talk about the Lua language, its uses, and its implementation. Another goal is to help spread the word about Lua to industry and academia, taking advantage of the location of the workshop when possible.&lt;/p&gt;
+&lt;p&gt;If you&amp;rsquo;d like to organize a Lua workshop, please post a proposal in the mailing list.&lt;/p&gt;
+&lt;h3 id=&#34;past-workshops&#34;&gt;Past workshops&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;2018 – Kaunas, Lithuania&lt;/li&gt;
+&lt;li&gt;2017 – San Francisco, California&lt;/li&gt;
+&lt;li&gt;2016 – San Francisco, California&lt;/li&gt;
+&lt;li&gt;2015 – Stockholm, Sweden&lt;/li&gt;
+&lt;li&gt;2014 – Moscow, Russia&lt;/li&gt;
+&lt;li&gt;2013 – Toulouse, France&lt;/li&gt;
+&lt;li&gt;2012 – Reston, Virginia&lt;/li&gt;
+&lt;li&gt;2011 – Frick, Switzerland&lt;/li&gt;
+&lt;li&gt;2009 – Rio de Janeiro, Brazil&lt;/li&gt;
+&lt;li&gt;2008 – Washington, D.C.&lt;/li&gt;
+&lt;li&gt;2006 – Venlo, The Netherlands&lt;/li&gt;
+&lt;li&gt;2005 – San Jose, California&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

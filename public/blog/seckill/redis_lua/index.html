@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.88.1" />
+<meta name="robots" content="index, follow">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>Redis&#43;Lua 解决高并发场景抢购秒杀问题 | redis-docs</title>
+<meta name="description" content="
+https://www.cnblogs.com/itbsl/p/15021263.html
+
+之前写了一篇 PHP&#43;Redis 链表解决高并发下商品超卖问题，今天介绍一些如何使用 PHP&#43;Redis&#43;Lua 解决高并发下商品超卖问题。
+为何要使用 Lua 脚本解决商品超卖的问题呢？
+Redis …">
+<meta property="og:title" content="Redis&#43;Lua 解决高并发场景抢购秒杀问题" />
+<meta property="og:description" content="https://www.cnblogs.com/itbsl/p/15021263.html
+ 之前写了一篇 PHP&#43;Redis 链表解决高并发下商品超卖问题，今天介绍一些如何使用 PHP&#43;Redis&#43;Lua 解决高并发下商品超卖问题。
+为何要使用 Lua 脚本解决商品超卖的问题呢？ Redis 在 2.6 版本后原生支持 Lua 脚本功能，允许开发者使用 Lua 语言编写脚本传到 Redis 中执行。
+将复杂的或者多步的 redis 操作，写为一个脚本，一次提交给 redis 执行，减少反复连接 redis 的次数，提升性能。
+原子操作。Redis 会将整个脚本作为一个整体执行，中间不会被其他请求插入。因此在脚本运行过程中无需担心会出现竞态条件，无需使用事务。
+复用客户端发送的脚本会永久存在 redis 中，这样其他客户端可以复用这一脚本，而不需要使用代码完成相同的逻辑。
+编写脚本 首先，编写 lua 脚本，脚本名为 secKill.lua： -- 接收参数 local user_id = KEYS[1] local goods_id = KEYS[2] -- 拼接字符串 local stock_key = &#34;secKill:&#34;..goods_id..&#34;:stock&#34; -- 秒杀商品库存 key local users_key = &#34;secKill:&#34;..goods_id..&#34;:users&#34; -- 成功秒杀商品的用户集合 key -- 判断用户是否已经成功秒杀过该商品，如果已经存在在集合中，说明已经成功秒杀该商品，直接返回标志 2，防止重复抢购 local user_exists = redis." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/blog/seckill/redis_lua/" /><meta property="article:section" content="blog" />
+
+
+
+<meta itemprop="name" content="Redis&#43;Lua 解决高并发场景抢购秒杀问题">
+<meta itemprop="description" content="https://www.cnblogs.com/itbsl/p/15021263.html
+ 之前写了一篇 PHP&#43;Redis 链表解决高并发下商品超卖问题，今天介绍一些如何使用 PHP&#43;Redis&#43;Lua 解决高并发下商品超卖问题。
+为何要使用 Lua 脚本解决商品超卖的问题呢？ Redis 在 2.6 版本后原生支持 Lua 脚本功能，允许开发者使用 Lua 语言编写脚本传到 Redis 中执行。
+将复杂的或者多步的 redis 操作，写为一个脚本，一次提交给 redis 执行，减少反复连接 redis 的次数，提升性能。
+原子操作。Redis 会将整个脚本作为一个整体执行，中间不会被其他请求插入。因此在脚本运行过程中无需担心会出现竞态条件，无需使用事务。
+复用客户端发送的脚本会永久存在 redis 中，这样其他客户端可以复用这一脚本，而不需要使用代码完成相同的逻辑。
+编写脚本 首先，编写 lua 脚本，脚本名为 secKill.lua： -- 接收参数 local user_id = KEYS[1] local goods_id = KEYS[2] -- 拼接字符串 local stock_key = &#34;secKill:&#34;..goods_id..&#34;:stock&#34; -- 秒杀商品库存 key local users_key = &#34;secKill:&#34;..goods_id..&#34;:users&#34; -- 成功秒杀商品的用户集合 key -- 判断用户是否已经成功秒杀过该商品，如果已经存在在集合中，说明已经成功秒杀该商品，直接返回标志 2，防止重复抢购 local user_exists = redis.">
+
+<meta itemprop="wordCount" content="208">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Redis&#43;Lua 解决高并发场景抢购秒杀问题"/>
+<meta name="twitter:description" content="https://www.cnblogs.com/itbsl/p/15021263.html
+ 之前写了一篇 PHP&#43;Redis 链表解决高并发下商品超卖问题，今天介绍一些如何使用 PHP&#43;Redis&#43;Lua 解决高并发下商品超卖问题。
+为何要使用 Lua 脚本解决商品超卖的问题呢？ Redis 在 2.6 版本后原生支持 Lua 脚本功能，允许开发者使用 Lua 语言编写脚本传到 Redis 中执行。
+将复杂的或者多步的 redis 操作，写为一个脚本，一次提交给 redis 执行，减少反复连接 redis 的次数，提升性能。
+原子操作。Redis 会将整个脚本作为一个整体执行，中间不会被其他请求插入。因此在脚本运行过程中无需担心会出现竞态条件，无需使用事务。
+复用客户端发送的脚本会永久存在 redis 中，这样其他客户端可以复用这一脚本，而不需要使用代码完成相同的逻辑。
+编写脚本 首先，编写 lua 脚本，脚本名为 secKill.lua： -- 接收参数 local user_id = KEYS[1] local goods_id = KEYS[2] -- 拼接字符串 local stock_key = &#34;secKill:&#34;..goods_id..&#34;:stock&#34; -- 秒杀商品库存 key local users_key = &#34;secKill:&#34;..goods_id..&#34;:users&#34; -- 成功秒杀商品的用户集合 key -- 判断用户是否已经成功秒杀过该商品，如果已经存在在集合中，说明已经成功秒杀该商品，直接返回标志 2，防止重复抢购 local user_exists = redis."/>
+
+
+
+
+<link rel="preload" href="/scss/main.scss" as="style">
+<link href="/scss/main.scss" rel="stylesheet" integrity="">
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-page td-blog">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">redis-docs</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/docs/" ><span>文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/blog/" ><span class="active">博客</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"></div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-blog-li">
+  <a href="/blog/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-blog"><span class="">博客</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-blognews-li">
+  <a href="/blog/news/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-blognews"><span class="">news</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-blognewslua-li">
+  <a href="/blog/news/lua/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-blognewslua"><span class="">Lua News</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blognewslua2020-2021-li">
+  <a href="/blog/news/lua/2020-2021/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blognewslua2020-2021"><span class="">2020-2021 Lua News</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blognewslua2010-2019-li">
+  <a href="/blog/news/lua/2010-2019/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blognewslua2010-2019"><span class="">2010-2019 Lua News</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blognewslua2000-2009-li">
+  <a href="/blog/news/lua/2000-2009/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blognewslua2000-2009"><span class="">2000-2009 Lua News</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blognewslua1993-1999-li">
+  <a href="/blog/news/lua/1993-1999/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blognewslua1993-1999"><span class="">1993-1999 Lua News</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-blogseckill-li">
+  <a href="/blog/seckill/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-blogseckill"><span class="">秒杀</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillredlock-system-awareness-li">
+  <a href="/blog/seckill/redlock-system-awareness/" title="建立对分布式锁的系统认知 - 从 Redlock 开始" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillredlock-system-awareness"><span class="">分布式锁系统认知</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillimplementation-of-redis-distributed-lock-li">
+  <a href="/blog/seckill/implementation-of-redis-distributed-lock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillimplementation-of-redis-distributed-lock"><span class="">Implementation of redis distributed lock</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillexample-li">
+  <a href="/blog/seckill/example/" title="一个使用 Node.js 的 Redlock 示例，关于如何锁定一个Redis上的密钥对" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillexample"><span class="">Redlok 示例</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillreplace_setnx-li">
+  <a href="/blog/seckill/replace_setnx/" title="Redis 使用 Lua 脚本替代 SETNX / DECR 保证原子性" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillreplace_setnx"><span class="">替代 SETNX/DECR</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillnodejs-case-li">
+  <a href="/blog/seckill/nodejs-case/" title="Node.js 中实践基于 Redis 的分布式锁实现" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillnodejs-case"><span class="">分布式锁实现</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillnodejs-redis-lua-li">
+  <a href="/blog/seckill/nodejs-redis-lua/" title="Node.js 中实践 Redis Lua 脚本" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillnodejs-redis-lua"><span class="">Node.js Redis Lua</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillis_redlock_safe-li">
+  <a href="/blog/seckill/is_redlock_safe/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillis_redlock_safe"><span class="">Is Redlock safe?</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckilldistlock-li">
+  <a href="/blog/seckill/distlock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckilldistlock"><span class="">Redis分布式锁</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillhow-to-do-distributed-locking-li">
+  <a href="/blog/seckill/how-to-do-distributed-locking/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillhow-to-do-distributed-locking"><span class="">How to do distributed locking</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-blogseckillredis_lua-li">
+  <a href="/blog/seckill/redis_lua/" title="Redis&#43;Lua 解决高并发场景抢购秒杀问题" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-blogseckillredis_lua"><span class="td-sidebar-nav-active-item">Redis&#43;Lua秒杀</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckilldistlock-cn-li">
+  <a href="/blog/seckill/distlock-cn/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckilldistlock-cn"><span class="">Redis分布式锁</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillaliyun-li">
+  <a href="/blog/seckill/aliyun/" title="使用  搭建电商秒杀系统" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillaliyun"><span class="">Redis秒杀系统</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-blogseckillredlock-controversy-li">
+  <a href="/blog/seckill/redlock-controversy/" title="Redis Redlock 的争论" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-blogseckillredlock-controversy"><span class="">Redlock 争论</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+</div>
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#为何要使用-lua-脚本解决商品超卖的问题呢">为何要使用 Lua 脚本解决商品超卖的问题呢？</a></li>
+    <li><a href="#编写脚本">编写脚本</a>
+      <ul>
+        <li><a href="#首先编写-lua-脚本脚本名为-seckilllua">首先，编写 lua 脚本，脚本名为 secKill.lua：</a></li>
+        <li><a href="#lua-脚本编写完成后使用-redis-cli-命令生成该脚本的-sha-秘钥">lua 脚本编写完成后，使用 redis-cli 命令生成该脚本的 sha 秘钥</a></li>
+        <li><a href="#最后拿到-lua-脚本的-sha-秘钥我们就可以在我们的代码中使用了">最后，拿到 lua 脚本的 sha 秘钥，我们就可以在我们的代码中使用了。</a></li>
+      </ul>
+    </li>
+    <li><a href="#测试">测试</a></li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5 pr-md-4" role="main">
+            <a class="btn btn-lg -bg-orange td-rss-button d-none d-lg-block" href="http://example.org/blog/seckill/index.xml" target="_blank">
+              RSS <i class="fa fa-rss ml-2 "></i>
+            </a>
+            
+<div class="td-content">
+	<h1>Redis&#43;Lua 解决高并发场景抢购秒杀问题</h1>
+	
+	<div class="td-byline mb-4">
+		
+		<time datetime="0001-01-01" class="text-muted">Monday, January 01, 0001</time>
+	</div>
+	<header class="article-meta">
+		
+		
+			
+				
+
+
+			
+				
+
+
+			
+		
+		
+	</header>
+	<blockquote>
+<p><a href="https://www.cnblogs.com/itbsl/p/15021263.html">https://www.cnblogs.com/itbsl/p/15021263.html</a></p>
+</blockquote>
+<p>之前写了一篇 PHP+Redis 链表解决高并发下商品超卖问题，今天介绍一些如何使用 PHP+Redis+Lua 解决高并发下商品超卖问题。</p>
+<h2 id="为何要使用-lua-脚本解决商品超卖的问题呢">为何要使用 Lua 脚本解决商品超卖的问题呢？</h2>
+<p>Redis 在 2.6 版本后原生支持 Lua 脚本功能，允许开发者使用 Lua 语言编写脚本传到 Redis 中执行。</p>
+<p>将复杂的或者多步的 redis 操作，写为一个脚本，一次提交给 redis 执行，减少反复连接 redis 的次数，提升性能。</p>
+<p>原子操作。Redis 会将整个脚本作为一个整体执行，中间不会被其他请求插入。因此在脚本运行过程中无需担心会出现竞态条件，无需使用事务。</p>
+<p>复用客户端发送的脚本会永久存在 redis 中，这样其他客户端可以复用这一脚本，而不需要使用代码完成相同的逻辑。</p>
+<h2 id="编写脚本">编写脚本</h2>
+<h3 id="首先编写-lua-脚本脚本名为-seckilllua">首先，编写 lua 脚本，脚本名为 secKill.lua：</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#75715e">-- 接收参数</span>
+<span style="color:#66d9ef">local</span> user_id <span style="color:#f92672">=</span> KEYS[<span style="color:#ae81ff">1</span>]
+<span style="color:#66d9ef">local</span> goods_id <span style="color:#f92672">=</span> KEYS[<span style="color:#ae81ff">2</span>]
+
+<span style="color:#75715e">-- 拼接字符串</span>
+<span style="color:#66d9ef">local</span> stock_key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;secKill:&#34;</span><span style="color:#f92672">..</span>goods_id<span style="color:#f92672">..</span><span style="color:#e6db74">&#34;:stock&#34;</span> <span style="color:#75715e">-- 秒杀商品库存 key</span>
+<span style="color:#66d9ef">local</span> users_key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;secKill:&#34;</span><span style="color:#f92672">..</span>goods_id<span style="color:#f92672">..</span><span style="color:#e6db74">&#34;:users&#34;</span> <span style="color:#75715e">-- 成功秒杀商品的用户集合 key</span>
+
+<span style="color:#75715e">-- 判断用户是否已经成功秒杀过该商品，如果已经存在在集合中，说明已经成功秒杀该商品，直接返回标志 2，防止重复抢购</span>
+<span style="color:#66d9ef">local</span> user_exists <span style="color:#f92672">=</span> redis.call(<span style="color:#e6db74">&#39;sismember&#39;</span>, users_key, user_id)
+<span style="color:#66d9ef">if</span> tonumber(user_exists, <span style="color:#ae81ff">10</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">then</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span>
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#75715e">-- 获取当前商品库存，如果库存小于等于 0，表名商品已经被抢购完了，否则库存-1，并将抢购成功的用户放入集合中</span>
+<span style="color:#66d9ef">local</span> left_goods_count <span style="color:#f92672">=</span> redis.call(<span style="color:#e6db74">&#39;get&#39;</span>, stock_key)
+<span style="color:#66d9ef">if</span> tonumber(left_goods_count, <span style="color:#ae81ff">10</span>) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">then</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">else</span>
+    redis.call(<span style="color:#e6db74">&#39;decr&#39;</span>, stock_key)
+    redis.call(<span style="color:#e6db74">&#39;sadd&#39;</span>, users_key, user_id)
+<span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>上述代码中返回的数字 0，1，2 只是一种约定，自己可以根据自己的有业务约定不同状态返回的值。示例代码 0：库存为 0，1：秒杀成功，2：已秒杀成功的用户重复抢购。</p>
+<h3 id="lua-脚本编写完成后使用-redis-cli-命令生成该脚本的-sha-秘钥">lua 脚本编写完成后，使用 redis-cli 命令生成该脚本的 sha 秘钥</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">redis-cli script load <span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>cat /usr/local/redis/lua/secKill.lua<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+<span style="color:#e6db74">&#34;63454a53284d9f6b30bdb6e5e12796a74f61f718&#34;</span>
+</code></pre></div><h3 id="最后拿到-lua-脚本的-sha-秘钥我们就可以在我们的代码中使用了">最后，拿到 lua 脚本的 sha 秘钥，我们就可以在我们的代码中使用了。</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$redis <span style="color:#f92672">=</span> new Redis<span style="color:#f92672">()</span>;
+$redis-&gt;connect<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;192.168.111.128&#34;</span>, 6379<span style="color:#f92672">)</span>;
+$goodsId <span style="color:#f92672">=</span> 11211;
+$userId <span style="color:#f92672">=</span> mt_rand<span style="color:#f92672">(</span>10000, 99999<span style="color:#f92672">)</span>;
+$res <span style="color:#f92672">=</span> $redis-&gt;evalSha<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;63454a53284d9f6b30bdb6e5e12796a74f61f718&#39;</span>, <span style="color:#f92672">[</span>$userId, $goodsId<span style="color:#f92672">]</span>, 2<span style="color:#f92672">)</span>;
+</code></pre></div><p>可以看到，我们将抢购逻辑写到 lua 脚本后，PHP 代码就变得很少了，仅仅只有 5 行代码。</p>
+<h2 id="测试">测试</h2>
+<p>编写好代码，接着我们开始对上述代码进行测试。</p>
+<p>首先，我们需要设置商品的库存量，正常逻辑是在后台商品管理页填写具体商品的库存量，
+此处假设我们的商品 ID 是 11211，商品数量为 10 个。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$redis-cli
+&gt; set secKill:11211:stock <span style="color:#ae81ff">10</span>
+</code></pre></div><p>我们使用 ab 压测工具模拟 2000 个用户并发量 200 来模拟抢购商品 ID 为 11211 的商品。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ ab -n <span style="color:#ae81ff">2000</span> -c <span style="color:#ae81ff">200</span> http://www.master.com/index.php
+</code></pre></div><p>如果没有 ab 工具需要使用 <code>yum -y install httpd-tools</code> 安装</p>
+<p>压测完成后，我们通过 <code>RedisDesktopManager(RDM)</code> 软件来查看抢购结果，
+可以看到即使是 200 的并发量，最终也只有 10 个用户抢购到商品，并且抢购成功的用户被写入到了 secKill:11211:users 的集合中，
+我们可以另外开一个守护进程专门用于从集合中获取用户 ID 处理后续事宜(将数据落盘写入数据库、给用户发短信等)</p>
+<p>使用 Redis+Lua 来解决抢购秒杀类问题是当前比较流行的一种做法，希望对正在开发秒杀抢购功能的你能产生帮助。</p>
+
+	
+
+	<ul class="list-unstyled d-flex justify-content-between align-items-center mb-0 pt-5">
+  <li>
+    <a href="/blog/seckill/distlock-cn/" aria-label="Previous - Redis分布式锁" class="btn btn-primary"><span class="mr-1">←</span>Previous</a>
+  </li>
+    <a href="/blog/seckill/how-to-do-distributed-locking/" aria-label="Next - How to do distributed locking" class="btn btn-primary">Next<span class="ml-1">→</span></a>
+  </li>
+</ul>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        
+        
+	
+		<p class="mt-2"><a href="/docs/lua/about/">关于</a></p>
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+
+
+
+<script src='/js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.5c6c35925cba6ccdfc94d3ef0a1ff539934a08075c0931f2c9ab70249877b310.js" integrity="sha256-XGw1kly6bM38lNPvCh/1OZNKCAdcCTHyyatwJJh3sxA=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1159 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis-docs – ioredis</title>
+    <link>http://example.org/docs/ioredis/</link>
+    <description>Recent content in ioredis on redis-docs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	  <atom:link href="http://example.org/docs/ioredis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 快速入门</title>
+      <link>http://example.org/docs/ioredis/quick-start/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/quick-start/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;$ npm install ioredis
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;基本用法&#34;&gt;基本用法&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(); &lt;span style=&#34;color:#75715e&#34;&gt;// uses defaults unless given configuration object
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// ioredis supports all Redis commands:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// returns promise which resolves to string, &amp;#34;OK&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// the format is: redis[SOME_REDIS_COMMAND_IN_LOWERCASE](ARGUMENTS_ARE_JOINED_INTO_COMMAND_STRING)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// the js: ` redis.set(&amp;#34;mykey&amp;#34;, &amp;#34;Hello&amp;#34;) ` is equivalent to the cli: ` redis&amp;gt; SET mykey &amp;#34;Hello&amp;#34; `
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// ioredis supports the node.js callback style
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;);
+  } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// Promise resolves to &amp;#34;bar&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  }
+});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Or ioredis returns a promise if the last argument isn&amp;#39;t a function
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// Prints &amp;#34;bar&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Most responses are strings, or arrays of strings
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;zadd&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sortedSet&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;one&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;dos&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;quatro&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;three&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;zrange&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sortedSet&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;WITHSCORES&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;) =&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;)); &lt;span style=&#34;color:#75715e&#34;&gt;// Promise resolves to [&amp;#34;one&amp;#34;, &amp;#34;1&amp;#34;, &amp;#34;dos&amp;#34;, &amp;#34;2&amp;#34;, &amp;#34;three&amp;#34;, &amp;#34;3&amp;#34;] as if the command was ` redis&amp;gt; ZRANGE sortedSet 0 2 WITHSCORES `
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;// All arguments are passed directly to the redis server:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;EX&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;See the &lt;code&gt;examples/&lt;/code&gt; folder for more examples.&lt;/p&gt;
+&lt;h2 id=&#34;transparent-key-prefixing&#34;&gt;Transparent Key Prefixing&lt;/h2&gt;
+&lt;p&gt;This feature allows you to specify a string that will automatically be prepended
+to all the keys in a command, which makes it easier to manage your key
+namespaces.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt; This feature won&amp;rsquo;t apply to commands like &lt;a href=&#34;http://redis.io/commands/KEYS&#34;&gt;KEYS&lt;/a&gt; and &lt;a href=&#34;http://redis.io/commands/scan&#34;&gt;SCAN&lt;/a&gt; that take patterns rather than actual keys(&lt;a href=&#34;https://github.com/luin/ioredis/issues/239&#34;&gt;#239&lt;/a&gt;),
+and this feature also won&amp;rsquo;t apply to the replies of commands even if they are key names (&lt;a href=&#34;https://github.com/luin/ioredis/issues/325&#34;&gt;#325&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fooRedis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;keyPrefix&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo:&amp;#34;&lt;/span&gt; });
+&lt;span style=&#34;color:#a6e22e&#34;&gt;fooRedis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;baz&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// Actually sends SET foo:bar baz
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;fooRedis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;defineCommand&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;echo&amp;#34;&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;numberOfKeys&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;lua&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}&amp;#34;&lt;/span&gt;,
+});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Works well with pipelining/transaction
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fooRedis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;()
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Sends SORT foo:list BY foo:weight_*-&amp;gt;fieldname
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  .&lt;span style=&#34;color:#a6e22e&#34;&gt;sort&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;list&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;BY&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;weight_*-&amp;gt;fieldname&amp;#34;&lt;/span&gt;)
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Supports custom commands
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Sends EVALSHA xxx foo:k1 foo:k2 a1 a2
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  .&lt;span style=&#34;color:#a6e22e&#34;&gt;echo&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a2&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;transforming-arguments--replies&#34;&gt;Transforming Arguments &amp;amp; Replies&lt;/h2&gt;
+&lt;p&gt;Most Redis commands take one or more Strings as arguments,
+and replies are sent back as a single String or an Array of Strings. However, sometimes
+you may want something different. For instance, it would be more convenient if the &lt;code&gt;HGETALL&lt;/code&gt;
+command returns a hash (e.g. &lt;code&gt;{ key: val1, key2: v2 }&lt;/code&gt;) rather than an array of key values (e.g. &lt;code&gt;[key1, val1, key2, val2]&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;ioredis has a flexible system for transforming arguments and replies. There are two types
+of transformers, argument transformer and reply transformer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Here&amp;#39;s the built-in argument transformer converting
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// hmset(&amp;#39;key&amp;#39;, { k1: &amp;#39;v1&amp;#39;, k2: &amp;#39;v2&amp;#39; })
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// or
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// hmset(&amp;#39;key&amp;#39;, new Map([[&amp;#39;k1&amp;#39;, &amp;#39;v1&amp;#39;], [&amp;#39;k2&amp;#39;, &amp;#39;v2&amp;#39;]]))
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// into
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// hmset(&amp;#39;key&amp;#39;, &amp;#39;k1&amp;#39;, &amp;#39;v1&amp;#39;, &amp;#39;k2&amp;#39;, &amp;#39;v2&amp;#39;)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Command&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setArgumentTransformer&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hmset&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Map&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!==&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;undefined&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#66d9ef&#34;&gt;instanceof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Map&lt;/span&gt;) {
+      &lt;span style=&#34;color:#75715e&#34;&gt;// utils is a internal module of ioredis
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]].&lt;span style=&#34;color:#a6e22e&#34;&gt;concat&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;utils&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;convertMapToArray&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]));
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;typeof&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;object&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;!==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]].&lt;span style=&#34;color:#a6e22e&#34;&gt;concat&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;utils&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;convertObjectToArray&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]));
+    }
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;;
+});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Here&amp;#39;s the built-in reply transformer converting the HGETALL reply
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// [&amp;#39;k1&amp;#39;, &amp;#39;v1&amp;#39;, &amp;#39;k2&amp;#39;, &amp;#39;v2&amp;#39;]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// into
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// { k1: &amp;#39;v1&amp;#39;, &amp;#39;k2&amp;#39;: &amp;#39;v2&amp;#39; }
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Command&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setReplyTransformer&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hgetall&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (Array.&lt;span style=&#34;color:#a6e22e&#34;&gt;isArray&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;)) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; {};
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;]] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;];
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;obj&lt;/span&gt;;
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;;
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;There are three built-in transformers, two argument transformers for &lt;code&gt;hmset&lt;/code&gt; &amp;amp; &lt;code&gt;mset&lt;/code&gt; and
+a reply transformer for &lt;code&gt;hgetall&lt;/code&gt;. Transformers for &lt;code&gt;hmset&lt;/code&gt; and &lt;code&gt;hgetall&lt;/code&gt; were mentioned
+above, and the transformer for &lt;code&gt;mset&lt;/code&gt; is similar to the one for &lt;code&gt;hmset&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mset&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;k1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;v1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;k2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;v2&amp;#34;&lt;/span&gt; });
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k1&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === &amp;#39;v1&amp;#39;;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;mset&lt;/span&gt;(
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Map&lt;/span&gt;([
+    [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k3&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;v3&amp;#34;&lt;/span&gt;],
+    [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k4&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;v4&amp;#34;&lt;/span&gt;],
+  ])
+);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k3&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === &amp;#39;v3&amp;#39;;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Another useful example of a reply transformer is one that changes &lt;code&gt;hgetall&lt;/code&gt; to return array of arrays instead of objects which avoids an unwanted conversation of hash keys to strings when dealing with binary hash keys:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Command&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;setReplyTransformer&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hgetall&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [];
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;push&lt;/span&gt;([&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;], &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]]);
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;arr&lt;/span&gt;;
+});
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;hset&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;h1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;([&lt;span style=&#34;color:#ae81ff&#34;&gt;0x01&lt;/span&gt;]), &lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;([&lt;span style=&#34;color:#ae81ff&#34;&gt;0x02&lt;/span&gt;]));
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;hset&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;h1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;([&lt;span style=&#34;color:#ae81ff&#34;&gt;0x03&lt;/span&gt;]), &lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;([&lt;span style=&#34;color:#ae81ff&#34;&gt;0x04&lt;/span&gt;]));
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;hgetallBuffer&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;h1&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === [ [ &amp;lt;Buffer 01&amp;gt;, &amp;lt;Buffer 02&amp;gt; ], [ &amp;lt;Buffer 03&amp;gt;, &amp;lt;Buffer 04&amp;gt; ] ];
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;监控&#34;&gt;监控&lt;/h2&gt;
+&lt;p&gt;Redis supports the MONITOR command,
+which lets you see all commands received by the Redis server across all client connections,
+including from other client libraries and other computers.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;monitor&lt;/code&gt; method returns a monitor instance.
+After you send the MONITOR command, no other commands are valid on that connection. ioredis will emit a monitor event for every new monitor message that comes across.
+The callback for the monitor event takes a timestamp from the Redis server and an array of command arguments.&lt;/p&gt;
+&lt;p&gt;Here is a simple example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;monitor&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;args&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;source&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;database&lt;/span&gt;) =&amp;gt; {});
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is another example illustrating an &lt;code&gt;async&lt;/code&gt; function and &lt;code&gt;monitor.disconnect()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; () =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt;();
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;monitor&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;);
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Any other tasks
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;monitor&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;disconnect&lt;/span&gt;();
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;streamify-scanning&#34;&gt;Streamify Scanning&lt;/h2&gt;
+&lt;p&gt;Redis 2.8 added the &lt;code&gt;SCAN&lt;/code&gt; command to incrementally iterate through the keys in the database.
+It&amp;rsquo;s different from &lt;code&gt;KEYS&lt;/code&gt; in that &lt;code&gt;SCAN&lt;/code&gt; only returns a small number of elements each call,
+so it can be used in production without the downside of blocking the server for a long time.
+However, it requires recording the cursor on the client side each time
+the &lt;code&gt;SCAN&lt;/code&gt; command is called in order to iterate through all the keys correctly. Since it&amp;rsquo;s a relatively common use case, ioredis
+provides a streaming interface for the &lt;code&gt;SCAN&lt;/code&gt; command to make things much easier. A readable stream can be created by calling &lt;code&gt;scanStream&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+&lt;span style=&#34;color:#75715e&#34;&gt;// Create a readable stream (object mode)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;scanStream&lt;/span&gt;();
+&lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;resultKeys&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// `resultKeys` is an array of strings representing key names.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Note that resultKeys may contain 0 keys, and that it will sometimes
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// contain duplicates due to SCAN&amp;#39;s implementation in Redis.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;resultKeys&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resultKeys&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;]);
+  }
+});
+&lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;, () =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;all keys have been visited&amp;#34;&lt;/span&gt;);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;scanStream&lt;/code&gt; accepts an option, with which you can specify the &lt;code&gt;MATCH&lt;/code&gt; pattern, the &lt;code&gt;TYPE&lt;/code&gt; filter, and the &lt;code&gt;COUNT&lt;/code&gt; argument:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;scanStream&lt;/span&gt;({
+  &lt;span style=&#34;color:#75715e&#34;&gt;// only returns keys following the pattern of `user:*`
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;match&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;user:*&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#75715e&#34;&gt;// only return objects that match a given type,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// (requires Redis &amp;gt;= 6.0)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;type&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;zset&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#75715e&#34;&gt;// returns approximately 100 elements per call
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt;,
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Just like other commands, &lt;code&gt;scanStream&lt;/code&gt; has a binary version &lt;code&gt;scanBufferStream&lt;/code&gt;, which returns an array of buffers. It&amp;rsquo;s useful when
+the key names are not utf8 strings.&lt;/p&gt;
+&lt;p&gt;There are also &lt;code&gt;hscanStream&lt;/code&gt;, &lt;code&gt;zscanStream&lt;/code&gt; and &lt;code&gt;sscanStream&lt;/code&gt; to iterate through elements in a hash, zset and set. The interface of each is
+similar to &lt;code&gt;scanStream&lt;/code&gt; except the first argument is the key name:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;hscanStream&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;myhash&amp;#34;&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;match&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;age:??&amp;#34;&lt;/span&gt;,
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can learn more from the &lt;a href=&#34;http://redis.io/commands/scan&#34;&gt;Redis documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Useful Tips&lt;/strong&gt;
+It&amp;rsquo;s pretty common that doing an async task in the &lt;code&gt;data&lt;/code&gt; handler. We&amp;rsquo;d like the scanning process to be paused until the async task to be finished. &lt;code&gt;Stream#pause()&lt;/code&gt; and &lt;code&gt;Stream#resume()&lt;/code&gt; do the trick. For example if we want to migrate data in Redis to MySQL:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;scanStream&lt;/span&gt;();
+&lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;data&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;resultKeys&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Pause the stream from scanning more keys until we&amp;#39;ve migrated the current keys.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pause&lt;/span&gt;();
+
+  Promise.&lt;span style=&#34;color:#a6e22e&#34;&gt;all&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;resultKeys&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;map&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;migrateKeyToMySQL&lt;/span&gt;)).&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;(() =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Resume the stream here.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;resume&lt;/span&gt;();
+  });
+});
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;stream&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;end&amp;#34;&lt;/span&gt;, () =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;done migration&amp;#34;&lt;/span&gt;);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;离线队列&#34;&gt;离线队列&lt;/h2&gt;
+&lt;p&gt;When a command can&amp;rsquo;t be processed by Redis (being sent before the &lt;code&gt;ready&lt;/code&gt; event), by default, it&amp;rsquo;s added to the offline queue and will be
+executed when it can be processed. You can disable this feature by setting the &lt;code&gt;enableOfflineQueue&lt;/code&gt;
+option to &lt;code&gt;false&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;enableOfflineQueue&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 连接</title>
+      <link>http://example.org/docs/ioredis/connection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/connection/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;连接到-redis&#34;&gt;连接到 Redis&lt;/h2&gt;
+&lt;p&gt;When a new &lt;code&gt;Redis&lt;/code&gt; instance is created, a connection to Redis will be created at the same time.
+You can specify which Redis to connect to by:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(); &lt;span style=&#34;color:#75715e&#34;&gt;// Connect to 127.0.0.1:6379
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;6380&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// 127.0.0.1:6380
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;6379&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;192.168.1.1&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// 192.168.1.1:6379
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/tmp/redis.sock&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6379&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// Redis port
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// Redis host
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;family&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#75715e&#34;&gt;// 4 (IPv4) or 6 (IPv6)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;auth&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;db&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;,
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also specify connection options as a &lt;a href=&#34;http://www.iana.org/assignments/uri-schemes/prov/redis&#34;&gt;&lt;code&gt;redis://&lt;/code&gt; URL&lt;/a&gt; or &lt;a href=&#34;https://www.iana.org/assignments/uri-schemes/prov/rediss&#34;&gt;&lt;code&gt;rediss://&lt;/code&gt; URL&lt;/a&gt; when using &lt;a href=&#34;#tls-options&#34;&gt;TLS encryption&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Connect to 127.0.0.1:6380, db 4, using password &amp;#34;authpassword&amp;#34;:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;redis://:authpassword@127.0.0.1:6380/4&amp;#34;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Username can also be passed via URI.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// It&amp;#39;s worth to noticing that for compatibility reasons `allowUsernameInURI`
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// need to be provided, otherwise the username part will be ignored.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(
+  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;redis://username:authpassword@127.0.0.1:6380/4?allowUsernameInURI=true&amp;#34;&lt;/span&gt;
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;See &lt;a href=&#34;API.md#new_Redis&#34;&gt;API Documentation&lt;/a&gt; for all available options.&lt;/p&gt;
+&lt;h2 id=&#34;自动连接&#34;&gt;自动连接&lt;/h2&gt;
+&lt;p&gt;By default, ioredis will try to reconnect when the connection to Redis is lost except when the connection is closed manually by &lt;code&gt;redis.disconnect()&lt;/code&gt; or &lt;code&gt;redis.quit()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s very flexible to control how long to wait to reconnect after disconnection using the &lt;code&gt;retryStrategy&lt;/code&gt; option:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#75715e&#34;&gt;// This is the default value of `retryStrategy`
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;retryStrategy&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;delay&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;50&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;delay&lt;/span&gt;;
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;retryStrategy&lt;/code&gt; is a function that will be called when the connection is lost.
+The argument &lt;code&gt;times&lt;/code&gt; means this is the nth reconnection being made and
+the return value represents how long (in ms) to wait to reconnect. When the
+return value isn&amp;rsquo;t a number, ioredis will stop trying to reconnect, and the connection
+will be lost forever if the user doesn&amp;rsquo;t call &lt;code&gt;redis.connect()&lt;/code&gt; manually.&lt;/p&gt;
+&lt;p&gt;When reconnected, the client will auto subscribe to channels that the previous connection subscribed to.
+This behavior can be disabled by setting the &lt;code&gt;autoResubscribe&lt;/code&gt; option to &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;And if the previous connection has some unfulfilled commands (most likely blocking commands such as &lt;code&gt;brpop&lt;/code&gt; and &lt;code&gt;blpop&lt;/code&gt;),
+the client will resend them when reconnected. This behavior can be disabled by setting the &lt;code&gt;autoResendUnfulfilledCommands&lt;/code&gt; option to &lt;code&gt;false&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;By default, all pending commands will be flushed with an error every 20 retry attempts. That makes sure commands won&amp;rsquo;t wait forever when the connection is down. You can change this behavior by setting &lt;code&gt;maxRetriesPerRequest&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;maxRetriesPerRequest&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Set maxRetriesPerRequest to &lt;code&gt;null&lt;/code&gt; to disable this behavior, and every command will wait forever until the connection is alive again (which is the default behavior before ioredis v4).&lt;/p&gt;
+&lt;h3 id=&#34;reconnect-on-error&#34;&gt;Reconnect on error&lt;/h3&gt;
+&lt;p&gt;Besides auto-reconnect when the connection is closed, ioredis supports reconnecting on certain Redis errors using the &lt;code&gt;reconnectOnError&lt;/code&gt; option. Here&amp;rsquo;s an example that will reconnect when receiving &lt;code&gt;READONLY&lt;/code&gt; error:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;reconnectOnError&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;targetError&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;READONLY&amp;#34;&lt;/span&gt;;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;includes&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;targetError&lt;/span&gt;)) {
+      &lt;span style=&#34;color:#75715e&#34;&gt;// Only reconnect when the error contains &amp;#34;READONLY&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;; &lt;span style=&#34;color:#75715e&#34;&gt;// or `return 1;`
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    }
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This feature is useful when using Amazon ElastiCache instances with Auto-failover disabled. On these instances, test your &lt;code&gt;reconnectOnError&lt;/code&gt; handler by manually promoting the replica node to the primary role using the AWS console. The following writes fail with the error &lt;code&gt;READONLY&lt;/code&gt;. Using &lt;code&gt;reconnectOnError&lt;/code&gt;, we can force the connection to reconnect on this error in order to connect to the new master. Furthermore, if the &lt;code&gt;reconnectOnError&lt;/code&gt; returns &lt;code&gt;2&lt;/code&gt;, ioredis will resend the failed command after reconnecting.&lt;/p&gt;
+&lt;p&gt;On ElastiCache instances with Auto-failover enabled, &lt;code&gt;reconnectOnError&lt;/code&gt; does not execute. Instead of returning a Redis error, AWS closes all connections to the master endpoint until the new primary node is ready. ioredis reconnects via &lt;code&gt;retryStrategy&lt;/code&gt; instead of &lt;code&gt;reconnectOnError&lt;/code&gt; after about a minute. On ElastiCache instances with Auto-failover enabled, test failover events with the &lt;code&gt;Failover primary&lt;/code&gt; option in the AWS console.&lt;/p&gt;
+&lt;h2 id=&#34;connection-events&#34;&gt;Connection Events&lt;/h2&gt;
+&lt;p&gt;The Redis instance will emit some events about the state of the connection to the Redis server.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Event&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;connect&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when a connection is established to the Redis server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ready&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;If &lt;code&gt;enableReadyCheck&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;, client will emit &lt;code&gt;ready&lt;/code&gt; when the server reports that it is ready to receive commands (e.g. finish loading data from disk).&lt;!-- raw HTML omitted --&gt;Otherwise, &lt;code&gt;ready&lt;/code&gt; will be emitted immediately right after the &lt;code&gt;connect&lt;/code&gt; event.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;error&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when an error occurs while connecting.&lt;!-- raw HTML omitted --&gt;However, ioredis emits all &lt;code&gt;error&lt;/code&gt; events silently (only emits when there&amp;rsquo;s at least one listener) so that your application won&amp;rsquo;t crash if you&amp;rsquo;re not listening to the &lt;code&gt;error&lt;/code&gt; event.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;close&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when an established Redis server connection has closed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;reconnecting&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits after &lt;code&gt;close&lt;/code&gt; when a reconnection will be made. The argument of the event is the time (in ms) before reconnecting.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;end&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits after &lt;code&gt;close&lt;/code&gt; when no more reconnections will be made, or the connection is failed to establish.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;wait&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when &lt;code&gt;lazyConnect&lt;/code&gt; is set and will wait for the first command to be called before connecting.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;You can also check out the &lt;code&gt;Redis#status&lt;/code&gt; property to get the current connection status.&lt;/p&gt;
+&lt;p&gt;Besides the above connection events, there are several other custom events:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Event&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;select&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when the database changed. The argument is the new db number.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: TLS</title>
+      <link>http://example.org/docs/ioredis/tls/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/tls/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;tls-选项&#34;&gt;TLS 选项&lt;/h2&gt;
+&lt;p&gt;Redis doesn&amp;rsquo;t support TLS natively, however if the redis server you want to connect to is hosted behind a TLS proxy (e.g. &lt;a href=&#34;https://www.stunnel.org/&#34;&gt;stunnel&lt;/a&gt;) or is offered by a PaaS service that supports TLS connection (e.g. &lt;a href=&#34;https://redis.com/&#34;&gt;Redis.com&lt;/a&gt;), you can set the &lt;code&gt;tls&lt;/code&gt; option:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;tls&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Refer to `tls.connect()` section in
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// https://nodejs.org/api/tls.html
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// for all supported options
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;ca&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fs&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;readFileSync&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cert.pem&amp;#34;&lt;/span&gt;),
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Alternatively, specify the connection through a &lt;a href=&#34;https://www.iana.org/assignments/uri-schemes/prov/rediss&#34;&gt;&lt;code&gt;rediss://&lt;/code&gt; URL&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;rediss://redis.my-service.com&amp;#34;&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;tls-配置文件&#34;&gt;TLS 配置文件&lt;/h3&gt;
+&lt;p&gt;To make it easier to configure we provide a few pre-configured TLS profiles that can be specified by setting the &lt;code&gt;tls&lt;/code&gt; option to the profile&amp;rsquo;s name or specifying a &lt;code&gt;tls.profile&lt;/code&gt; option in case you need to customize some values of the profile.&lt;/p&gt;
+&lt;p&gt;Profiles:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;RedisCloudFixed&lt;/code&gt;: Contains the CA for &lt;a href=&#34;https://redis.com/&#34;&gt;Redis.com&lt;/a&gt; Cloud fixed subscriptions&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RedisCloudFlexible&lt;/code&gt;: Contains the CA for &lt;a href=&#34;https://redis.com/&#34;&gt;Redis.com&lt;/a&gt; Cloud flexible subscriptions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;tls&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;RedisCloudFixed&amp;#34;&lt;/span&gt;,
+});
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redisWithClientCertificate&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;tls&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;profile&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;RedisCloudFixed&amp;#34;&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;123&amp;#34;&lt;/span&gt;,
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 流和二进制</title>
+      <link>http://example.org/docs/ioredis/streams/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/streams/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;流&#34;&gt;流&lt;/h2&gt;
+&lt;p&gt;Redis v5 introduces a new data type called streams. It doubles as a communication channel for building streaming architectures and as a log-like data structure for persisting data. With ioredis, the usage can be pretty straightforward. Say we have a producer publishes messages to a stream with &lt;code&gt;redis.xadd(&amp;quot;mystream&amp;quot;, &amp;quot;*&amp;quot;, &amp;quot;randomValue&amp;quot;, Math.random())&lt;/code&gt; (You may find the &lt;a href=&#34;https://redis.io/topics/streams-intro&#34;&gt;official documentation of Streams&lt;/a&gt; as a starter to understand the parameters used), to consume the messages, we&amp;rsquo;ll have a consumer with the following code:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;processMessage&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Id: %s. Data: %O&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;], &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]);
+};
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;async&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;listenForMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;lastId&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;$&amp;#34;&lt;/span&gt;) {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// `results` is an array, each element of which corresponds to a key.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Because we only listen to one key (mystream) here, `results` only contains
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// a single element. See more: https://redis.io/commands/xread#return-value
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;results&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;xread&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;block&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;STREAMS&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mystream&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;lastId&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;messages&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;results&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]; &lt;span style=&#34;color:#75715e&#34;&gt;// `key` equals to &amp;#34;mystream&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;messages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;forEach&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;processMessage&lt;/span&gt;);
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Pass the last id of the results to the next round.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;await&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;listenForMessage&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;messages&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;messages&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;][&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]);
+}
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;listenForMessage&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;操作二进制文件&#34;&gt;操作二进制文件&lt;/h2&gt;
+&lt;p&gt;Arguments can be buffers:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;Buffer&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;from&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;));
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;And every command has a method that returns a Buffer (by adding a suffix of &amp;ldquo;Buffer&amp;rdquo; to the command name).
+To get a buffer instead of a utf8 string:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;getBuffer&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result is a buffer.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Lua 脚本</title>
+      <link>http://example.org/docs/ioredis/lua/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/lua/</guid>
+      <description>
+        
+        
+        &lt;p&gt;ioredis supports all of the scripting commands such as &lt;code&gt;EVAL&lt;/code&gt;, &lt;code&gt;EVALSHA&lt;/code&gt; and &lt;code&gt;SCRIPT&lt;/code&gt;.
+However, it&amp;rsquo;s tedious to use in real world scenarios since developers have to take
+care of script caching and to detect when to use &lt;code&gt;EVAL&lt;/code&gt; and when to use &lt;code&gt;EVALSHA&lt;/code&gt;.
+ioredis exposes a &lt;code&gt;defineCommand&lt;/code&gt; method to make scripting much easier to use:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// This will define a command echo:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;defineCommand&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;echo&amp;#34;&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;numberOfKeys&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;lua&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}&amp;#34;&lt;/span&gt;,
+});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Now `echo` can be used just like any other ordinary command,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// and ioredis will try to use `EVALSHA` internally when possible for better performance.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;echo&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a2&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === [&amp;#39;k1&amp;#39;, &amp;#39;k2&amp;#39;, &amp;#39;a1&amp;#39;, &amp;#39;a2&amp;#39;]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// `echoBuffer` is also defined automatically to return buffers instead of strings:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;echoBuffer&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a2&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result[0] equals to Buffer.from(&amp;#39;k1&amp;#39;);
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// And of course it works with pipeline:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;echo&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a2&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If the number of keys can&amp;rsquo;t be determined when defining a command, you can
+omit the &lt;code&gt;numberOfKeys&lt;/code&gt; property and pass the number of keys as the first argument
+when you call the command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;defineCommand&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;echoDynamicKeyNumber&amp;#34;&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;lua&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;return {KEYS[1],KEYS[2],ARGV[1],ARGV[2]}&amp;#34;&lt;/span&gt;,
+});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Now you have to pass the number of keys as the first argument every time
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// you invoke the `echoDynamicKeyNumber` command:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;echoDynamicKeyNumber&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;k2&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a2&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === [&amp;#39;k1&amp;#39;, &amp;#39;k2&amp;#39;, &amp;#39;a1&amp;#39;, &amp;#39;a2&amp;#39;]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Pipelining</title>
+      <link>http://example.org/docs/ioredis/pipelining/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/pipelining/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;pipelining&#34;&gt;Pipelining&lt;/h2&gt;
+&lt;p&gt;If you want to send a batch of commands (e.g. &amp;gt; 5), you can use pipelining to queue
+the commands in memory and then send them to Redis all at once. This way the performance improves by 50%~300% (See &lt;a href=&#34;#benchmarks&#34;&gt;benchmark section&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;redis.pipeline()&lt;/code&gt; creates a &lt;code&gt;Pipeline&lt;/code&gt; instance. You can call any Redis
+commands on it just like the &lt;code&gt;Redis&lt;/code&gt; instance. The commands are queued in memory
+and flushed to Redis by calling the &lt;code&gt;exec&lt;/code&gt; method:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;();
+&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;del&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cc&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;results&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// `err` is always null, and `results` is an array of responses
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// corresponding to the sequence of queued commands.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// Each response follows the format `[err, result]`.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// You can even chain the commands:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;del&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;cc&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;results&lt;/span&gt;) =&amp;gt; {});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// `exec` also returns a Promise:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;();
+&lt;span style=&#34;color:#a6e22e&#34;&gt;promise&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === [[null, &amp;#39;OK&amp;#39;], [null, &amp;#39;bar&amp;#39;]]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each chained command can also have a callback, which will be invoked when the command
+gets a reply:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// result === &amp;#39;bar&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  })
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// result[1][1] === &amp;#39;bar&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In addition to adding commands to the &lt;code&gt;pipeline&lt;/code&gt; queue individually, you can also pass an array of commands and arguments to the constructor:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;([
+    [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;set&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;],
+    [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;get&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;],
+  ])
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;(() =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;/* ... */&lt;/span&gt;
+  });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;#length&lt;/code&gt; property shows how many commands in the pipeline:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;().&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;;
+&lt;span style=&#34;color:#75715e&#34;&gt;// length === 2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;transaction&#34;&gt;Transaction&lt;/h2&gt;
+&lt;p&gt;Most of the time, the transaction commands &lt;code&gt;multi&lt;/code&gt; &amp;amp; &lt;code&gt;exec&lt;/code&gt; are used together with pipeline.
+Therefore, when &lt;code&gt;multi&lt;/code&gt; is called, a &lt;code&gt;Pipeline&lt;/code&gt; instance is created automatically by default,
+so you can use &lt;code&gt;multi&lt;/code&gt; just like &lt;code&gt;pipeline&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;multi&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;results&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// results === [[null, &amp;#39;OK&amp;#39;], [null, &amp;#39;bar&amp;#39;]]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If there&amp;rsquo;s a syntax error in the transaction&amp;rsquo;s command chain (e.g. wrong number of arguments, wrong command name, etc),
+then none of the commands would be executed, and an error is returned:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;multi&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;new value&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;results&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// err:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//  { [ReplyError: EXECABORT Transaction discarded because of previous errors.]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//    name: &amp;#39;ReplyError&amp;#39;,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//    message: &amp;#39;EXECABORT Transaction discarded because of previous errors.&amp;#39;,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//    command: { name: &amp;#39;exec&amp;#39;, args: [] },
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//    previousErrors:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//     [ { [ReplyError: ERR wrong number of arguments for &amp;#39;set&amp;#39; command]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//         name: &amp;#39;ReplyError&amp;#39;,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//         message: &amp;#39;ERR wrong number of arguments for \&amp;#39;set\&amp;#39; command&amp;#39;,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;//         command: [Object] } ] }
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In terms of the interface, &lt;code&gt;multi&lt;/code&gt; differs from &lt;code&gt;pipeline&lt;/code&gt; in that when specifying a callback
+to each chained command, the queueing state is passed to the callback instead of the result of the command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;multi&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// result === &amp;#39;QUEUED&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  })
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;(&lt;span style=&#34;color:#75715e&#34;&gt;/* ... */&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you want to use transaction without pipeline, pass &lt;code&gt;{ pipeline: false }&lt;/code&gt; to &lt;code&gt;multi&lt;/code&gt;,
+and every command will be sent to Redis immediately without waiting for an &lt;code&gt;exec&lt;/code&gt; invocation:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;multi&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt; });
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;result&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// result === [[null, &amp;#39;OK&amp;#39;], [null, &amp;#39;bar&amp;#39;]]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The constructor of &lt;code&gt;multi&lt;/code&gt; also accepts a batch of commands:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;multi&lt;/span&gt;([
+    [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;set&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;],
+    [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;get&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;],
+  ])
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;(() =&amp;gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;/* ... */&lt;/span&gt;
+  });
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Inline transactions are supported by pipeline, which means you can group a subset of commands
+in the pipeline into a transaction:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;pipeline&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;multi&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;()
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;)
+  .&lt;span style=&#34;color:#a6e22e&#34;&gt;exec&lt;/span&gt;();
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id=&#34;autopipelining&#34;&gt;Autopipelining&lt;/h2&gt;
+&lt;p&gt;In standard mode, when you issue multiple commands, ioredis sends them to the server one by one. As described in Redis pipeline documentation, this is a suboptimal use of the network link, especially when such link is not very performant.&lt;/p&gt;
+&lt;p&gt;The TCP and network overhead negatively affects performance. Commands are stuck in the send queue until the previous ones are correctly delivered to the server. This is a problem known as Head-Of-Line blocking (HOL).&lt;/p&gt;
+&lt;p&gt;ioredis supports a feature called “auto pipelining”. It can be enabled by setting the option &lt;code&gt;enableAutoPipelining&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;. No other code change is necessary.&lt;/p&gt;
+&lt;p&gt;In auto pipelining mode, all commands issued during an event loop are enqueued in a pipeline automatically managed by ioredis. At the end of the iteration, the pipeline is executed and thus all commands are sent to the server at the same time.&lt;/p&gt;
+&lt;p&gt;This feature can dramatically improve throughput and avoids HOL blocking. In our benchmarks, the improvement was between 35% and 50%.&lt;/p&gt;
+&lt;p&gt;While an automatic pipeline is executing, all new commands will be enqueued in a new pipeline which will be executed as soon as the previous finishes.&lt;/p&gt;
+&lt;p&gt;When using Redis Cluster, one pipeline per node is created. Commands are assigned to pipelines according to which node serves the slot.&lt;/p&gt;
+&lt;p&gt;A pipeline will thus contain commands using different slots but that ultimately are assigned to the same node.&lt;/p&gt;
+&lt;p&gt;Note that the same slot limitation within a single command still holds, as it is a Redis limitation.&lt;/p&gt;
+&lt;h3 id=&#34;example-of-automatic-pipeline-enqueuing&#34;&gt;Example of automatic pipeline enqueuing&lt;/h3&gt;
+&lt;p&gt;This sample code uses ioredis with automatic pipeline enabled.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;./built&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;http&amp;#34;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;db&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({ &lt;span style=&#34;color:#a6e22e&#34;&gt;enableAutoPipelining&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt; });
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;createServer&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;URL&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;request&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://localhost:3000/&amp;#34;&lt;/span&gt;).&lt;span style=&#34;color:#a6e22e&#34;&gt;searchParams&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(
+    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;key&amp;#34;&lt;/span&gt;
+  );
+
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;db&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;key&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;) =&amp;gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;writeHead&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;200&lt;/span&gt;, { &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Content-Type&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;text/plain&amp;#34;&lt;/span&gt; });
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;response&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;end&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;value&lt;/span&gt;);
+  });
+});
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;server&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;listen&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3000&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When Node receives requests, it schedules them to be processed in one or more iterations of the events loop.&lt;/p&gt;
+&lt;p&gt;All commands issued by requests processing during one iteration of the loop will be wrapped in a pipeline automatically created by ioredis.&lt;/p&gt;
+&lt;p&gt;In the example above, the pipeline will have the following contents:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;GET key1
+GET key2
+GET key3
+...
+GET keyN
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When all events in the current loop have been processed, the pipeline is executed and thus all commands are sent to the server at the same time.&lt;/p&gt;
+&lt;p&gt;While waiting for pipeline response from Redis, Node will still be able to process requests. All commands issued by request handler will be enqueued in a new automatically created pipeline. This pipeline will not be sent to the server yet.&lt;/p&gt;
+&lt;p&gt;As soon as a previous automatic pipeline has received all responses from the server, the new pipeline is immediately sent without waiting for the events loop iteration to finish.&lt;/p&gt;
+&lt;p&gt;This approach increases the utilization of the network link, reduces the TCP overhead and idle times and therefore improves throughput.&lt;/p&gt;
+&lt;h3 id=&#34;benchmarks&#34;&gt;Benchmarks&lt;/h3&gt;
+&lt;p&gt;Here&amp;rsquo;s some of the results of our tests for a single node.&lt;/p&gt;
+&lt;p&gt;Each iteration of the test runs 1000 random commands on the server.&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Samples&lt;/th&gt;
+&lt;th&gt;Result&lt;/th&gt;
+&lt;th&gt;Tolerance&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;default&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;td&gt;174.62 op/sec&lt;/td&gt;
+&lt;td&gt;± 0.45 %&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enableAutoPipelining=true&lt;/td&gt;
+&lt;td&gt;1500&lt;/td&gt;
+&lt;td&gt;233.33 op/sec&lt;/td&gt;
+&lt;td&gt;± 0.88 %&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;And here&amp;rsquo;s the same test for a cluster of 3 masters and 3 replicas:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;Samples&lt;/th&gt;
+&lt;th&gt;Result&lt;/th&gt;
+&lt;th&gt;Tolerance&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;default&lt;/td&gt;
+&lt;td&gt;1000&lt;/td&gt;
+&lt;td&gt;164.05 op/sec&lt;/td&gt;
+&lt;td&gt;± 0.42 %&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enableAutoPipelining=true&lt;/td&gt;
+&lt;td&gt;3000&lt;/td&gt;
+&lt;td&gt;235.31 op/sec&lt;/td&gt;
+&lt;td&gt;± 0.94 %&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Pub/Sub</title>
+      <link>http://example.org/docs/ioredis/pub-sub/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/pub-sub/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Redis provides several commands for developers to implement the &lt;a href=&#34;https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern&#34;&gt;Publish–subscribe pattern&lt;/a&gt;. There are two roles in this pattern: publisher and subscriber. Publishers are not programmed to send their messages to specific subscribers. Rather, published messages are characterized into channels, without knowledge of what (if any) subscribers there may be.&lt;/p&gt;
+&lt;p&gt;By leveraging Node.js&amp;rsquo;s built-in events module, ioredis makes pub/sub very straightforward to use. Below is a simple example that consists of two files, one is publisher.js that publishes messages to a channel, the other is subscriber.js that listens for messages on specific channels.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// publisher.js
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;setInterval&lt;/span&gt;(() =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;foo&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;random&lt;/span&gt;() };
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Publish to my-channel-1 or my-channel-2 randomly.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;`my-channel-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;round&lt;/span&gt;(Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;random&lt;/span&gt;())&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;;
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Message can be either a string or a buffer
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;publish&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;JSON&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;stringify&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;));
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Published %s to %s&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;);
+}, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// subscriber.js
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;my-channel-1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;my-channel-2&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;) {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Just like other commands, subscribe() can fail for some reasons,
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// ex network issues.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Failed to subscribe: %s&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;);
+  } &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+    &lt;span style=&#34;color:#75715e&#34;&gt;// `count` represents the number of channels this client are currently subscribed to.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(
+      &lt;span style=&#34;color:#e6db74&#34;&gt;`Subscribed successfully! This client is currently subscribed to &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; channels.`&lt;/span&gt;
+    );
+  }
+});
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;`Received &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; from &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;`&lt;/span&gt;);
+});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// There&amp;#39;s also an event called &amp;#39;messageBuffer&amp;#39;, which is the same as &amp;#39;message&amp;#39; except
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// it returns buffers instead of strings.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// It&amp;#39;s useful when the messages are binary data.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;messageBuffer&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// Both `channel` and `message` are buffers.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It worth noticing that a connection (aka &lt;code&gt;Redis&lt;/code&gt; instance) can&amp;rsquo;t play both roles together. More specifically, when a client issues &lt;code&gt;subscribe()&lt;/code&gt; or &lt;code&gt;psubscribe()&lt;/code&gt;, it enters the &amp;ldquo;subscriber&amp;rdquo; mode. From that point, only commands that modify the subscription set are valid. Namely, they are: &lt;code&gt;subscribe&lt;/code&gt;, &lt;code&gt;psubscribe&lt;/code&gt;, &lt;code&gt;unsubscribe&lt;/code&gt;, &lt;code&gt;punsubscribe&lt;/code&gt;, &lt;code&gt;ping&lt;/code&gt;, and &lt;code&gt;quit&lt;/code&gt;. When the subscription set is empty (via &lt;code&gt;unsubscribe&lt;/code&gt;/&lt;code&gt;punsubscribe&lt;/code&gt;), the connection is put back into the regular mode.&lt;/p&gt;
+&lt;p&gt;If you want to do pub/sub in the same file/process, you should create a separate connection:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;();
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;(&lt;span style=&#34;color:#75715e&#34;&gt;/* ... */&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// From now, `sub` enters the subscriber mode.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;/* ... */&lt;/span&gt;);
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;setInterval&lt;/span&gt;(() =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// `pub` can be used to publish messages, or send other regular commands (e.g. `hgetall`)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// because it&amp;#39;s not in the subscriber mode.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#a6e22e&#34;&gt;pub&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;publish&lt;/span&gt;(&lt;span style=&#34;color:#75715e&#34;&gt;/* ... */&lt;/span&gt;);
+}, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;PSUBSCRIBE&lt;/code&gt; is also supported in a similar way when you want to subscribe all channels whose name matches a pattern:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;psubscribe&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pat?ern&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;) =&amp;gt; {});
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Event names are &amp;#34;pmessage&amp;#34;/&amp;#34;pmessageBuffer&amp;#34; instead of &amp;#34;message/messageBuffer&amp;#34;.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pmessage&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;pattern&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) =&amp;gt; {});
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pmessageBuffer&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;pattern&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) =&amp;gt; {});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Sentinel</title>
+      <link>http://example.org/docs/ioredis/sentinel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/sentinel/</guid>
+      <description>
+        
+        
+        &lt;p&gt;ioredis supports Sentinel out of the box. It works transparently as all features that work when
+you connect to a single node also work when you connect to a sentinel group. Make sure to run Redis &amp;gt;= 2.8.12 if you want to use this feature. Sentinels have a default port of 26379.&lt;/p&gt;
+&lt;p&gt;To connect using Sentinel, use:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;sentinels&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [
+    { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;26379&lt;/span&gt; },
+    { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;26380&lt;/span&gt; },
+  ],
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mymaster&amp;#34;&lt;/span&gt;,
+});
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The arguments passed to the constructor are different from the ones you use to connect to a single node, where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt; identifies a group of Redis instances composed of a master and one or more slaves (&lt;code&gt;mymaster&lt;/code&gt; in the example);&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sentinelPassword&lt;/code&gt; (optional) password for Sentinel instances.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sentinels&lt;/code&gt; are a list of sentinels to connect to. The list does not need to enumerate all your sentinel instances, but a few so that if one is down the client will try the next one.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;role&lt;/code&gt; (optional) with a value of &lt;code&gt;slave&lt;/code&gt; will return a random slave from the Sentinel group.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preferredSlaves&lt;/code&gt; (optional) can be used to prefer a particular slave or set of slaves based on priority. It accepts a function or array.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;enableTLSForSentinelMode&lt;/code&gt; (optional) set to true if connecting to sentinel instances that are encrypted&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ioredis &lt;strong&gt;guarantees&lt;/strong&gt; that the node you connected to is always a master even after a failover. When a failover happens, instead of trying to reconnect to the failed node (which will be demoted to slave when it&amp;rsquo;s available again), ioredis will ask sentinels for the new master node and connect to it. All commands sent during the failover are queued and will be executed when the new connection is established so that none of the commands will be lost.&lt;/p&gt;
+&lt;p&gt;It&amp;rsquo;s possible to connect to a slave instead of a master by specifying the option &lt;code&gt;role&lt;/code&gt; with the value of &lt;code&gt;slave&lt;/code&gt; and ioredis will try to connect to a random slave of the specified master, with the guarantee that the connected node is always a slave. If the current node is promoted to master due to a failover, ioredis will disconnect from it and ask the sentinels for another slave node to connect to.&lt;/p&gt;
+&lt;p&gt;If you specify the option &lt;code&gt;preferredSlaves&lt;/code&gt; along with &lt;code&gt;role: &#39;slave&#39;&lt;/code&gt; ioredis will attempt to use this value when selecting the slave from the pool of available slaves. The value of &lt;code&gt;preferredSlaves&lt;/code&gt; should either be a function that accepts an array of available slaves and returns a single result, or an array of slave values priorities by the lowest &lt;code&gt;prio&lt;/code&gt; value first with a default value of &lt;code&gt;1&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// available slaves format
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;availableSlaves&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [{ &lt;span style=&#34;color:#a6e22e&#34;&gt;ip&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;31231&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;flags&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;slave&amp;#34;&lt;/span&gt; }];
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// preferredSlaves array format
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;preferredSlaves&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+  { &lt;span style=&#34;color:#a6e22e&#34;&gt;ip&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;31231&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;prio&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; },
+  { &lt;span style=&#34;color:#a6e22e&#34;&gt;ip&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;31232&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;prio&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; },
+];
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// preferredSlaves function format
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;preferredSlaves&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;availableSlaves&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;let&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;availableSlaves&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;length&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;) {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;slave&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;availableSlaves&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;];
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;slave&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;ip&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;) {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;slave&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;31234&amp;#34;&lt;/span&gt;) {
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;slave&lt;/span&gt;;
+      }
+    }
+  }
+  &lt;span style=&#34;color:#75715e&#34;&gt;// if no preferred slaves are available a random one is used
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;false&lt;/span&gt;;
+};
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;({
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;sentinels&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [
+    { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;26379&lt;/span&gt; },
+    { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;26380&lt;/span&gt; },
+  ],
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mymaster&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;role&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;slave&amp;#34;&lt;/span&gt;,
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;preferredSlaves&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;preferredSlaves&lt;/span&gt;,
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Besides the &lt;code&gt;retryStrategy&lt;/code&gt; option, there&amp;rsquo;s also a &lt;code&gt;sentinelRetryStrategy&lt;/code&gt; in Sentinel mode which will be invoked when all the sentinel nodes are unreachable during connecting. If &lt;code&gt;sentinelRetryStrategy&lt;/code&gt; returns a valid delay time, ioredis will try to reconnect from scratch. The default value of &lt;code&gt;sentinelRetryStrategy&lt;/code&gt; is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;delay&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1000&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;delay&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: Cluster</title>
+      <link>http://example.org/docs/ioredis/cluster/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/docs/ioredis/cluster/</guid>
+      <description>
+        
+        
+        &lt;p&gt;Redis Cluster provides a way to run a Redis installation where data is automatically sharded across multiple Redis nodes.
+You can connect to a Redis Cluster like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;([
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6380&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
+  },
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6381&lt;/span&gt;,
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;127.0.0.1&amp;#34;&lt;/span&gt;,
+  },
+]);
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// res === &amp;#39;bar&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;Cluster&lt;/code&gt; constructor accepts two arguments, where:&lt;/p&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;The first argument is a list of nodes of the cluster you want to connect to.
+Just like Sentinel, the list does not need to enumerate all your cluster nodes,
+but a few so that if one is unreachable the client will try the next one, and the client will discover other nodes automatically when at least one node is connected.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The second argument is the options, where:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;clusterRetryStrategy&lt;/code&gt;: When none of the startup nodes are reachable, &lt;code&gt;clusterRetryStrategy&lt;/code&gt; will be invoked. When a number is returned,
+ioredis will try to reconnect to the startup nodes from scratch after the specified delay (in ms). Otherwise, an error of &amp;ldquo;None of startup nodes is available&amp;rdquo; will be returned.
+The default value of this option is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;delay&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;delay&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s possible to modify the &lt;code&gt;startupNodes&lt;/code&gt; property in order to switch to another set of nodes here:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt;) {
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;startupNodes&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [{ &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6790&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;127.0.0.1&amp;#39;&lt;/span&gt; }];
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; Math.&lt;span style=&#34;color:#a6e22e&#34;&gt;min&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;100&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;times&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2000&lt;/span&gt;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;dnsLookup&lt;/code&gt;: Alternative DNS lookup function (&lt;code&gt;dns.lookup()&lt;/code&gt; is used by default). It may be useful to override this in special cases, such as when AWS ElastiCache used with TLS enabled.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;enableOfflineQueue&lt;/code&gt;: Similar to the &lt;code&gt;enableOfflineQueue&lt;/code&gt; option of &lt;code&gt;Redis&lt;/code&gt; class.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;enableReadyCheck&lt;/code&gt;: When enabled, &amp;ldquo;ready&amp;rdquo; event will only be emitted when &lt;code&gt;CLUSTER INFO&lt;/code&gt; command
+reporting the cluster is ready for handling commands. Otherwise, it will be emitted immediately after &amp;ldquo;connect&amp;rdquo; is emitted.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;scaleReads&lt;/code&gt;: Config where to send the read queries. See below for more details.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;maxRedirections&lt;/code&gt;: When a cluster related error (e.g. &lt;code&gt;MOVED&lt;/code&gt;, &lt;code&gt;ASK&lt;/code&gt; and &lt;code&gt;CLUSTERDOWN&lt;/code&gt; etc.) is received, the client will redirect the
+command to another node. This option limits the max redirections allowed when sending a command. The default value is &lt;code&gt;16&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;retryDelayOnFailover&lt;/code&gt;: If the target node is disconnected when sending a command,
+ioredis will retry after the specified delay. The default value is &lt;code&gt;100&lt;/code&gt;. You should make sure &lt;code&gt;retryDelayOnFailover * maxRedirections &amp;gt; cluster-node-timeout&lt;/code&gt;
+to insure that no command will fail during a failover.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;retryDelayOnClusterDown&lt;/code&gt;: When a cluster is down, all commands will be rejected with the error of &lt;code&gt;CLUSTERDOWN&lt;/code&gt;. If this option is a number (by default, it is &lt;code&gt;100&lt;/code&gt;), the client
+will resend the commands after the specified time (in ms).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;retryDelayOnTryAgain&lt;/code&gt;: If this option is a number (by default, it is &lt;code&gt;100&lt;/code&gt;), the client
+will resend the commands rejected with &lt;code&gt;TRYAGAIN&lt;/code&gt; error after the specified time (in ms).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;retryDelayOnMoved&lt;/code&gt;: By default, this value is &lt;code&gt;0&lt;/code&gt; (in ms), which means when a &lt;code&gt;MOVED&lt;/code&gt; error is received, the client will resend
+the command instantly to the node returned together with the &lt;code&gt;MOVED&lt;/code&gt; error. However, sometimes it takes time for a cluster to become
+state stabilized after a failover, so adding a delay before resending can prevent a ping pong effect.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;redisOptions&lt;/code&gt;: Default options passed to the constructor of &lt;code&gt;Redis&lt;/code&gt; when connecting to a node.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;slotsRefreshTimeout&lt;/code&gt;: Milliseconds before a timeout occurs while refreshing slots from the cluster (default &lt;code&gt;1000&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;slotsRefreshInterval&lt;/code&gt;: Milliseconds between every automatic slots refresh (default &lt;code&gt;5000&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;read-write-splitting&#34;&gt;Read-write splitting&lt;/h3&gt;
+&lt;p&gt;A typical redis cluster contains three or more masters and several slaves for each master. It&amp;rsquo;s possible to scale out redis cluster by sending read queries to slaves and write queries to masters by setting the &lt;code&gt;scaleReads&lt;/code&gt; option.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;scaleReads&lt;/code&gt; is &amp;ldquo;master&amp;rdquo; by default, which means ioredis will never send any queries to slaves. There are other three available options:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&amp;ldquo;all&amp;rdquo;: Send write queries to masters and read queries to masters or slaves randomly.&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;slave&amp;rdquo;: Send write queries to masters and read queries to slaves.&lt;/li&gt;
+&lt;li&gt;a custom &lt;code&gt;function(nodes, command): node&lt;/code&gt;: Will choose the custom function to select to which node to send read queries (write queries keep being sent to master). The first node in &lt;code&gt;nodes&lt;/code&gt; is always the master serving the relevant slots. If the function returns an array of nodes, a random node of that list will be selected.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(
+  [
+    &lt;span style=&#34;color:#75715e&#34;&gt;/* nodes */&lt;/span&gt;
+  ],
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;scaleReads&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;slave&amp;#34;&lt;/span&gt;,
+  }
+);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;); &lt;span style=&#34;color:#75715e&#34;&gt;// This query will be sent to one of the masters.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;get&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;foo&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;err&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;res&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#75715e&#34;&gt;// This query will be sent to one of the slaves.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;NB&lt;/strong&gt; In the code snippet above, the &lt;code&gt;res&lt;/code&gt; may not be equal to &amp;ldquo;bar&amp;rdquo; because of the lag of replication between the master and slaves.&lt;/p&gt;
+&lt;h3 id=&#34;running-commands-to-multiple-nodes&#34;&gt;Running commands to multiple nodes&lt;/h3&gt;
+&lt;p&gt;Every command will be sent to exactly one node. For commands containing keys, (e.g. &lt;code&gt;GET&lt;/code&gt;, &lt;code&gt;SET&lt;/code&gt; and &lt;code&gt;HGETALL&lt;/code&gt;), ioredis sends them to the node that serving the keys, and for other commands not containing keys, (e.g. &lt;code&gt;INFO&lt;/code&gt;, &lt;code&gt;KEYS&lt;/code&gt; and &lt;code&gt;FLUSHDB&lt;/code&gt;), ioredis sends them to a random node.&lt;/p&gt;
+&lt;p&gt;Sometimes you may want to send a command to multiple nodes (masters or slaves) of the cluster, you can get the nodes via &lt;code&gt;Cluster#nodes()&lt;/code&gt; method.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Cluster#nodes()&lt;/code&gt; accepts a parameter role, which can be &amp;ldquo;master&amp;rdquo;, &amp;ldquo;slave&amp;rdquo; and &amp;ldquo;all&amp;rdquo; (default), and returns an array of &lt;code&gt;Redis&lt;/code&gt; instance. For example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Send `FLUSHDB` command to all slaves:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;slaves&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;nodes&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;slave&amp;#34;&lt;/span&gt;);
+Promise.&lt;span style=&#34;color:#a6e22e&#34;&gt;all&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;slaves&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;map&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;) =&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;flushdb&lt;/span&gt;()));
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// Get keys of all the masters:
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;masters&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;nodes&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;master&amp;#34;&lt;/span&gt;);
+Promise.&lt;span style=&#34;color:#a6e22e&#34;&gt;all&lt;/span&gt;(
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;masters&lt;/span&gt;
+    .&lt;span style=&#34;color:#a6e22e&#34;&gt;map&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;) =&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;node&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;())
+    .&lt;span style=&#34;color:#a6e22e&#34;&gt;then&lt;/span&gt;((&lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;) =&amp;gt; {
+      &lt;span style=&#34;color:#75715e&#34;&gt;// keys: [[&amp;#39;key1&amp;#39;, &amp;#39;key2&amp;#39;], [&amp;#39;key3&amp;#39;, &amp;#39;key4&amp;#39;]]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    })
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;nat-mapping&#34;&gt;NAT Mapping&lt;/h3&gt;
+&lt;p&gt;Sometimes the cluster is hosted within a internal network that can only be accessed via a NAT (Network Address Translation) instance. See &lt;a href=&#34;https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/accessing-elasticache.html&#34;&gt;Accessing ElastiCache from outside AWS&lt;/a&gt; as an example.&lt;/p&gt;
+&lt;p&gt;You can specify nat mapping rules via &lt;code&gt;natMap&lt;/code&gt; option:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(
+  [
+    {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;203.0.113.73&amp;#34;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30001&lt;/span&gt;,
+    },
+  ],
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;natMap&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.0.1.230:30001&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;203.0.113.73&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30001&lt;/span&gt; },
+      &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.0.1.231:30001&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;203.0.113.73&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30002&lt;/span&gt; },
+      &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10.0.1.232:30001&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; { &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;203.0.113.73&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30003&lt;/span&gt; },
+    },
+  }
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This option is also useful when the cluster is running inside a Docker container.&lt;/p&gt;
+&lt;h3 id=&#34;transaction-and-pipeline-in-cluster-mode&#34;&gt;Transaction and pipeline in Cluster mode&lt;/h3&gt;
+&lt;p&gt;Almost all features that are supported by &lt;code&gt;Redis&lt;/code&gt; are also supported by &lt;code&gt;Redis.Cluster&lt;/code&gt;, e.g. custom commands, transaction and pipeline.
+However there are some differences when using transaction and pipeline in Cluster mode:&lt;/p&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;All keys in a pipeline should belong to slots served by the same node, since ioredis sends all commands in a pipeline to the same node.&lt;/li&gt;
+&lt;li&gt;You can&amp;rsquo;t use &lt;code&gt;multi&lt;/code&gt; without pipeline (aka &lt;code&gt;cluster.multi({ pipeline: false })&lt;/code&gt;). This is because when you call &lt;code&gt;cluster.multi({ pipeline: false })&lt;/code&gt;, ioredis doesn&amp;rsquo;t know which node the &lt;code&gt;multi&lt;/code&gt; command should be sent to.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When any commands in a pipeline receives a &lt;code&gt;MOVED&lt;/code&gt; or &lt;code&gt;ASK&lt;/code&gt; error, ioredis will resend the whole pipeline to the specified node automatically if all of the following conditions are satisfied:&lt;/p&gt;
+&lt;ol start=&#34;0&#34;&gt;
+&lt;li&gt;All errors received in the pipeline are the same. For example, we won&amp;rsquo;t resend the pipeline if we got two &lt;code&gt;MOVED&lt;/code&gt; errors pointing to different nodes.&lt;/li&gt;
+&lt;li&gt;All commands executed successfully are readonly commands. This makes sure that resending the pipeline won&amp;rsquo;t have side effects.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;pubsub&#34;&gt;Pub/Sub&lt;/h3&gt;
+&lt;p&gt;Pub/Sub in cluster mode works exactly as the same as in standalone mode. Internally, when a node of the cluster receives a message, it will broadcast the message to the other nodes. ioredis makes sure that each message will only be received once by strictly subscribing one node at the same time.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;nodes&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [
+  &lt;span style=&#34;color:#75715e&#34;&gt;/* nodes */&lt;/span&gt;
+];
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;pub&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;nodes&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;nodes&lt;/span&gt;);
+&lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;message&amp;#34;&lt;/span&gt;, (&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;) =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;channel&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;message&lt;/span&gt;);
+});
+
+&lt;span style=&#34;color:#a6e22e&#34;&gt;sub&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;news&amp;#34;&lt;/span&gt;, () =&amp;gt; {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;pub&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;publish&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;news&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;highlights&amp;#34;&lt;/span&gt;);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;events&#34;&gt;Events&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Event&lt;/th&gt;
+&lt;th style=&#34;text-align:left&#34;&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;connect&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when a connection is established to the Redis server.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;ready&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when &lt;code&gt;CLUSTER INFO&lt;/code&gt; reporting the cluster is able to receive commands (if &lt;code&gt;enableReadyCheck&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;) or immediately after &lt;code&gt;connect&lt;/code&gt; event (if &lt;code&gt;enableReadyCheck&lt;/code&gt; is false).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;error&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when an error occurs while connecting with a property of &lt;code&gt;lastNodeError&lt;/code&gt; representing the last node error received. This event is emitted silently (only emitting if there&amp;rsquo;s at least one listener).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;close&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when an established Redis server connection has closed.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;reconnecting&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits after &lt;code&gt;close&lt;/code&gt; when a reconnection will be made. The argument of the event is the time (in ms) before reconnecting.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;end&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits after &lt;code&gt;close&lt;/code&gt; when no more reconnections will be made.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;+node&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when a new node is connected.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;-node&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when a node is disconnected.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;node error&lt;/td&gt;
+&lt;td style=&#34;text-align:left&#34;&gt;emits when an error occurs when connecting to a node. The second argument indicates the address of the node.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;password&#34;&gt;Password&lt;/h3&gt;
+&lt;p&gt;Setting the &lt;code&gt;password&lt;/code&gt; option to access password-protected clusters:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;nodes&lt;/span&gt;, {
+  &lt;span style=&#34;color:#a6e22e&#34;&gt;redisOptions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;your-cluster-password&amp;#34;&lt;/span&gt;,
+  },
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If some of nodes in the cluster using a different password, you should specify them in the first parameter:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;require&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ioredis&amp;#34;&lt;/span&gt;);
+&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(
+  [
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Use password &amp;#34;password-for-30001&amp;#34; for 30001
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    { &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30001&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;password-for-30001&amp;#34;&lt;/span&gt; },
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Don&amp;#39;t use password when accessing 30002
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    { &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;30002&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt; },
+    &lt;span style=&#34;color:#75715e&#34;&gt;// Other nodes will use &amp;#34;fallback-password&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  ],
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;redisOptions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;password&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fallback-password&amp;#34;&lt;/span&gt;,
+    },
+  }
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;special-note-aws-elasticache-clusters-with-tls&#34;&gt;Special note: AWS ElastiCache Clusters with TLS&lt;/h3&gt;
+&lt;p&gt;AWS ElastiCache for Redis (Clustered Mode) supports TLS encryption. If you use
+this, you may encounter errors with invalid certificates. To resolve this
+issue, construct the &lt;code&gt;Cluster&lt;/code&gt; with the &lt;code&gt;dnsLookup&lt;/code&gt; option as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cluster&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Redis&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Cluster&lt;/span&gt;(
+  [
+    {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;host&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;clustercfg.myCluster.abcdefg.xyz.cache.amazonaws.com&amp;#34;&lt;/span&gt;,
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;port&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6379&lt;/span&gt;,
+    },
+  ],
+  {
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;dnsLookup&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;address&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;callback&lt;/span&gt;) =&amp;gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;callback&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;null&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;address&lt;/span&gt;),
+    &lt;span style=&#34;color:#a6e22e&#34;&gt;redisOptions&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+      &lt;span style=&#34;color:#a6e22e&#34;&gt;tls&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {},
+    },
+  }
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- raw HTML omitted --&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
