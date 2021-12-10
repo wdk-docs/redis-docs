@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>redis 文档 – lua</title>
-    <link>/docs/lua/</link>
+    <link>https://wdk-docs.github.io/redis-docs/docs/lua/</link>
     <description>Recent content in lua on redis 文档</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/docs/lua/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://wdk-docs.github.io/redis-docs/docs/lua/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Docs: 关于</title>
-      <link>/docs/lua/about/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/lua/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/lua/about/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/lua/about/</guid>
       <description>
         
         
@@ -91,10 +91,10 @@ Just download it and use it.&lt;/p&gt;
     
     <item>
       <title>Docs: 参考手册</title>
-      <link>/docs/lua/manual/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/lua/manual/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/lua/manual/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/lua/manual/</guid>
       <description>
         
         
@@ -682,10 +682,10 @@ LUA_YIELD&lt;/p&gt;
     
     <item>
       <title>Docs: 入门</title>
-      <link>/docs/lua/start/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/lua/start/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/lua/start/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/lua/start/</guid>
       <description>
         
         
@@ -744,10 +744,10 @@ Otherwise, just download Lua and add its source directory to your project.&lt;/p
     
     <item>
       <title>Docs: 下载</title>
-      <link>/docs/lua/download/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/lua/download/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/lua/download/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/lua/download/</guid>
       <description>
         
         
@@ -791,10 +791,10 @@ A nice way to give us further credit is to include a Lua logo and a link to our 
     
     <item>
       <title>Docs: 文档</title>
-      <link>/docs/lua/docs/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/lua/docs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/lua/docs/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/lua/docs/</guid>
       <description>
         
         
@@ -996,10 +996,10 @@ by Tom Gutschmidt. Course Technology PTR, 2003, ISBN 1592000770.&lt;/p&gt;
     
     <item>
       <title>Docs: 社区</title>
-      <link>/docs/lua/community/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/lua/community/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/lua/community/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/lua/community/</guid>
       <description>
         
         

@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>redis 文档 – Redis 锁</title>
-    <link>/docs/redlock/</link>
+    <link>https://wdk-docs.github.io/redis-docs/docs/redlock/</link>
     <description>Recent content in Redis 锁 on redis 文档</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/docs/redlock/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://wdk-docs.github.io/redis-docs/docs/redlock/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Docs: Node Redlock</title>
-      <link>/docs/redlock/node-redlock/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/redlock/node-redlock/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/redlock/node-redlock/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/redlock/node-redlock/</guid>
       <description>
         
         
@@ -328,10 +328,10 @@ you can listen for the &lt;code&gt;clientError&lt;/code&gt; event:&lt;/p&gt;
     
     <item>
       <title>Docs: Node Redlock5</title>
-      <link>/docs/redlock/node-redlock5/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/redlock/node-redlock5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/redlock/node-redlock5/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/redlock/node-redlock5/</guid>
       <description>
         
         
@@ -448,10 +448,10 @@ Redlock 对象的属性不应该在第一次使用后更改，因为这样做可
     
     <item>
       <title>Docs: Node Redlock5 API</title>
-      <link>/docs/redlock/node-redlock5.api/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/redlock/node-redlock5.api/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/redlock/node-redlock5.api/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/redlock/node-redlock5.api/</guid>
       <description>
         
         
@@ -1205,10 +1205,10 @@ Redlock 对象的属性不应该在第一次使用后更改，因为这样做可
     
     <item>
       <title>Docs: warlock</title>
-      <link>/docs/redlock/warlock/</link>
+      <link>https://wdk-docs.github.io/redis-docs/docs/redlock/warlock/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/docs/redlock/warlock/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/docs/redlock/warlock/</guid>
       <description>
         
         

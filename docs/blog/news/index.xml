@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>redis 文档 – news</title>
-    <link>/blog/news/</link>
+    <link>https://wdk-docs.github.io/redis-docs/blog/news/</link>
     <description>Recent content in news on redis 文档</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/blog/news/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://wdk-docs.github.io/redis-docs/blog/news/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Blog: Lua News</title>
-      <link>/blog/news/lua/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/news/lua/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/news/lua/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/news/lua/</guid>
       <description>
         
         

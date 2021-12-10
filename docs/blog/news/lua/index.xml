@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>redis 文档 – Lua News</title>
-    <link>/blog/news/lua/</link>
+    <link>https://wdk-docs.github.io/redis-docs/blog/news/lua/</link>
     <description>Recent content in Lua News on redis 文档</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/blog/news/lua/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://wdk-docs.github.io/redis-docs/blog/news/lua/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Blog: 2020-2021 Lua News</title>
-      <link>/blog/1/01/01/2020-2021-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2020-2021-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/2020-2021-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2020-2021-lua-news/</guid>
       <description>
         
         
@@ -45,10 +45,10 @@
     
     <item>
       <title>Blog: 2010-2019 Lua News</title>
-      <link>/blog/1/01/01/2010-2019-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2010-2019-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/2010-2019-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2010-2019-lua-news/</guid>
       <description>
         
         
@@ -186,10 +186,10 @@
     
     <item>
       <title>Blog: 2000-2009 Lua News</title>
-      <link>/blog/1/01/01/2000-2009-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2000-2009-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/2000-2009-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2000-2009-lua-news/</guid>
       <description>
         
         
@@ -498,10 +498,10 @@ Lua 3.2 included in Dr. Dobb&amp;rsquo;s Alternative Programming Languages Relea
     
     <item>
       <title>Blog: 1993-1999 Lua News</title>
-      <link>/blog/1/01/01/1993-1999-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/1993-1999-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/1993-1999-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/1993-1999-lua-news/</guid>
       <description>
         
         

@@ -1,4 +1,4 @@
-baseURL = "/"
+baseURL = "https://wdk-docs.github.io/redis-docs/"
 title = "redis 文档"
 publishDir = "docs"
 enableRobotsTXT = true

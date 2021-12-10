@@ -1,11 +1,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>redis 文档 – 博客</title>
-    <link>/blog/</link>
+    <link>https://wdk-docs.github.io/redis-docs/blog/</link>
     <description>Recent content in 博客 on redis 文档</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	  <atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+	  <atom:link href="https://wdk-docs.github.io/redis-docs/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
       
@@ -15,10 +15,10 @@
     
     <item>
       <title>Blog: 2020-2021 Lua News</title>
-      <link>/blog/1/01/01/2020-2021-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2020-2021-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/2020-2021-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2020-2021-lua-news/</guid>
       <description>
         
         
@@ -45,10 +45,10 @@
     
     <item>
       <title>Blog: 2010-2019 Lua News</title>
-      <link>/blog/1/01/01/2010-2019-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2010-2019-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/2010-2019-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2010-2019-lua-news/</guid>
       <description>
         
         
@@ -186,10 +186,10 @@
     
     <item>
       <title>Blog: 2000-2009 Lua News</title>
-      <link>/blog/1/01/01/2000-2009-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2000-2009-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/2000-2009-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/2000-2009-lua-news/</guid>
       <description>
         
         
@@ -498,10 +498,10 @@ Lua 3.2 included in Dr. Dobb&amp;rsquo;s Alternative Programming Languages Relea
     
     <item>
       <title>Blog: 1993-1999 Lua News</title>
-      <link>/blog/1/01/01/1993-1999-lua-news/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/1993-1999-lua-news/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/1993-1999-lua-news/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/1993-1999-lua-news/</guid>
       <description>
         
         
@@ -567,10 +567,10 @@ Lua 1.0 was up and running. This is the earliest implementation of Lua that we h
     
     <item>
       <title>Blog: 建立对分布式锁的系统认知 - 从 Redlock 开始</title>
-      <link>/blog/2021/07/15/%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%A4%E7%9F%A5-%E4%BB%8E-redlock-%E5%BC%80%E5%A7%8B/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2021/07/15/%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%A4%E7%9F%A5-%E4%BB%8E-redlock-%E5%BC%80%E5%A7%8B/</link>
       <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2021/07/15/%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%A4%E7%9F%A5-%E4%BB%8E-redlock-%E5%BC%80%E5%A7%8B/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2021/07/15/%E5%BB%BA%E7%AB%8B%E5%AF%B9%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%AE%A4%E7%9F%A5-%E4%BB%8E-redlock-%E5%BC%80%E5%A7%8B/</guid>
       <description>
         
         
@@ -748,10 +748,10 @@ long timemillsec = (long) (Math.pow(2, Math.min(retry, 3)) \* 10);
     
     <item>
       <title>Blog: Implementation of redis distributed lock</title>
-      <link>/blog/2021/01/08/implementation-of-redis-distributed-lock/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2021/01/08/implementation-of-redis-distributed-lock/</link>
       <pubDate>Fri, 08 Jan 2021 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2021/01/08/implementation-of-redis-distributed-lock/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2021/01/08/implementation-of-redis-distributed-lock/</guid>
       <description>
         
         
@@ -1211,10 +1211,10 @@ If it is distributed multi node, we can consider the way of this paper and use r
     
     <item>
       <title>Blog: 一个使用 Node.js 的 Redlock 示例，关于如何锁定一个Redis上的密钥对</title>
-      <link>/blog/2020/11/29/%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8-node.js-%E7%9A%84-redlock-%E7%A4%BA%E4%BE%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E9%94%81%E5%AE%9A%E4%B8%80%E4%B8%AAredis%E4%B8%8A%E7%9A%84%E5%AF%86%E9%92%A5%E5%AF%B9/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2020/11/29/%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8-node.js-%E7%9A%84-redlock-%E7%A4%BA%E4%BE%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E9%94%81%E5%AE%9A%E4%B8%80%E4%B8%AAredis%E4%B8%8A%E7%9A%84%E5%AF%86%E9%92%A5%E5%AF%B9/</link>
       <pubDate>Sun, 29 Nov 2020 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2020/11/29/%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8-node.js-%E7%9A%84-redlock-%E7%A4%BA%E4%BE%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E9%94%81%E5%AE%9A%E4%B8%80%E4%B8%AAredis%E4%B8%8A%E7%9A%84%E5%AF%86%E9%92%A5%E5%AF%B9/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2020/11/29/%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8-node.js-%E7%9A%84-redlock-%E7%A4%BA%E4%BE%8B%E5%85%B3%E4%BA%8E%E5%A6%82%E4%BD%95%E9%94%81%E5%AE%9A%E4%B8%80%E4%B8%AAredis%E4%B8%8A%E7%9A%84%E5%AF%86%E9%92%A5%E5%AF%B9/</guid>
       <description>
         
         
@@ -1487,10 +1487,10 @@ It also includes the Postman collection used and a sw-version.txt file to specif
     
     <item>
       <title>Blog: Redis 使用 Lua 脚本替代 SETNX / DECR 保证原子性</title>
-      <link>/blog/2020/01/05/redis-%E4%BD%BF%E7%94%A8-lua-%E8%84%9A%E6%9C%AC%E6%9B%BF%E4%BB%A3-setnx-/-decr-%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2020/01/05/redis-%E4%BD%BF%E7%94%A8-lua-%E8%84%9A%E6%9C%AC%E6%9B%BF%E4%BB%A3-setnx-/-decr-%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
       <pubDate>Sun, 05 Jan 2020 23:14:20 +0000</pubDate>
       
-      <guid>/blog/2020/01/05/redis-%E4%BD%BF%E7%94%A8-lua-%E8%84%9A%E6%9C%AC%E6%9B%BF%E4%BB%A3-setnx-/-decr-%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2020/01/05/redis-%E4%BD%BF%E7%94%A8-lua-%E8%84%9A%E6%9C%AC%E6%9B%BF%E4%BB%A3-setnx-/-decr-%E4%BF%9D%E8%AF%81%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
       <description>
         
         
@@ -1657,10 +1657,10 @@ Redis uses the same Lua interpreter to run all the commands. Also Redis guarante
     
     <item>
       <title>Blog: Node.js 中实践基于 Redis 的分布式锁实现</title>
-      <link>/blog/2019/11/24/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5%E5%9F%BA%E4%BA%8E-redis-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2019/11/24/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5%E5%9F%BA%E4%BA%8E-redis-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</link>
       <pubDate>Sun, 24 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2019/11/24/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5%E5%9F%BA%E4%BA%8E-redis-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2019/11/24/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5%E5%9F%BA%E4%BA%8E-redis-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0/</guid>
       <description>
         
         
@@ -1929,10 +1929,10 @@ npm i redlock -S
     
     <item>
       <title>Blog: Node.js 中实践 Redis Lua 脚本</title>
-      <link>/blog/2019/11/10/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5-redis-lua-%E8%84%9A%E6%9C%AC/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2019/11/10/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5-redis-lua-%E8%84%9A%E6%9C%AC/</link>
       <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2019/11/10/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5-redis-lua-%E8%84%9A%E6%9C%AC/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2019/11/10/node.js-%E4%B8%AD%E5%AE%9E%E8%B7%B5-redis-lua-%E8%84%9A%E6%9C%AC/</guid>
       <description>
         
         
@@ -2081,10 +2081,10 @@ SHA1 怎么生成呢？通过 script 命令，可以对脚本缓存进行操作&
     
     <item>
       <title>Blog: Is Redlock safe?</title>
-      <link>/blog/2016/02/10/is-redlock-safe/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2016/02/10/is-redlock-safe/</link>
       <pubDate>Wed, 10 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2016/02/10/is-redlock-safe/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2016/02/10/is-redlock-safe/</guid>
       <description>
         
         
@@ -2230,10 +2230,10 @@ blog comments powered by Disqus&lt;/p&gt;
     
     <item>
       <title>Blog: Redis分布式锁</title>
-      <link>/blog/2016/02/10/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2016/02/10/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
       <pubDate>Wed, 10 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2016/02/10/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2016/02/10/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
       <description>
         
         
@@ -2370,10 +2370,10 @@ Also reference implementations in other languages could be great.&lt;/p&gt;
     
     <item>
       <title>Blog: How to do distributed locking</title>
-      <link>/blog/2016/02/08/how-to-do-distributed-locking/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/2016/02/08/how-to-do-distributed-locking/</link>
       <pubDate>Mon, 08 Feb 2016 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2016/02/08/how-to-do-distributed-locking/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/2016/02/08/how-to-do-distributed-locking/</guid>
       <description>
         
         
@@ -2500,10 +2500,10 @@ Note that a synchronous model does not mean exactly synchronised clocks: it mean
     
     <item>
       <title>Blog: Redis&#43;Lua 解决高并发场景抢购秒杀问题</title>
-      <link>/blog/1/01/01/redis-lua-%E8%A7%A3%E5%86%B3%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E6%8A%A2%E8%B4%AD%E7%A7%92%E6%9D%80%E9%97%AE%E9%A2%98/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/redis-lua-%E8%A7%A3%E5%86%B3%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E6%8A%A2%E8%B4%AD%E7%A7%92%E6%9D%80%E9%97%AE%E9%A2%98/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/redis-lua-%E8%A7%A3%E5%86%B3%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E6%8A%A2%E8%B4%AD%E7%A7%92%E6%9D%80%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/redis-lua-%E8%A7%A3%E5%86%B3%E9%AB%98%E5%B9%B6%E5%8F%91%E5%9C%BA%E6%99%AF%E6%8A%A2%E8%B4%AD%E7%A7%92%E6%9D%80%E9%97%AE%E9%A2%98/</guid>
       <description>
         
         
@@ -2571,10 +2571,10 @@ Note that a synchronous model does not mean exactly synchronised clocks: it mean
     
     <item>
       <title>Blog: Redis分布式锁</title>
-      <link>/blog/1/01/01/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</guid>
       <description>
         
         
@@ -2692,10 +2692,10 @@ Note that a synchronous model does not mean exactly synchronised clocks: it mean
     
     <item>
       <title>Blog: 使用  搭建电商秒杀系统</title>
-      <link>/blog/1/01/01/%E4%BD%BF%E7%94%A8-%E6%90%AD%E5%BB%BA%E7%94%B5%E5%95%86%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/%E4%BD%BF%E7%94%A8-%E6%90%AD%E5%BB%BA%E7%94%B5%E5%95%86%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/%E4%BD%BF%E7%94%A8-%E6%90%AD%E5%BB%BA%E7%94%B5%E5%95%86%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/%E4%BD%BF%E7%94%A8-%E6%90%AD%E5%BB%BA%E7%94%B5%E5%95%86%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/</guid>
       <description>
         
         
@@ -2813,10 +2813,10 @@ Note that a synchronous model does not mean exactly synchronised clocks: it mean
     
     <item>
       <title>Blog: Redis Redlock 的争论</title>
-      <link>/blog/1/01/01/redis-redlock-%E7%9A%84%E4%BA%89%E8%AE%BA/</link>
+      <link>https://wdk-docs.github.io/redis-docs/blog/1/01/01/redis-redlock-%E7%9A%84%E4%BA%89%E8%AE%BA/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/blog/1/01/01/redis-redlock-%E7%9A%84%E4%BA%89%E8%AE%BA/</guid>
+      <guid>https://wdk-docs.github.io/redis-docs/blog/1/01/01/redis-redlock-%E7%9A%84%E4%BA%89%E8%AE%BA/</guid>
       <description>
         
         
