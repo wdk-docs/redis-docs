@@ -1,0 +1,228 @@
+---
+title: "快速指南"
+linkTitle: ""
+weight: 3
+---
+
+### **基本用法**
+
+```js
+const Queue = require("bull");
+
+const videoQueue = new Queue("video transcoding", "redis://127.0.0.1:6379");
+const audioQueue = new Queue("audio transcoding", { redis: { port: 6379, host: "127.0.0.1", password: "foobared" } }); // Specify Redis connection using object
+const imageQueue = new Queue("image transcoding");
+const pdfQueue = new Queue("pdf transcoding");
+
+videoQueue.process(function (job, done) {
+  // job.data contains the custom data passed when the job was created
+  // job.id contains id of this job.
+
+  // transcode video asynchronously and report progress
+  job.progress(42);
+
+  // call done when finished
+  done();
+
+  // or give a error if error
+  done(new Error("error transcoding"));
+
+  // or pass it a result
+  done(null, { framerate: 29.5 /* etc... */ });
+
+  // If the job throws an unhandled exception it is also handled correctly
+  throw new Error("some unexpected error");
+});
+
+audioQueue.process(function (job, done) {
+  // transcode audio asynchronously and report progress
+  job.progress(42);
+
+  // call done when finished
+  done();
+
+  // or give a error if error
+  done(new Error("error transcoding"));
+
+  // or pass it a result
+  done(null, { samplerate: 48000 /* etc... */ });
+
+  // If the job throws an unhandled exception it is also handled correctly
+  throw new Error("some unexpected error");
+});
+
+imageQueue.process(function (job, done) {
+  // transcode image asynchronously and report progress
+  job.progress(42);
+
+  // call done when finished
+  done();
+
+  // or give a error if error
+  done(new Error("error transcoding"));
+
+  // or pass it a result
+  done(null, { width: 1280, height: 720 /* etc... */ });
+
+  // If the job throws an unhandled exception it is also handled correctly
+  throw new Error("some unexpected error");
+});
+
+pdfQueue.process(function (job) {
+  // Processors can also return promises instead of using the done callback
+  return pdfAsyncProcessor();
+});
+
+videoQueue.add({ video: "http://example.com/video1.mov" });
+audioQueue.add({ audio: "http://example.com/audio1.mp3" });
+imageQueue.add({ image: "http://example.com/image1.tiff" });
+```
+
+### **使用承诺**
+
+或者，你可以使用`return promises`来代替`done`回调:
+
+```javascript
+videoQueue.process(function (job) {
+  // don't forget to remove the done callback!
+  // Simply return a promise
+  return fetchVideo(job.data.url).then(transcodeVideo);
+
+  // Handles promise rejection
+  return Promise.reject(new Error("error transcoding"));
+
+  // Passes the value the promise is resolved with to the "completed" event
+  return Promise.resolve({ framerate: 29.5 /* etc... */ });
+
+  // If the job throws an unhandled exception it is also handled correctly
+  throw new Error("some unexpected error");
+  // same as
+  return Promise.reject(new Error("some unexpected error"));
+});
+```
+
+### **独立的进程**
+
+进程函数也可以在单独的进程中运行。这有几个好处:
+
+- 这个进程是沙箱化的，所以即使它崩溃了，也不会影响工作进程。
+- 您可以在不影响队列的情况下运行阻塞代码(作业不会停止)。
+- 更好地利用多核 cpu。
+- 减少与 redis 的连接。
+
+为了使用这个特性，只需创建一个单独的处理器文件:
+
+```js
+// processor.js
+module.exports = function (job) {
+  // Do some heavy work
+  return Promise.resolve(result);
+};
+```
+
+然后像这样定义处理器:
+
+```js
+// Single process:
+queue.process("/path/to/my/processor.js");
+
+// You can use concurrency as well:
+queue.process(5, "/path/to/my/processor.js");
+
+// and named processors:
+queue.process("my processor", 5, "/path/to/my/processor.js");
+```
+
+### **重复的工作**
+
+A job can be added to a queue and processed repeatedly according to a cron specification:
+
+```js
+paymentsQueue.process(function (job) {
+  // Check payments
+});
+
+// Repeat payment job once every day at 3:15 (am)
+paymentsQueue.add(paymentsData, { repeat: { cron: "15 3 * * *" } });
+```
+
+As a tip, check your expressions here to verify they are correct: [cron expression generator](https://crontab.cronhub.io)
+
+### **暂停/恢复**
+
+队列可以全局暂停和恢复(传入`true`暂停处理只针对这个 worker):
+
+```js
+queue.pause().then(function () {
+  // queue is paused now
+});
+
+queue.resume().then(function () {
+  // queue is resumed now
+});
+```
+
+### **事件**
+
+队列会发出一些有用的事件，例如…
+
+```js
+.on('completed', function (job, result) {
+  // Job completed with output result!
+})
+```
+
+有关事件的更多信息，包括触发事件的完整列表，请参阅 events 参考
+
+### **队列性能**
+
+队列很容易，所以如果你需要很多队列，只需创建新的不同名称的队列:
+
+```javascript
+const userJohn = new Queue('john');
+const userLisa = new Queue('lisa');
+.
+.
+.
+```
+
+然而，每个队列实例都需要新的 redis 连接，检查如何[重用连接](https://github.com/OptimalBits/bull/blob/master/PATTERNS.md#reusing-redis-connections)，
+或者你也可以使用[命名处理器](https://github.com/OptimalBits/bull/blob/master/REFERENCE.md#queueprocess)来实现类似的结果。
+
+### **集群的支持**
+
+NOTE: 从 3.2.0 及以上版本开始，建议使用线程处理器来代替。
+
+队列是健壮的，可以在多个线程或进程中并行运行，没有任何危险或队列损坏的风险。查看下面这个简单的例子，使用集群来跨进程并行作业:
+
+```js
+const Queue = require("bull");
+const cluster = require("cluster");
+
+const numWorkers = 8;
+const queue = new Queue("test concurrent queue");
+
+if (cluster.isMaster) {
+  for (let i = 0; i < numWorkers; i++) {
+    cluster.fork();
+  }
+
+  cluster.on("online", function (worker) {
+    // Let's create a few jobs for the queue workers
+    for (let i = 0; i < 500; i++) {
+      queue.add({ foo: "bar" });
+    }
+  });
+
+  cluster.on("exit", function (worker, code, signal) {
+    console.log("worker " + worker.process.pid + " died");
+  });
+} else {
+  queue.process(function (job, jobDone) {
+    console.log("Job done by worker", cluster.worker.id, job.id);
+    jobDone();
+  });
+}
+```
+
+---
