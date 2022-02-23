@@ -1,22 +1,23 @@
-# Adding bulks
+---
+title: "批量添加"
+linkTitle: ""
+weight: 7
+---
 
-Sometimes it is necessary to add a complete bulk of jobs atomically. For example there could be a requirement that all the jobs must be placed in the queue or none of them. Also, adding a bulk of jobs can be faster since it reduces the roundtrips to Redis:
+有时需要以原子的方式添加大量的作业。
+例如，可能有这样的要求:所有作业都必须放置在队列中，或者不放置任何作业。
+此外，增加大量的工作可以更快，因为它减少了到 Redis 的往返:
 
 ```typescript
-import { Queue } from 'bullmq'
+import { Queue } from "bullmq";
 
-const queue = new Queue('paint')
+const queue = new Queue("paint");
 
-const jobs = await queue.addBulk(
-  [
-    { name, data: { paint: 'car' } },
-    { name, data: { paint: 'house' } },
-    { name, data: { paint: 'boat' } },
-  ],
-);
+const jobs = await queue.addBulk([
+  { name, data: { paint: "car" } },
+  { name, data: { paint: "house" } },
+  { name, data: { paint: "boat" } },
+]);
 ```
 
-This call can only succeed or fail, and all or none of the jobs will be added.
-
-
-
+此调用只能成功或失败，并且将添加所有或不添加作业。

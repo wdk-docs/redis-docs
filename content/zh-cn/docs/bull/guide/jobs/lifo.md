@@ -1,19 +1,18 @@
 ---
-description: 'Last-in, First Out'
+title: "LIFO"
+linkTitle: ""
+weight: 2
+description: "Last-in, First Out"
 ---
 
-# LIFO
-
-In some cases it is useful to process the jobs in a LIFO \(Last-in, First-Out\) fashion. This means that the newest jobs added to the queue will be processed before the older ones.
+在某些情况下，以后进先出(后进先出)的方式处理作业是有用的。
+这意味着添加到队列中的最新作业将在旧作业之前处理。
 
 ```typescript
-import { Queue } from 'bullmq'
+import { Queue } from "bullmq";
 
-const myQueue = new Queue('Paint');
+const myQueue = new Queue("Paint");
 
 // Add a job that will be processed before all others
-await myQueue.add('wall', { color: 'pink' }, { lifo: true });
+await myQueue.add("wall", { color: "pink" }, { lifo: true });
 ```
-
- 
-

@@ -1,4 +1,8 @@
-# Sandboxed processors
+---
+title: "Sandboxed processors"
+linkTitle: ""
+weight: 1
+---
 
 It is also possible to define workers to run on a separate process, we call this processors for sandboxed, because they run isolated from the rest of the code.
 
@@ -7,19 +11,18 @@ Since these workers run the processor in a different process, they will not resu
 In order to use a sandboxed processor just define the processor in a separate file:
 
 ```typescript
-import { SandboxedJob } from 'bullmq';
+import { SandboxedJob } from "bullmq";
 
 module.exports = async (job: SandboxedJob) => {
-    // Do something with job
+  // Do something with job
 };
 ```
 
 and refer to it in the worker constructor:
 
 ```typescript
-import { Worker } from 'bullmq'
+import { Worker } from "bullmq";
 
-const processorFile = path.join(__dirname, 'my_procesor.js');
+const processorFile = path.join(__dirname, "my_procesor.js");
 worker = new Worker(queueName, processorFile);
 ```
-

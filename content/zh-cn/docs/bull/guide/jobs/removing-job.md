@@ -1,13 +1,17 @@
-# Removing job
+---
+title: "删除工作"
+linkTitle: ""
+weight: 8
+---
 
 Sometimes it is necessary to remove a job. For example there could be a job that has bad data.
 
 ```typescript
-import { Queue } from 'bullmq';
+import { Queue } from "bullmq";
 
-const queue = new Queue('paint');
+const queue = new Queue("paint");
 
-const job = await queue.add('wall', { color: 1 });
+const job = await queue.add("wall", { color: 1 });
 
 await job.remove();
 ```

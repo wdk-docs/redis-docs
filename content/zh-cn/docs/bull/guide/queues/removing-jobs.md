@@ -1,13 +1,17 @@
-Currently we have 2 available methods in queue class:
+---
+title: "Drain"
+linkTitle: ""
+weight: 1
+---
 
-# Drain
+Currently we have 2 available methods in queue class:
 
 Removes all jobs that are waiting or delayed, but not active, completed or failed.
 
 ```typescript
-import { Queue } from 'bullmq';
+import { Queue } from "bullmq";
 
-const queue = new Queue('paint');
+const queue = new Queue("paint");
 
 await queue.drain();
 ```
@@ -26,9 +30,9 @@ have pending children in other queues, or just moved to wait.
 Completely obliterates a queue and all of its contents.
 
 ```typescript
-import { Queue } from 'bullmq';
+import { Queue } from "bullmq";
 
-const queue = new Queue('paint');
+const queue = new Queue("paint");
 
 await queue.obliterate();
 ```

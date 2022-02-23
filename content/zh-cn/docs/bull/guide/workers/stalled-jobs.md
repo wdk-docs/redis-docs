@@ -1,4 +1,8 @@
-# Stalled Jobs
+---
+title: "Stalled Jobs"
+linkTitle: ""
+weight: 1
+---
 
 Due to the nature of NodeJS, which is \(in general\) single threaded and consists of an event loop to handle the asynchronous operations, the process function needs to be written carefully so that the CPU is not occupied for a long time.
 
@@ -13,4 +17,3 @@ However if the CPU is very busy due to the process being very CPU intensive, the
 A stalled job is moved back to the waiting status and will be processed again by another worker, or if it has reached its maximum number of stalls moved to the failed set.
 
 Therefore it is very important to make sure the workers return the control to NodeJS event loop often enough to avoid this kind of problems.
-
