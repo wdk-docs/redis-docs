@@ -1,0 +1,4332 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive tutorial on Redis streams
+">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.7">
+    
+    
+      
+        <title>Redis Streams教程 - Redis 文档</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.9d5733d3.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="Redis 文档" class="md-header__button md-logo" aria-label="Redis 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Redis 文档
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Redis Streams教程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Redis 相关文档
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../blog/" class="md-tabs__link">
+        Blog
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../" class="md-tabs__link md-tabs__link--active">
+        Docs
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Redis 文档" class="md-nav__button md-logo" aria-label="Redis 文档" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Redis 文档
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Redis 相关文档
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../blog/">Blog</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          News
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="News" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          News
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/news/_index/" class="md-nav__link">
+        news
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_2" type="checkbox" id="__nav_2_2_2" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_2">
+          Lua
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lua" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Lua
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/news/lua/1993-1999/" class="md-nav__link">
+        1993-1999 Lua News
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/news/lua/2000-2009/" class="md-nav__link">
+        2000-2009 Lua News
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/news/lua/2010-2019/" class="md-nav__link">
+        2010-2019 Lua News
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/news/lua/2020-2021/" class="md-nav__link">
+        2020-2021 Lua News
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/news/lua/_index/" class="md-nav__link">
+        Lua News
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Seckill
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Seckill" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Seckill
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/_index/" class="md-nav__link">
+        秒杀
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/aliyun/" class="md-nav__link">
+        使用  搭建电商秒杀系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/distlock-cn/" class="md-nav__link">
+        Redis分布式锁
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/distlock/" class="md-nav__link">
+        Redis分布式锁
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/example/" class="md-nav__link">
+        一个使用 Node.js 的 Redlock 示例，关于如何锁定一个Redis上的密钥对
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/how-to-do-distributed-locking/" class="md-nav__link">
+        How to do distributed locking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/implementation-of-redis-distributed-lock/" class="md-nav__link">
+        Implementation of redis distributed lock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/is_redlock_safe/" class="md-nav__link">
+        Is Redlock safe?
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/nodejs-case/" class="md-nav__link">
+        Node.js 中实践基于 Redis 的分布式锁实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/nodejs-redis-lua/" class="md-nav__link">
+        Node.js 中实践 Redis Lua 脚本
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/redis_lua/" class="md-nav__link">
+        Redis+Lua 解决高并发场景抢购秒杀问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/redlock-controversy/" class="md-nav__link">
+        Redis Redlock 的争论
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/redlock-system-awareness/" class="md-nav__link">
+        建立对分布式锁的系统认知 - 从 Redlock 开始
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../blog/seckill/replace_setnx/" class="md-nav__link">
+        Redis 使用 Lua 脚本替代 SETNX / DECR 保证原子性
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../">Docs</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Docs" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../bull/">Bull</a>
+          
+            <label for="__nav_3_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Bull" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Bull
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/SUMMARY/" class="md-nav__link">
+        Table of contents
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/_index/" class="md-nav__link">
+        Bull
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/changelog/" class="md-nav__link">
+        更新日志
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/what-is-bullmq/" class="md-nav__link">
+        什么是 BullMQ
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_6" type="checkbox" id="__nav_3_2_6" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_6">
+          Api
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Api" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          Api
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/api/_index/" class="md-nav__link">
+        API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7" type="checkbox" id="__nav_3_2_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_7">
+          Bull
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Bull" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Bull
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/_index/" class="md-nav__link">
+        Bull
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/develop/" class="md-nav__link">
+        Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/important-notes/" class="md-nav__link">
+        重要的笔记
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/introduction/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/quick-guide/" class="md-nav__link">
+        快速指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_7" type="checkbox" id="__nav_3_2_7_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_7_7">
+          Patterns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Patterns" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Patterns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/_index/" class="md-nav__link">
+        模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/custom-backoff-strategy/" class="md-nav__link">
+        自定义补偿策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/debugging/" class="md-nav__link">
+        调试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/manually-fetching-jobs/" class="md-nav__link">
+        手动抓取工作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/message-queue/" class="md-nav__link">
+        消息队列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/redis-cluster/" class="md-nav__link">
+        Redis 集群
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/returning-job-completions/" class="md-nav__link">
+        返回工作完成
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/patterns/reusing-redis-connections/" class="md-nav__link">
+        重用 Redis 连接
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_7_8" type="checkbox" id="__nav_3_2_7_8" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_7_8">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/reference/_index/" class="md-nav__link">
+        参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/reference/events/" class="md-nav__link">
+        Events
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/reference/job/" class="md-nav__link">
+        Job
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull/reference/queue/" class="md-nav__link">
+        Queue
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_8" type="checkbox" id="__nav_3_2_8" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_8">
+          Bull 3.x migration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Bull 3.x migration" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Bull 3.x migration
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull-3.x-migration/_index/" class="md-nav__link">
+        迁移
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bull-3.x-migration/compatibility-class/" class="md-nav__link">
+        兼容性类
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_9" type="checkbox" id="__nav_3_2_9" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_9">
+          Bullmq pro
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Bullmq pro" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Bullmq pro
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bullmq-pro/_index/" class="md-nav__link">
+        Bullmq Pro
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bullmq-pro/install/" class="md-nav__link">
+        安装
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bullmq-pro/introduction/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bullmq-pro/observables/" class="md-nav__link">
+        观察
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_9_5" type="checkbox" id="__nav_3_2_9_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_9_5">
+          Groups
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Groups" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_9_5">
+          <span class="md-nav__icon md-icon"></span>
+          Groups
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bullmq-pro/groups/_index/" class="md-nav__link">
+        Groups
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/bullmq-pro/groups/rate-limiting/" class="md-nav__link">
+        速度限制
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_10" type="checkbox" id="__nav_3_2_10" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_10">
+          Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guide" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_10">
+          <span class="md-nav__icon md-icon"></span>
+          Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/_index/" class="md-nav__link">
+        指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/architecture/" class="md-nav__link">
+        体系结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/connections/" class="md-nav__link">
+        连接
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/events/" class="md-nav__link">
+        事件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/introduction/" class="md-nav__link">
+        介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/queuescheduler/" class="md-nav__link">
+        QueueScheduler
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/rate-limiting/" class="md-nav__link">
+        限速
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/retrying-failing-jobs/" class="md-nav__link">
+        失败重试
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/returning-job-data/" class="md-nav__link">
+        返回工作数据
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/" class="md-nav__link">
+        工人
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_10_11" type="checkbox" id="__nav_3_2_10_11" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_10_11">
+          Flows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Flows" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_10_11">
+          <span class="md-nav__icon md-icon"></span>
+          Flows
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/flows/_index/" class="md-nav__link">
+        流
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/flows/get-flow-tree/" class="md-nav__link">
+        得到流树
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_10_12" type="checkbox" id="__nav_3_2_10_12" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_10_12">
+          Jobs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jobs" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_10_12">
+          <span class="md-nav__icon md-icon"></span>
+          Jobs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/_index/" class="md-nav__link">
+        Jobs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/adding-bulks/" class="md-nav__link">
+        批量添加
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/delayed/" class="md-nav__link">
+        Delayed
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/fifo/" class="md-nav__link">
+        FIFO
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/getters/" class="md-nav__link">
+        Getters
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/job-ids/" class="md-nav__link">
+        Job Ids
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/lifo/" class="md-nav__link">
+        LIFO
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/prioritized/" class="md-nav__link">
+        优先
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/removing-job/" class="md-nav__link">
+        删除工作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/repeatable/" class="md-nav__link">
+        可重复的
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/jobs/stalled/" class="md-nav__link">
+        停滞不前
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_10_13" type="checkbox" id="__nav_3_2_10_13" >
+      
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_10_13">
+          Queues
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Queues" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_10_13">
+          <span class="md-nav__icon md-icon"></span>
+          Queues
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/queues/_index/" class="md-nav__link">
+        队列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/queues/removing-jobs/" class="md-nav__link">
+        Drain
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_10_14" type="checkbox" id="__nav_3_2_10_14" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_10_14">
+          Workers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Workers" data-md-level="4">
+        <label class="md-nav__title" for="__nav_3_2_10_14">
+          <span class="md-nav__icon md-icon"></span>
+          Workers
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/_index/" class="md-nav__link">
+        Workers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/concurrency/" class="md-nav__link">
+        Concurrency
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/graceful-shutdown/" class="md-nav__link">
+        Graceful shutdown
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/pausing-queues/" class="md-nav__link">
+        Pausing queues
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/sandboxed-processors/" class="md-nav__link">
+        Sandboxed processors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/guide/workers/stalled-jobs/" class="md-nav__link">
+        Stalled Jobs
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_11" type="checkbox" id="__nav_3_2_11" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_11">
+          Patterns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Patterns" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_11">
+          <span class="md-nav__icon md-icon"></span>
+          Patterns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/_index/" class="md-nav__link">
+        Patterns
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/failing-fast-when-redis-is-down/" class="md-nav__link">
+        Failing fast when Redis is down
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/flows/" class="md-nav__link">
+        Flows
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/idempotent-jobs/" class="md-nav__link">
+        Idempotent jobs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/manually-fetching-jobs/" class="md-nav__link">
+        Manually processing jobs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/process-step-jobs/" class="md-nav__link">
+        Process Step jobs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/producer-consumer/" class="md-nav__link">
+        Producer - Consumer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/real-time-updates/" class="md-nav__link">
+        Real time updates
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/sender-receiver/" class="md-nav__link">
+        Sender - Receiver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/throttle-jobs/" class="md-nav__link">
+        Throttle jobs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bull/patterns/working-with-batches/" class="md-nav__link">
+        Working with batches
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          Egg redis
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Egg redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          Egg redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../egg-redis/_index/" class="md-nav__link">
+        egg redis
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_4" type="checkbox" id="__nav_3_4" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_4">
+          Ioredis
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Ioredis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Ioredis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/TLS/" class="md-nav__link">
+        TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/_index/" class="md-nav__link">
+        ioredis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/cluster/" class="md-nav__link">
+        Cluster
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/connection/" class="md-nav__link">
+        连接
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/lua/" class="md-nav__link">
+        Lua 脚本
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/pipelining/" class="md-nav__link">
+        Pipelining
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/pub-sub/" class="md-nav__link">
+        Pub/Sub
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/quick-start/" class="md-nav__link">
+        快速入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/sentinel/" class="md-nav__link">
+        Sentinel
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ioredis/streams/" class="md-nav__link">
+        流和二进制
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5" type="checkbox" id="__nav_3_5" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5">
+          Lua
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lua" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_5">
+          <span class="md-nav__icon md-icon"></span>
+          Lua
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/_index/" class="md-nav__link">
+        lua
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/community/" class="md-nav__link">
+        社区
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/docs/" class="md-nav__link">
+        文档
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/download/" class="md-nav__link">
+        下载
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/start/" class="md-nav__link">
+        入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_5_7" type="checkbox" id="__nav_3_5_7" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_5_7">
+          Manual
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Manual" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Manual
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lua/manual/_index/" class="md-nav__link">
+        参考手册
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_6" type="checkbox" id="__nav_3_6" >
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_6">
+          Node redis
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Node redis" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_6">
+          <span class="md-nav__icon md-icon"></span>
+          Node redis
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-redis/_index/" class="md-nav__link">
+        Node Redis
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7" type="checkbox" id="__nav_3_7" >
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_7">
+          Redlock
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Redlock" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_7">
+          <span class="md-nav__icon md-icon"></span>
+          Redlock
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../redlock/_index/" class="md-nav__link">
+        Redis 锁
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../redlock/node-redlock/" class="md-nav__link">
+        Node Redlock
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../redlock/node-redlock5.api/" class="md-nav__link">
+        Node Redlock5 API
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../redlock/node-redlock5/" class="md-nav__link">
+        Node Redlock5
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../redlock/warlock/" class="md-nav__link">
+        warlock
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8" type="checkbox" id="__nav_3_8" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Streams</a>
+          
+            <label for="__nav_3_8">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Streams" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Streams
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nestjs-redis-streams/" class="md-nav__link">
+        @tamimaj/nestjs-redis-streams
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Redis Streams教程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Redis Streams教程
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    流基础知识
+  </a>
+  
+    <nav class="md-nav" aria-label="流基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    条目 ID
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    从流中获取数据
+  </a>
+  
+    <nav class="md-nav" aria-label="从流中获取数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xrange-xrevrange" class="md-nav__link">
+    按范围查询:XRANGE 和 XREVRANGE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xread" class="md-nav__link">
+    用 XREAD 监听新项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    消费组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    创建消费组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    从永久失败中恢复
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    自动认领
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    认领和交付计数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    流可观测性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-tm" class="md-nav__link">
+    与 Kafka (TM)分区的区别
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    限制流
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-id" class="md-nav__link">
+    流 API 中的特殊 id
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    持久性、复制和消息安全性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    从流中删除单个项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    零长度流
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    使用消息的总延迟
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    如何服务被屏蔽的消费者
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    延迟测试结果
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    流基础知识
+  </a>
+  
+    <nav class="md-nav" aria-label="流基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id" class="md-nav__link">
+    条目 ID
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    从流中获取数据
+  </a>
+  
+    <nav class="md-nav" aria-label="从流中获取数据">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xrange-xrevrange" class="md-nav__link">
+    按范围查询:XRANGE 和 XREVRANGE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xread" class="md-nav__link">
+    用 XREAD 监听新项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    消费组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    创建消费组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    从永久失败中恢复
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    自动认领
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    认领和交付计数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    流可观测性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-tm" class="md-nav__link">
+    与 Kafka (TM)分区的区别
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    限制流
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-id" class="md-nav__link">
+    流 API 中的特殊 id
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    持久性、复制和消息安全性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    从流中删除单个项
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    零长度流
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    使用消息的总延迟
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    如何服务被屏蔽的消费者
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    延迟测试结果
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+  <h1>Redis Streams教程</h1>
+
+<p>如果你是流的新手，请查看<a href="/docs/data-types/streams/">Redis streams 介绍</a>。要了解更全面的教程，请继续阅读。</p>
+<h2 id="_1">简介</h2>
+<p>Redis 5.0 中引入了 Redis 流数据类型。
+Streams 对日志数据结构建模，但也实现了一些操作，以克服典型的仅追加日志的一些限制。
+这包括 O(1)时间内的随机访问和复杂的消费策略，如消费集群。</p>
+<h2 id="_2">流基础知识</h2>
+<p>流是一种只能追加的数据结构。名为<a href="/commands/xadd">XADD</a>的基本写命令将一个新条目追加到指定的流。</p>
+<p>每个流条目由一个或多个字段值对组成，有点像记录或 Redis 散列:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><a href="#__codelineno-0-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XADD mystream * sensor-id 1234 temperature 19.8
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><a href="#__codelineno-0-2"><span class="linenos" data-linenos="2 "></span></a>1518951480106-0
+</code></pre></div>
+<p>上述对<code>XADD</code>命令的调用使用自动生成的条目 ID(即命令返回的条目 ID)将条目<code>sensor-id: 1234, temperature: 19.8</code>添加到键<code>mystream</code>处的流中，具体为<code>1518951480106-0</code>。
+它的第一个参数是键名<code>mystream</code>，第二个参数是标识流中每个条目的条目 ID。
+然而，在本例中，我们传递了<code>*</code>，因为我们希望服务器为我们生成一个新的 ID。每个新 ID 都是单调增加的，所以更简单地说，与所有过去的条目相比，每个新添加的条目将具有更高的 ID。
+由服务器自动生成 ID 几乎总是您想要的，而显式指定 ID 的原因很少。
+我们稍后会详细讨论这个问题。
+每个 Stream 条目都有一个 ID，这是与日志文件的另一个相似之处，其中可以使用行号或文件中的字节偏移量来标识给定的条目。
+回到我们的<code>XADD</code>示例，在键名和 ID 之后，下一个参数是组成流条目的字段值对。</p>
+<p>可以使用<code>XLEN</code>命令来获取流中项目的数量:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><a href="#__codelineno-1-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XLEN mystream
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><a href="#__codelineno-1-2"><span class="linenos" data-linenos="2 "></span></a>(integer) 1
+</code></pre></div>
+<h3 id="id">条目 ID</h3>
+<p>由<code>XADD</code>命令返回的条目 ID，以及唯一标识给定流中的每个条目，由两部分组成:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><a href="#__codelineno-2-1"><span class="linenos" data-linenos="1 "></span></a>&lt;millisecondsTime&gt;-&lt;sequenceNumber&gt;
+</code></pre></div>
+<p>毫秒时间部分实际上是生成流 ID 的本地 Redis 节点中的本地时间，但是，如果当前的毫秒时间恰好小于之前的输入时间，则使用之前的输入时间，因此，如果时钟向后跳转，单调递增的 ID 属性仍然保持。
+序列号用于在同一毫秒内创建的条目。
+由于序列号是 64 位宽的，实际上在同一毫秒内可以生成的条目的数量没有限制。</p>
+<p>这种 ID 的格式乍一看可能很奇怪，温和的读者可能会想，为什么时间是 ID 的一部分。
+原因是 Redis 流支持 ID 范围查询。
+因为 ID 与条目生成的时间相关，这提供了查询时间范围的能力，基本上是免费的。我们将很快在介绍<code>XRANGE</code>命令时看到这一点。</p>
+<p>如果由于某种原因，用户需要增量 ID，这些 ID 与时间无关，但实际上与另一个外部系统 ID 相关，如前所述，<code>XADD</code>命令可以采用显式 ID，而不是触发自动生成的<code>*</code>通配符 ID，如以下示例所示:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><a href="#__codelineno-3-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XADD somestream 0-1 field value
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><a href="#__codelineno-3-2"><span class="linenos" data-linenos="2 "></span></a>0-1
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><a href="#__codelineno-3-3"><span class="linenos" data-linenos="3 "></span></a>&gt; XADD somestream 0-2 foo bar
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><a href="#__codelineno-3-4"><span class="linenos" data-linenos="4 "></span></a>0-2
+</code></pre></div>
+<p>注意，在这种情况下，最小 ID 是 0-1，命令不接受等于或小于前一个 ID 的 ID:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><a href="#__codelineno-4-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XADD somestream 0-1 foo bar
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><a href="#__codelineno-4-2"><span class="linenos" data-linenos="2 "></span></a>(error) ERR The ID specified in XADD is equal or smaller than the target stream top item
+</code></pre></div>
+<p>如果你运行的是 Redis 7 或更高版本，你还可以提供一个由毫秒部分组成的显式 ID。
+在这种情况下，ID 的序列部分将自动生成。要做到这一点，使用以下语法:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><a href="#__codelineno-5-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XADD somestream 0-* baz qux
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><a href="#__codelineno-5-2"><span class="linenos" data-linenos="2 "></span></a>0-3
+</code></pre></div>
+<h2 id="_3">从流中获取数据</h2>
+<p>现在我们终于能够通过<code>XADD</code>在流中添加条目了。
+然而，虽然向流追加数据是很明显的，但为了提取数据而查询流的方法却不那么明显。
+如果我们继续以日志文件为例，一个明显的方法是模仿我们通常使用 Unix 命令<code>tail -f</code>所做的事情，也就是说，我们可以开始监听，以便获得附加到流中的新消息。
+注意，与 Redis 的阻塞列表操作不同，在 Redis 中，一个给定的元素将到达一个客户端，该客户端在<em>pop style</em>操作中阻塞，如<code>BLPOP</code>，对于流，我们希望多个消费者看到新消息追加到流中(与许多<code>tail -f</code>进程可以看到添加到日志中的内容相同)。
+使用传统术语，我们希望流能够将消息扇出到多个客户端。</p>
+<p>然而，这只是一种潜在的访问模式。我们还可以以一种完全不同的方式来看待流:不是作为一个消息传递系统，而是作为一个时间序列存储。
+在这种情况下，可能附加新消息也很有用，但另一种自然的查询模式是按时间范围获取消息，或者使用游标迭代消息以增量地检查所有历史记录。
+这绝对是另一种有用的访问模式。</p>
+<p>最后，如果我们从消费者的角度来看一个流，我们可能希望以另一种方式访问该流，也就是说，将其作为一个消息流，该消息流可以被划分为多个正在处理此类消息的消费者，以便消费组只能看到到达单个流中的消息的子集。
+通过这种方式，可以跨不同的使用者扩展消息处理，而不需要单个使用者处理所有消息:每个使用者只需要处理不同的消息。
+这基本上就是 Kafka (TM)对消费组所做的。
+通过消费组阅读信息是另一种从 Redis 流中阅读的有趣模式。</p>
+<p>Redis Streams 通过不同的命令支持上述所有三种查询模式。
+下一节将展示所有这些查询，从最简单、最直接的用法开始:范围查询。</p>
+<h3 id="xrange-xrevrange">按范围查询:XRANGE 和 XREVRANGE</h3>
+<p>要按范围查询流，我们只需要指定两个 id， <em>start</em>和<em>end</em>。
+返回的范围将包括起始或结束为 ID 的元素，因此范围是包含的。
+两个特殊 ID <code>-</code> 和 <code>+</code> 分别表示可能的最小 ID 和最大 ID。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><a href="#__codelineno-6-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XRANGE mystream - +
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><a href="#__codelineno-6-2"><span class="linenos" data-linenos=" 2 "></span></a>1) 1) 1518951480106-0
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><a href="#__codelineno-6-3"><span class="linenos" data-linenos=" 3 "></span></a>   2) 1) &quot;sensor-id&quot;
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><a href="#__codelineno-6-4"><span class="linenos" data-linenos=" 4 "></span></a>      2) &quot;1234&quot;
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><a href="#__codelineno-6-5"><span class="linenos" data-linenos=" 5 "></span></a>      3) &quot;temperature&quot;
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><a href="#__codelineno-6-6"><span class="linenos" data-linenos=" 6 "></span></a>      4) &quot;19.8&quot;
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><a href="#__codelineno-6-7"><span class="linenos" data-linenos=" 7 "></span></a>2) 1) 1518951482479-0
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><a href="#__codelineno-6-8"><span class="linenos" data-linenos=" 8 "></span></a>   2) 1) &quot;sensor-id&quot;
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><a href="#__codelineno-6-9"><span class="linenos" data-linenos=" 9 "></span></a>      2) &quot;9999&quot;
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><a href="#__codelineno-6-10"><span class="linenos" data-linenos="10 "></span></a>      3) &quot;temperature&quot;
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><a href="#__codelineno-6-11"><span class="linenos" data-linenos="11 "></span></a>      4) &quot;18.2&quot;
+</code></pre></div>
+<p>返回的每个条目都是由两个项组成的数组:ID 和字段值对列表。
+我们已经说过，条目 id 与时间有关系，因为<code>-</code>字符左侧的部分是创建流条目的本地节点在条目被创建时的 Unix 时间(以毫秒为单位)(但是请注意，流是通过完全指定的<code>XADD</code>命令复制的，因此副本将具有与主节点相同的 id)。
+这意味着我可以使用<code>XRANGE</code>查询一个时间范围。
+然而，为了做到这一点，我可能想要省略 ID 的序列部分:如果省略，在范围的开始部分它将被假设为 0，而在结束部分它将被假设为可用的最大序列号。
+通过这种方式，只需使用 Unix 时间的两毫秒查询，我们就可以以一种包容的方式获得在这段时间内生成的所有条目。
+例如，如果我想查询一个 2 毫秒的周期，我可以使用:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><a href="#__codelineno-7-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XRANGE mystream 1518951480106 1518951480107
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><a href="#__codelineno-7-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1518951480106-0
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><a href="#__codelineno-7-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) &quot;sensor-id&quot;
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><a href="#__codelineno-7-4"><span class="linenos" data-linenos="4 "></span></a>      2) &quot;1234&quot;
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><a href="#__codelineno-7-5"><span class="linenos" data-linenos="5 "></span></a>      3) &quot;temperature&quot;
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><a href="#__codelineno-7-6"><span class="linenos" data-linenos="6 "></span></a>      4) &quot;19.8&quot;
+</code></pre></div>
+<p>在这个范围内我只有一个条目，但是在真实的数据集中，我可以查询小时的范围，或者在仅仅两毫秒内有许多项，返回的结果可能非常大。
+因此，<code>XRANGE</code>在末尾支持可选的<strong>COUNT</strong>选项。
+通过指定一个计数，我可以只获取前<em>N</em>项。如果我想要更多，我可以返回最后一个 ID，将序列部分增加 1，然后再次查询。
+让我们在下面的例子中看看。
+我们开始用<code>XADD</code>添加 10 个条目(我不会展示这个，假设流<code>mystream</code>填充了 10 个条目)。
+为了开始我的迭代，每个命令获得 2 个项目，我从完整的范围开始，但计数为 2。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><a href="#__codelineno-8-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XRANGE mystream - + COUNT 2
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><a href="#__codelineno-8-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1519073278252-0
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><a href="#__codelineno-8-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) &quot;foo&quot;
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><a href="#__codelineno-8-4"><span class="linenos" data-linenos="4 "></span></a>      2) &quot;value_1&quot;
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><a href="#__codelineno-8-5"><span class="linenos" data-linenos="5 "></span></a>2) 1) 1519073279157-0
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><a href="#__codelineno-8-6"><span class="linenos" data-linenos="6 "></span></a>   2) 1) &quot;foo&quot;
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><a href="#__codelineno-8-7"><span class="linenos" data-linenos="7 "></span></a>      2) &quot;value_2&quot;
+</code></pre></div>
+<p>为了继续迭代接下来的两项，我必须选择返回的最后一个 ID，即<code>1519073279157-0</code>，并在它前面添加前缀<code>(</code>。
+产生的独占范围间隔，在本例中是<code>(1519073279157-0</code>，现在可以用作下一个<code>XRANGE</code>调用的新的<em>start</em>参数:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><a href="#__codelineno-9-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XRANGE mystream (1519073279157-0 + COUNT 2
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a><a href="#__codelineno-9-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1519073280281-0
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><a href="#__codelineno-9-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) &quot;foo&quot;
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><a href="#__codelineno-9-4"><span class="linenos" data-linenos="4 "></span></a>      2) &quot;value_3&quot;
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><a href="#__codelineno-9-5"><span class="linenos" data-linenos="5 "></span></a>2) 1) 1519073281432-0
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><a href="#__codelineno-9-6"><span class="linenos" data-linenos="6 "></span></a>   2) 1) &quot;foo&quot;
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><a href="#__codelineno-9-7"><span class="linenos" data-linenos="7 "></span></a>      2) &quot;value_4&quot;
+</code></pre></div>
+<p>等等。由于<code>XRANGE</code>的复杂度是<em>O(log(N))</em>来寻找，然后<em>O(M)</em>来返回 M 个元素，因此在数量较少的情况下，该命令的时间复杂度为对数，这意味着迭代的每一步都是快速的。
+因此<code>XRANGE</code>实际上也是 <em>streams iterator</em> ，不需要<strong>XSCAN</strong>命令。</p>
+<p>命令<code>XREVRANGE</code>相当于<code>XRANGE</code>，但按倒序返回元素，因此<code>XREVRANGE</code>的实际用途是检查流中的最后一项是什么:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><a href="#__codelineno-10-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XREVRANGE mystream + - COUNT 1
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><a href="#__codelineno-10-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1519073287312-0
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><a href="#__codelineno-10-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) &quot;foo&quot;
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><a href="#__codelineno-10-4"><span class="linenos" data-linenos="4 "></span></a>      2) &quot;value_10&quot;
+</code></pre></div>
+<p>注意，<code>XREVRANGE</code>命令以相反的顺序接受<em>start</em>和<em>stop</em>参数。</p>
+<h2 id="xread">用 XREAD 监听新项</h2>
+<p>当我们不想在流中按范围访问项时，通常我们想要的是订阅到达流的新项。
+这个概念可能出现与 Redis Pub/Sub 相关，在那里你订阅一个频道，或 Redis 阻塞列表，在那里你等待一个键获得新的元素来获取，但在你消费流的方式有基本的区别:</p>
+<ol>
+<li>一个流可以有多个客户端(消费者)等待数据。
+   默认情况下，每个新项目将被交付给正在等待给定流中的数据的 <em>每个消费者</em>。
+   这种行为不同于阻塞列表，在阻塞列表中，每个消费者将获得不同的元素。
+   然而，向多个消费者展开的能力类似于 Pub/Sub。</li>
+<li>在 Pub/Sub 模式下，消息被触发后就会被<em>忘记</em>，而且无论如何都不会被存储，而在使用阻塞列表时，当客户端接收到消息时就会从列表中<em>弹出</em>(有效地删除)，流以一种完全不同的方式工作。
+   所有消息都无限期地追加到流中(除非用户显式地要求删除条目):不同的消费者将通过记住所接收到的最后一条消息的 ID 从其角度知道什么是新消息。</li>
+<li>流消费组提供了 Pub/Sub 或阻塞列表无法实现的控制级别，通过对同一流的不同组、已处理项目的明确确认、检查待处理项目的能力、声明未处理消息的能力以及每个客户机的一致历史可见性(仅能查看消息的私有过去历史)。</li>
+</ol>
+<p>提供监听到达流的新消息能力的命令称为<code>XREAD</code>。
+它比<code>XRANGE</code>稍微复杂一点，因此我们将开始展示简单的表单，稍后将提供整个命令布局。</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><a href="#__codelineno-11-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XREAD COUNT <span class="m">2</span> STREAMS mystream <span class="m">0</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><a href="#__codelineno-11-2"><span class="linenos" data-linenos="2 "></span></a><span class="m">1</span><span class="o">)</span> <span class="m">1</span><span class="o">)</span> <span class="s2">&quot;mystream&quot;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><a href="#__codelineno-11-3"><span class="linenos" data-linenos="3 "></span></a>   <span class="m">2</span><span class="o">)</span> <span class="m">1</span><span class="o">)</span> <span class="m">1</span><span class="o">)</span> <span class="m">1519073278252</span>-0
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><a href="#__codelineno-11-4"><span class="linenos" data-linenos="4 "></span></a>         <span class="m">2</span><span class="o">)</span> <span class="m">1</span><span class="o">)</span> <span class="s2">&quot;foo&quot;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><a href="#__codelineno-11-5"><span class="linenos" data-linenos="5 "></span></a>            <span class="m">2</span><span class="o">)</span> <span class="s2">&quot;value_1&quot;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a><a href="#__codelineno-11-6"><span class="linenos" data-linenos="6 "></span></a>      <span class="m">2</span><span class="o">)</span> <span class="m">1</span><span class="o">)</span> <span class="m">1519073279157</span>-0
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><a href="#__codelineno-11-7"><span class="linenos" data-linenos="7 "></span></a>         <span class="m">2</span><span class="o">)</span> <span class="m">1</span><span class="o">)</span> <span class="s2">&quot;foo&quot;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8"></a><a href="#__codelineno-11-8"><span class="linenos" data-linenos="8 "></span></a>            <span class="m">2</span><span class="o">)</span> <span class="s2">&quot;value_2&quot;</span>
+</code></pre></div>
+<p>以上是<code>XREAD</code>的非阻塞形式。
+注意，<strong>COUNT</strong>选项不是必选的，实际上该命令的唯一必选选项是<strong>STREAMS</strong>选项，它指定键的列表以及调用方已经看到的每个流的相应最大 ID，因此该命令将只向客户端提供 ID 大于我们指定的消息。</p>
+<p>在上面的命令中，我们写了<code>STREAMS mystream 0</code>，所以我们希望<code>mystream</code>中的所有消息的 ID 大于<code>0-0</code>。
+正如您在上面的示例中所看到的，该命令返回键名，因为实际上可以使用多个键调用此命令，以便同时从不同的流中读取数据。
+我可以写，例如:<code>STREAMS mystream otherstream 0 0</code>。
+注意，在<strong>STREAMS</strong>选项之后，我们需要提供键名，然后是 id。
+因此，<strong>STREAMS</strong>选项必须总是最后一个。</p>
+<p>除了<code>XREAD</code>可以一次访问多个流，并且我们能够指定我们拥有的最后一个 ID 来获取更新的消息之外，在这种简单的形式中，命令所做的事情与<code>XRANGE</code>并没有太大的不同。
+然而，有趣的是，我们可以通过指定<strong>BLOCK</strong>参数，轻松地将<code>XREAD</code>转换为<em>blocking 命令</em>:</p>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><a href="#__codelineno-12-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XREAD BLOCK <span class="m">0</span> STREAMS mystream $
+</code></pre></div>
+<p>注意，在上面的例子中，除了删除<strong>COUNT</strong>之外，我还指定了新的<strong>BLOCK</strong>选项，其超时时间为 0 毫秒(这意味着永不超时)。
+此外，我没有为流<code>mystream</code>传递普通 ID，而是传递了特殊 ID<code>$</code>。
+这个特殊的 ID 意味着<code>XREAD</code>应该使用<code>mystream</code>流中已经存储的最大 ID 作为最后一个 ID，这样我们将只从开始监听的时间开始接收 <em>新</em> 消息。
+这在某种程度上类似于 Unix 的<code>tail -f</code>命令。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>注意，当使用<strong>BLOCK</strong>选项时，我们不必使用特殊 ID <code>$</code>。我们可以使用任何有效的 ID。
+如果命令能够立即处理我们的请求而不阻塞，它就会这样做，否则就会阻塞。
+通常，如果我们想从新的条目开始使用流，我们从 ID <code>$</code>开始，然后继续使用接收到的最后一个消息的 ID 进行下一个调用，依此类推。</p>
+</div>
+<p>阻塞形式的<code>XREAD</code>也能够监听多个流，只需要指定多个键名。
+如果因为至少有一个流的元素大于我们指定的对应 ID，所以可以同步服务请求，那么它将返回结果。
+否则，该命令将阻塞并返回获取新数据的第一个流的项(根据指定的 ID)。</p>
+<p>与阻塞列表操作类似，从等待数据的客户机的角度来看，阻塞流读取是公平的，因为语义是 FIFO 风格的。
+当有新项可用时，为给定流阻塞的第一个客户端将最先被解除阻塞。</p>
+<p><code>XREAD</code>除了<strong>COUNT</strong>和<strong>BLOCK</strong>之外没有其他选项，因此它是一个非常基本的命令，具有将消费者附加到一个或多个流的特定目的。
+使用消费组 API 可以使用更强大的功能来消费流，但是通过消费组读取是由另一个名为<code>XREADGROUP</code>的命令实现的，这将在本指南的下一节中介绍。</p>
+<h2 id="_4">消费组</h2>
+<p>当手头的任务是使用来自不同客户机的相同流时，那么<code>XREAD</code>已经提供了一种<em>fan-out</em>到 N 个客户机的方法，可能还使用副本以提供更多的读取可伸缩性。
+然而，在某些问题中，我们希望做的不是向多个客户端提供相同的消息流，而是向多个客户端提供来自同一消息流的不同的消息子集。
+一个很明显的例子是处理速度较慢的消息:让 N 个不同的工作者接收流的不同部分的能力允许我们通过将不同的消息路由到准备做更多工作的不同工作者来扩展消息处理。</p>
+<p>在实践中，如果我们想象有三个消费者 C1、C2、C3 和一个包含消息 1、2、3、4、5、6、7 的流，那么我们想要的是按照下面的图表提供消息:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><a href="#__codelineno-13-1"><span class="linenos" data-linenos="1 "></span></a>1 -&gt; C1
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><a href="#__codelineno-13-2"><span class="linenos" data-linenos="2 "></span></a>2 -&gt; C2
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><a href="#__codelineno-13-3"><span class="linenos" data-linenos="3 "></span></a>3 -&gt; C3
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><a href="#__codelineno-13-4"><span class="linenos" data-linenos="4 "></span></a>4 -&gt; C1
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a><a href="#__codelineno-13-5"><span class="linenos" data-linenos="5 "></span></a>5 -&gt; C2
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a><a href="#__codelineno-13-6"><span class="linenos" data-linenos="6 "></span></a>6 -&gt; C3
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><a href="#__codelineno-13-7"><span class="linenos" data-linenos="7 "></span></a>7 -&gt; C1
+</code></pre></div>
+<p>为了实现这个目标，Redis 使用了一个叫做 <em>消费组</em> 的概念。
+从实现的角度来看，Redis 消费组与 Kafka (TM)消费组没有任何关系，理解这一点非常重要。
+然而它们在功能上是相似的，所以我决定保留 Kafka (TM)的术语，因为它最初普及了这个想法。</p>
+<p>一个消费组就像一个从流中获取数据的 <em>伪消费者</em>，实际上服务于多个消费者，提供一定的保证:</p>
+<ol>
+<li>每个消息都提供给不同的使用者，因此不可能将相同的消息传递给多个使用者。</li>
+<li>在消费组中，消费者是通过名称来标识的，这是一个区分大小写的字符串，客户端实现消费者必须选择该字符串。
+   这意味着即使在断开连接之后，流消费组仍然保留所有的状态，因为客户机将再次声明自己是同一个消费者。
+   然而，这也意味着由客户机提供唯一的标识符。</li>
+<li>每个消费组都有<em>第一个 ID 从未使用</em>的概念，因此，当消费者请求新消息时，它可以只提供以前没有传递的消息。</li>
+<li>然而，使用消息需要使用特定命令显式确认。
+   Redis 将确认解释为:此消息已被正确处理，因此可以将其从消费组中删除。</li>
+<li>一个消费组跟踪当前挂起的所有消息，即交付给消费组中的某个消费者但尚未被确认为已处理的消息。
+   由于这个特性，在访问流的消息历史记录时，每个消费者 <em>将只看到交付给它的消息</em>。</li>
+</ol>
+<p>在某种程度上，消费组可以被想象成流的 <em>某种状态</em>:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><a href="#__codelineno-14-1"><span class="linenos" data-linenos=" 1 "></span></a>+----------------------------------------+
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><a href="#__codelineno-14-2"><span class="linenos" data-linenos=" 2 "></span></a>| consumer_group_name: mygroup           |
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><a href="#__codelineno-14-3"><span class="linenos" data-linenos=" 3 "></span></a>| consumer_group_stream: somekey         |
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><a href="#__codelineno-14-4"><span class="linenos" data-linenos=" 4 "></span></a>| last_delivered_id: 1292309234234-92    |
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><a href="#__codelineno-14-5"><span class="linenos" data-linenos=" 5 "></span></a>|                                        |
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><a href="#__codelineno-14-6"><span class="linenos" data-linenos=" 6 "></span></a>| consumers:                             |
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><a href="#__codelineno-14-7"><span class="linenos" data-linenos=" 7 "></span></a>|    &quot;consumer-1&quot; with pending messages  |
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><a href="#__codelineno-14-8"><span class="linenos" data-linenos=" 8 "></span></a>|       1292309234234-4                  |
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a><a href="#__codelineno-14-9"><span class="linenos" data-linenos=" 9 "></span></a>|       1292309234232-8                  |
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a><a href="#__codelineno-14-10"><span class="linenos" data-linenos="10 "></span></a>|    &quot;consumer-42&quot; with pending messages |
+<a id="__codelineno-14-11" name="__codelineno-14-11"></a><a href="#__codelineno-14-11"><span class="linenos" data-linenos="11 "></span></a>|       ... (and so forth)               |
+<a id="__codelineno-14-12" name="__codelineno-14-12"></a><a href="#__codelineno-14-12"><span class="linenos" data-linenos="12 "></span></a>+----------------------------------------+
+</code></pre></div>
+<p>如果您从这个角度来看这个问题，那么就很容易理解一个消费组可以做什么，它如何能够只向消费者提供他们的待定消息的历史，以及消费者请求新消息时如何只得到大于<code>last_delivered_id</code>的消息 id。
+同时，如果您将消费组视为 Redis 流的辅助数据结构，很明显，单个流可以有多个消费组，这些消费组具有不同的消费者集。
+实际上，同一个流甚至可以通过<code>XREAD</code>让客户端在没有消费组的情况下进行阅读，并让客户端在不同消费组中通过<code>XREADGROUP</code>进行阅读。</p>
+<p>现在是时候放大看看基本的消费组命令了。它们如下:</p>
+<ul>
+<li><code>XGROUP</code> 用于创建、销毁和管理消费组。</li>
+<li><code>XREADGROUP</code> 用于通过消费组从流中读取。</li>
+<li><code>XACK</code> 允许使用者将挂起的消息标记为已正确处理的命令。</li>
+</ul>
+<h2 id="_5">创建消费组</h2>
+<p>假设我有一个流类型的<code>mystream</code>键已经存在，为了创建一个消费组，我只需要做以下:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><a href="#__codelineno-15-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XGROUP CREATE mystream mygroup $
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><a href="#__codelineno-15-2"><span class="linenos" data-linenos="2 "></span></a>OK
+</code></pre></div>
+<p>正如你在上面的命令中看到的，当创建消费组时，我们必须指定一个 ID，在这个例子中就是<code>$</code>。
+这是必需的，因为在其他状态中，消费组必须知道在第一个消费者连接时下一步要服务什么消息，也就是说，在刚创建组时，<em>最后一个消息 ID</em> 是什么。
+如果我们像以前那样提供<code>$</code>，那么从现在开始，只有到达流的新消息才会提供给组中的消费者。
+如果我们指定<code>0</code>，消费组将使用流历史记录中的所有消息。
+当然，您可以指定任何其他有效 ID。
+您所知道的是，消费组将开始传递大于您指定的 ID 的消息。
+因为<code>$</code>意味着流中当前最大的 ID，因此指定<code>$</code>将只产生使用新消息的效果。</p>
+<p><code>XGROUP CREATE</code>也支持自动创建流，如果它不存在，使用可选的<code>MKSTREAM</code>子命令作为最后一个参数:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><a href="#__codelineno-16-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XGROUP CREATE newstream mygroup $ MKSTREAM
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a><a href="#__codelineno-16-2"><span class="linenos" data-linenos="2 "></span></a>OK
+</code></pre></div>
+<p>既然已经创建了消费组，我们可以立即尝试使用<code>XREADGROUP</code>命令通过消费组读取消息。
+我们将读取来自消费者的信息，我们将调用 Alice 和 Bob，以查看系统将如何向 Alice 或 Bob 返回不同的消息。</p>
+<p><code>XREADGROUP</code>非常类似于<code>XREAD</code>，并提供相同的<strong>BLOCK</strong>选项，否则它是一个同步命令。
+但是，有一个必须始终指定的强制选项，即<strong>GROUP</strong>，它有两个参数:消费组的名称和试图读取的消费组的名称。
+选项<strong>COUNT</strong>也被支持，它与<code>XREAD</code>中的选项相同。</p>
+<p>在从流中读取之前，让我们在里面放入一些消息:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><a href="#__codelineno-17-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XADD mystream * message apple
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><a href="#__codelineno-17-2"><span class="linenos" data-linenos=" 2 "></span></a>1526569495631-0
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><a href="#__codelineno-17-3"><span class="linenos" data-linenos=" 3 "></span></a>&gt; XADD mystream * message orange
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><a href="#__codelineno-17-4"><span class="linenos" data-linenos=" 4 "></span></a>1526569498055-0
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><a href="#__codelineno-17-5"><span class="linenos" data-linenos=" 5 "></span></a>&gt; XADD mystream * message strawberry
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a><a href="#__codelineno-17-6"><span class="linenos" data-linenos=" 6 "></span></a>1526569506935-0
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a><a href="#__codelineno-17-7"><span class="linenos" data-linenos=" 7 "></span></a>&gt; XADD mystream * message apricot
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a><a href="#__codelineno-17-8"><span class="linenos" data-linenos=" 8 "></span></a>1526569535168-0
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a><a href="#__codelineno-17-9"><span class="linenos" data-linenos=" 9 "></span></a>&gt; XADD mystream * message banana
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a><a href="#__codelineno-17-10"><span class="linenos" data-linenos="10 "></span></a>1526569544280-0
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>这里 message 是字段名，fruit 是相关值，记住流项是小型字典。</em></p>
+</div>
+<p>是时候试着用消费群来阅读一些东西了:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><a href="#__codelineno-18-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XREADGROUP GROUP mygroup Alice COUNT 1 STREAMS mystream &gt;
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><a href="#__codelineno-18-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) &quot;mystream&quot;
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a><a href="#__codelineno-18-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) 1) 1526569495631-0
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a><a href="#__codelineno-18-4"><span class="linenos" data-linenos="4 "></span></a>         2) 1) &quot;message&quot;
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a><a href="#__codelineno-18-5"><span class="linenos" data-linenos="5 "></span></a>            2) &quot;apple&quot;
+</code></pre></div>
+<p><code>XREADGROUP</code>的回复就像<code>XREAD</code>的回复。
+但是请注意上面提供的<code>GROUP &lt;group-name&gt; &lt;consumer-name&gt;</code>。
+它声明我想使用消费组<code>mygroup</code>从流中读取，我是消费组<code>Alice</code>。
+每当使用者对消费组执行操作时，它必须指定它的名称，在组中唯一标识这个使用者。</p>
+<p>在上面的命令行中还有一个非常重要的细节，在强制性的<strong>STREAMS</strong>选项之后，键<code>mystream</code>请求的 ID 是特殊 ID <code>&gt;</code>。
+这个特殊 ID 只在消费组的上下文中有效，它的意思是:<strong>消息迄今为止从未传递给其他消费者</strong>。</p>
+<p>这几乎总是您想要的，但是也可以指定一个真实的 ID，例如<code>0</code>或任何其他有效的 ID，然而，在这种情况下，发生的情况是我们从<code>XREADGROUP</code>请求只向我们提供挂起消息<strong>的</strong>历史，在这种情况下，将永远不会在组中看到新消息。所以基本上<code>XREADGROUP</code>基于我们指定的 ID 有以下行为:</p>
+<ul>
+<li>如果 ID 是特殊 ID <code>&gt;</code>，那么该命令将只返回迄今为止从未交付给其他消费者的新消息，并且作为副作用，将更新消费组的<em>最后一个 ID</em>。</li>
+<li>如果该 ID 是任何其他有效的数字 ID，则该命令将允许我们访问挂起消息的历史记录。
+  也就是说，传递到指定消费者(通过提供的名称标识)的消息集，到目前为止，XACK 从未确认过这些消息。</li>
+</ul>
+<p>我们可以立即测试此行为，指定 ID 为 0，不带任何<strong>COUNT</strong>选项:我们只会看到唯一的待处理消息，也就是关于苹果的消息:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><a href="#__codelineno-19-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XREADGROUP GROUP mygroup Alice STREAMS mystream 0
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a><a href="#__codelineno-19-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) &quot;mystream&quot;
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a><a href="#__codelineno-19-3"><span class="linenos" data-linenos="3 "></span></a>   1) 1) 1) 1526569495631-0
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a><a href="#__codelineno-19-4"><span class="linenos" data-linenos="4 "></span></a>         1) 1) &quot;message&quot;
+<a id="__codelineno-19-5" name="__codelineno-19-5"></a><a href="#__codelineno-19-5"><span class="linenos" data-linenos="5 "></span></a>            1) &quot;apple&quot;
+</code></pre></div>
+<p>然而，如果我们确认消息已被处理，它将不再是待处理消息历史的一部分，因此系统将不再报告任何内容:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><a href="#__codelineno-20-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XACK mystream mygroup 1526569495631-0
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a><a href="#__codelineno-20-2"><span class="linenos" data-linenos="2 "></span></a>(integer) 1
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a><a href="#__codelineno-20-3"><span class="linenos" data-linenos="3 "></span></a>&gt; XREADGROUP GROUP mygroup Alice STREAMS mystream 0
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a><a href="#__codelineno-20-4"><span class="linenos" data-linenos="4 "></span></a>1) 1) &quot;mystream&quot;
+<a id="__codelineno-20-5" name="__codelineno-20-5"></a><a href="#__codelineno-20-5"><span class="linenos" data-linenos="5 "></span></a>   2) (empty list or set)
+</code></pre></div>
+<p>如果你还不知道<code>XACK</code>是如何工作的，不要担心，它的思想只是处理过的消息不再是我们可以访问的历史记录的一部分。</p>
+<p>现在轮到鲍勃读了:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a><a href="#__codelineno-21-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XREADGROUP GROUP mygroup Bob COUNT 2 STREAMS mystream &gt;
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a><a href="#__codelineno-21-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) &quot;mystream&quot;
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a><a href="#__codelineno-21-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) 1) 1526569498055-0
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a><a href="#__codelineno-21-4"><span class="linenos" data-linenos="4 "></span></a>         2) 1) &quot;message&quot;
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a><a href="#__codelineno-21-5"><span class="linenos" data-linenos="5 "></span></a>            2) &quot;orange&quot;
+<a id="__codelineno-21-6" name="__codelineno-21-6"></a><a href="#__codelineno-21-6"><span class="linenos" data-linenos="6 "></span></a>      2) 1) 1526569506935-0
+<a id="__codelineno-21-7" name="__codelineno-21-7"></a><a href="#__codelineno-21-7"><span class="linenos" data-linenos="7 "></span></a>         2) 1) &quot;message&quot;
+<a id="__codelineno-21-8" name="__codelineno-21-8"></a><a href="#__codelineno-21-8"><span class="linenos" data-linenos="8 "></span></a>            2) &quot;strawberry&quot;
+</code></pre></div>
+<p>Bob 最多请求两条消息，并且正在通过同一个组<code>mygroup</code>进行阅读。
+所以 Redis 只报告新消息。
+正如您所看到的，<code>apple</code>消息没有被传递，因为它已经被传递给了 Alice，所以 Bob 得到了橘子和草莓，以此类推。</p>
+<p>这样，Alice、Bob 和组中的任何其他消费者都能够从同一流中读取不同的消息，读取尚未处理消息的历史记录，或者将消息标记为已处理。
+这允许创建不同的拓扑和语义来使用来自流的消息。</p>
+<p>有几件事需要记住:</p>
+<ul>
+<li>消费者在第一次被提及时就会自动创建，不需要显式创建。</li>
+<li>即使使用<code>XREADGROUP</code>，您也可以同时从多个键中读取，但是要实现这一点，您需要在每个流中创建具有相同名称的消费组。这不是常见的需求，但值得一提的是，该特性在技术上是可用的。</li>
+<li><code>XREADGROUP</code>是一个写命令，因为即使它从流中读取，作为读取的副作用，消费组也会被修改，因此只能在主实例上调用它。</li>
+</ul>
+<p>下面是一个使用 Ruby 语言编写的使用消费组的消费者实现示例。
+Ruby 代码的目标是让几乎所有有经验的程序员都能读懂，即使他们不懂 Ruby:</p>
+<div class="highlight"><span class="filename">Ruby</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><a href="#__codelineno-22-1"><span class="linenos" data-linenos=" 1 "></span></a><span class="nb">require</span><span class="sb">`redis&#39;</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a><a href="#__codelineno-22-2"><span class="linenos" data-linenos=" 2 "></span></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a><a href="#__codelineno-22-3"><span class="linenos" data-linenos=" 3 "></span></a><span class="sb">if ARGV.length == 0</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a><a href="#__codelineno-22-4"><span class="linenos" data-linenos=" 4 "></span></a><span class="sb">    puts &quot;Please specify a consumer name&quot;</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a><a href="#__codelineno-22-5"><span class="linenos" data-linenos=" 5 "></span></a><span class="sb">    exit 1</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a><a href="#__codelineno-22-6"><span class="linenos" data-linenos=" 6 "></span></a><span class="sb">end</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7"></a><a href="#__codelineno-22-7"><span class="linenos" data-linenos=" 7 "></span></a>
+<a id="__codelineno-22-8" name="__codelineno-22-8"></a><a href="#__codelineno-22-8"><span class="linenos" data-linenos=" 8 "></span></a><span class="sb">ConsumerName = ARGV[0]</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9"></a><a href="#__codelineno-22-9"><span class="linenos" data-linenos=" 9 "></span></a><span class="sb">GroupName = &quot;mygroup&quot;</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10"></a><a href="#__codelineno-22-10"><span class="linenos" data-linenos="10 "></span></a><span class="sb">r = Redis.new</span>
+<a id="__codelineno-22-11" name="__codelineno-22-11"></a><a href="#__codelineno-22-11"><span class="linenos" data-linenos="11 "></span></a>
+<a id="__codelineno-22-12" name="__codelineno-22-12"></a><a href="#__codelineno-22-12"><span class="linenos" data-linenos="12 "></span></a><span class="sb">def process_message(id,msg)</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13"></a><a href="#__codelineno-22-13"><span class="linenos" data-linenos="13 "></span></a><span class="sb">    puts &quot;[</span><span class="si">#{</span><span class="no">ConsumerName</span><span class="si">}</span><span class="sb">] </span><span class="si">#{</span><span class="nb">id</span><span class="si">}</span><span class="sb"> = </span><span class="si">#{</span><span class="n">msg</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="sb">&quot;</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14"></a><a href="#__codelineno-22-14"><span class="linenos" data-linenos="14 "></span></a><span class="sb">end</span>
+<a id="__codelineno-22-15" name="__codelineno-22-15"></a><a href="#__codelineno-22-15"><span class="linenos" data-linenos="15 "></span></a>
+<a id="__codelineno-22-16" name="__codelineno-22-16"></a><a href="#__codelineno-22-16"><span class="linenos" data-linenos="16 "></span></a><span class="sb">$lastid =`</span><span class="mi">0</span><span class="o">-</span><span class="mi">0</span><span class="s1">&#39;</span>
+<a id="__codelineno-22-17" name="__codelineno-22-17"></a><a href="#__codelineno-22-17"><span class="linenos" data-linenos="17 "></span></a>
+<a id="__codelineno-22-18" name="__codelineno-22-18"></a><a href="#__codelineno-22-18"><span class="linenos" data-linenos="18 "></span></a><span class="s1">puts &quot;Consumer </span><span class="si">#{</span><span class="no">ConsumerName</span><span class="si">}</span><span class="s1"> starting...&quot;</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19"></a><a href="#__codelineno-22-19"><span class="linenos" data-linenos="19 "></span></a><span class="s1">check_backlog = true</span>
+<a id="__codelineno-22-20" name="__codelineno-22-20"></a><a href="#__codelineno-22-20"><span class="linenos" data-linenos="20 "></span></a><span class="s1">while true</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21"></a><a href="#__codelineno-22-21"><span class="linenos" data-linenos="21 "></span></a><span class="s1">    # Pick the ID based on the iteration: the first time we want to</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22"></a><a href="#__codelineno-22-22"><span class="linenos" data-linenos="22 "></span></a><span class="s1">    # read our pending messages, in case we crashed and are recovering.</span>
+<a id="__codelineno-22-23" name="__codelineno-22-23"></a><a href="#__codelineno-22-23"><span class="linenos" data-linenos="23 "></span></a><span class="s1">    # Once we consumed our history, we can start getting new messages.</span>
+<a id="__codelineno-22-24" name="__codelineno-22-24"></a><a href="#__codelineno-22-24"><span class="linenos" data-linenos="24 "></span></a><span class="s1">    if check_backlog</span>
+<a id="__codelineno-22-25" name="__codelineno-22-25"></a><a href="#__codelineno-22-25"><span class="linenos" data-linenos="25 "></span></a><span class="s1">        myid = $lastid</span>
+<a id="__codelineno-22-26" name="__codelineno-22-26"></a><a href="#__codelineno-22-26"><span class="linenos" data-linenos="26 "></span></a><span class="s1">    else</span>
+<a id="__codelineno-22-27" name="__codelineno-22-27"></a><a href="#__codelineno-22-27"><span class="linenos" data-linenos="27 "></span></a><span class="s1">        myid =`&gt;&#39;</span>
+<a id="__codelineno-22-28" name="__codelineno-22-28"></a><a href="#__codelineno-22-28"><span class="linenos" data-linenos="28 "></span></a>    <span class="k">end</span>
+<a id="__codelineno-22-29" name="__codelineno-22-29"></a><a href="#__codelineno-22-29"><span class="linenos" data-linenos="29 "></span></a>
+<a id="__codelineno-22-30" name="__codelineno-22-30"></a><a href="#__codelineno-22-30"><span class="linenos" data-linenos="30 "></span></a>    <span class="n">items</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">xreadgroup</span><span class="p">(</span><span class="s1">&#39;GROUP&#39;</span><span class="p">,</span><span class="no">GroupName</span><span class="p">,</span><span class="no">ConsumerName</span><span class="p">,</span><span class="s1">&#39;BLOCK&#39;</span><span class="p">,</span><span class="s1">&#39;2000&#39;</span><span class="p">,</span><span class="s1">&#39;COUNT&#39;</span><span class="p">,</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="s1">&#39;STREAMS&#39;</span><span class="p">,</span><span class="ss">:my_stream_key</span><span class="p">,</span><span class="n">myid</span><span class="p">)</span>
+<a id="__codelineno-22-31" name="__codelineno-22-31"></a><a href="#__codelineno-22-31"><span class="linenos" data-linenos="31 "></span></a>
+<a id="__codelineno-22-32" name="__codelineno-22-32"></a><a href="#__codelineno-22-32"><span class="linenos" data-linenos="32 "></span></a>    <span class="k">if</span> <span class="n">items</span> <span class="o">==</span> <span class="kp">nil</span>
+<a id="__codelineno-22-33" name="__codelineno-22-33"></a><a href="#__codelineno-22-33"><span class="linenos" data-linenos="33 "></span></a>        <span class="nb">puts</span> <span class="s2">&quot;Timeout!&quot;</span>
+<a id="__codelineno-22-34" name="__codelineno-22-34"></a><a href="#__codelineno-22-34"><span class="linenos" data-linenos="34 "></span></a>        <span class="k">next</span>
+<a id="__codelineno-22-35" name="__codelineno-22-35"></a><a href="#__codelineno-22-35"><span class="linenos" data-linenos="35 "></span></a>    <span class="k">end</span>
+<a id="__codelineno-22-36" name="__codelineno-22-36"></a><a href="#__codelineno-22-36"><span class="linenos" data-linenos="36 "></span></a>
+<a id="__codelineno-22-37" name="__codelineno-22-37"></a><a href="#__codelineno-22-37"><span class="linenos" data-linenos="37 "></span></a>    <span class="c1"># If we receive an empty reply, it means we were consuming our history</span>
+<a id="__codelineno-22-38" name="__codelineno-22-38"></a><a href="#__codelineno-22-38"><span class="linenos" data-linenos="38 "></span></a>    <span class="c1"># and that the history is now empty. Let&#39;s start to consume new messages.</span>
+<a id="__codelineno-22-39" name="__codelineno-22-39"></a><a href="#__codelineno-22-39"><span class="linenos" data-linenos="39 "></span></a>    <span class="n">check_backlog</span> <span class="o">=</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">items</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span>
+<a id="__codelineno-22-40" name="__codelineno-22-40"></a><a href="#__codelineno-22-40"><span class="linenos" data-linenos="40 "></span></a>
+<a id="__codelineno-22-41" name="__codelineno-22-41"></a><a href="#__codelineno-22-41"><span class="linenos" data-linenos="41 "></span></a>    <span class="n">items</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">].</span><span class="n">each</span><span class="p">{</span><span class="o">|</span><span class="n">i</span><span class="o">|</span>
+<a id="__codelineno-22-42" name="__codelineno-22-42"></a><a href="#__codelineno-22-42"><span class="linenos" data-linenos="42 "></span></a>        <span class="nb">id</span><span class="p">,</span><span class="n">fields</span> <span class="o">=</span> <span class="n">i</span>
+<a id="__codelineno-22-43" name="__codelineno-22-43"></a><a href="#__codelineno-22-43"><span class="linenos" data-linenos="43 "></span></a>
+<a id="__codelineno-22-44" name="__codelineno-22-44"></a><a href="#__codelineno-22-44"><span class="linenos" data-linenos="44 "></span></a>        <span class="c1"># Process the message</span>
+<a id="__codelineno-22-45" name="__codelineno-22-45"></a><a href="#__codelineno-22-45"><span class="linenos" data-linenos="45 "></span></a>        <span class="n">process_message</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span><span class="n">fields</span><span class="p">)</span>
+<a id="__codelineno-22-46" name="__codelineno-22-46"></a><a href="#__codelineno-22-46"><span class="linenos" data-linenos="46 "></span></a>
+<a id="__codelineno-22-47" name="__codelineno-22-47"></a><a href="#__codelineno-22-47"><span class="linenos" data-linenos="47 "></span></a>        <span class="c1"># Acknowledge the message as processed</span>
+<a id="__codelineno-22-48" name="__codelineno-22-48"></a><a href="#__codelineno-22-48"><span class="linenos" data-linenos="48 "></span></a>        <span class="n">r</span><span class="o">.</span><span class="n">xack</span><span class="p">(</span><span class="ss">:my_stream_key</span><span class="p">,</span><span class="no">GroupName</span><span class="p">,</span><span class="nb">id</span><span class="p">)</span>
+<a id="__codelineno-22-49" name="__codelineno-22-49"></a><a href="#__codelineno-22-49"><span class="linenos" data-linenos="49 "></span></a>
+<a id="__codelineno-22-50" name="__codelineno-22-50"></a><a href="#__codelineno-22-50"><span class="linenos" data-linenos="50 "></span></a>        <span class="vg">$lastid</span> <span class="o">=</span> <span class="nb">id</span>
+<a id="__codelineno-22-51" name="__codelineno-22-51"></a><a href="#__codelineno-22-51"><span class="linenos" data-linenos="51 "></span></a>    <span class="p">}</span>
+<a id="__codelineno-22-52" name="__codelineno-22-52"></a><a href="#__codelineno-22-52"><span class="linenos" data-linenos="52 "></span></a><span class="k">end</span>
+</code></pre></div>
+<p>下面是一个使用 Ruby 语言编写的使用消费组的消费者实现示例。
+Ruby 代码的目标是让几乎所有有经验的程序员都能读懂，即使他们不懂 Ruby:</p>
+<p>一旦使用了历史记录，我们得到了一个空的消息列表，我们可以切换到使用<code>&gt;</code>特殊 ID 来使用新消息。</p>
+<h2 id="_6">从永久失败中恢复</h2>
+<p>上面的示例允许我们编写参与同一消费组的消费者，每个消费者都有一个消息子集要处理，当从失败中恢复时，重新读取仅交付给他们的挂起消息。然而，在现实世界中，消费者可能永远失败，永远无法恢复。消费者的挂起的消息在因任何原因停止后从未恢复，会发生什么?</p>
+<p>Redis 消费组提供了在这些情况下使用的特性，以声明给定消费者的待处理消息，以便这些消息将改变所有权并将被重新分配给不同的消费者。这个功能非常明确。使用者必须检查挂起的消息列表，并必须使用特殊命令声明特定的消息，否则服务器将永远保留挂起的消息并将其分配给旧的使用者。通过这种方式，不同的应用程序可以选择是否使用这种功能，以及具体如何使用它。</p>
+<p>此过程的第一步只是一个命令，该命令提供消费组中挂起条目的可观测性，称为<code>XPENDING</code>。
+这是一个只读命令，调用它总是安全的，不会改变任何消息的所有权。
+在最简单的形式中，调用该命令时使用两个参数，一个是流的名称，另一个是消费组的名称。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><a href="#__codelineno-23-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XPENDING mystream mygroup
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a><a href="#__codelineno-23-2"><span class="linenos" data-linenos="2 "></span></a>1) (integer) 2
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a><a href="#__codelineno-23-3"><span class="linenos" data-linenos="3 "></span></a>2) 1526569498055-0
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a><a href="#__codelineno-23-4"><span class="linenos" data-linenos="4 "></span></a>3) 1526569506935-0
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a><a href="#__codelineno-23-5"><span class="linenos" data-linenos="5 "></span></a>4) 1) 1) &quot;Bob&quot;
+<a id="__codelineno-23-6" name="__codelineno-23-6"></a><a href="#__codelineno-23-6"><span class="linenos" data-linenos="6 "></span></a>      2) &quot;2&quot;
+</code></pre></div>
+<p>当以这种方式调用时，该命令输出消费组中待定消息的总数(本例中为两个)、待定消息中较低和较高的消息 ID，最后输出消费者的列表和他们拥有的待定消息的数量。
+我们只有 Bob 和两个挂起的消息，因为 Alice 请求的单个消息是使用<code>XACK</code>确认的。</p>
+<p>我们可以通过给<code>XPENDING</code>更多的参数来请求更多的信息，因为完整的命令签名如下:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a><a href="#__codelineno-24-1"><span class="linenos" data-linenos="1 "></span></a>XPENDING &lt;key&gt; &lt;groupname&gt; [[IDLE &lt;min-idle-time&gt;] &lt;start-id&gt; &lt;end-id&gt; &lt;count&gt; [&lt;consumer-name&gt;]]
+</code></pre></div>
+<p>通过提供一个开始和结束 ID(可以是<code>-</code>和<code>+</code>，就像<code>XRANGE</code>中那样)和一个计数来控制命令返回的信息量，我们能够了解更多关于挂起消息的信息。如果希望将输出限制为仅为给定消费者的待处理消息，则使用可选的最终参数消费者名，但在下面的示例中不使用此特性。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><a href="#__codelineno-25-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XPENDING mystream mygroup - + 10
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a><a href="#__codelineno-25-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1526569498055-0
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a><a href="#__codelineno-25-3"><span class="linenos" data-linenos="3 "></span></a>   2) &quot;Bob&quot;
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a><a href="#__codelineno-25-4"><span class="linenos" data-linenos="4 "></span></a>   3) (integer) 74170458
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a><a href="#__codelineno-25-5"><span class="linenos" data-linenos="5 "></span></a>   4) (integer) 1
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a><a href="#__codelineno-25-6"><span class="linenos" data-linenos="6 "></span></a>2) 1) 1526569506935-0
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a><a href="#__codelineno-25-7"><span class="linenos" data-linenos="7 "></span></a>   2) &quot;Bob&quot;
+<a id="__codelineno-25-8" name="__codelineno-25-8"></a><a href="#__codelineno-25-8"><span class="linenos" data-linenos="8 "></span></a>   3) (integer) 74170458
+<a id="__codelineno-25-9" name="__codelineno-25-9"></a><a href="#__codelineno-25-9"><span class="linenos" data-linenos="9 "></span></a>   4) (integer) 1
+</code></pre></div>
+<p>现在我们有了每条消息的详细信息:ID、消费者名、<em>idle time</em>(以毫秒为单位)，这是自消息最后一次被传递给某个消费者以来经过了多少毫秒，最后是给定消息被传递的次数。
+我们有两个来自 Bob 的消息，它们空闲时间为 74170458 毫秒，大约 20 小时。</p>
+<p>注意，没有人阻止我们通过使用<code>XRANGE</code>来检查第一个消息内容是什么。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><a href="#__codelineno-26-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XRANGE mystream 1526569498055-0 1526569498055-0
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><a href="#__codelineno-26-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1526569498055-0
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a><a href="#__codelineno-26-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) &quot;message&quot;
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a><a href="#__codelineno-26-4"><span class="linenos" data-linenos="4 "></span></a>      2) &quot;orange&quot;
+</code></pre></div>
+<p>我们只需要在参数中重复相同的 ID 两次。既然我们已经有了一些想法，那么 Alice 可能会认为，在 20 小时不处理消息之后，Bob 可能无法及时恢复，现在是时候请求处理这些消息并代替 Bob 恢复处理了。为此，我们使用<code>XCLAIM</code>命令。</p>
+<p>这个命令非常复杂，它的完整形式充满了选项，因为它用于复制消费组更改，但是我们将只使用通常需要的参数。在这种情况下，它很简单:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><a href="#__codelineno-27-1"><span class="linenos" data-linenos="1 "></span></a>XCLAIM &lt;key&gt; &lt;group&gt; &lt;consumer&gt; &lt;min-idle-time&gt; &lt;ID-1&gt; &lt;ID-2&gt; ... &lt;ID-N&gt;
+</code></pre></div>
+<p>基本上，我们说，对于这个特定的键和组，我希望指定的消息 id 将改变所有权，并将被分配给指定的消费者名<code>&lt;consumer&gt;</code>。但是，我们还提供了一个最小空闲时间，这样，只有当提到的消息的空闲时间大于指定的空闲时间时，操作才会工作。这很有用，因为可能有两个客户端同时试图重新声明一条消息:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><a href="#__codelineno-28-1"><span class="linenos" data-linenos="1 "></span></a>Client 1: XCLAIM mystream mygroup Alice 3600000 1526569498055-0
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><a href="#__codelineno-28-2"><span class="linenos" data-linenos="2 "></span></a>Client 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
+</code></pre></div>
+<p>然而，作为一个副作用，声明消息将重置其空闲时间并增加其交付计数器的数量，因此第二个客户机将无法声明它。通过这种方式，我们避免了琐碎的消息再处理(即使在一般情况下，您不能精确地获得一次处理)。</p>
+<p>命令执行的结果如下:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a><a href="#__codelineno-29-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XCLAIM mystream mygroup Alice 3600000 1526569498055-0
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a><a href="#__codelineno-29-2"><span class="linenos" data-linenos="2 "></span></a>1) 1) 1526569498055-0
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a><a href="#__codelineno-29-3"><span class="linenos" data-linenos="3 "></span></a>   2) 1) &quot;message&quot;
+<a id="__codelineno-29-4" name="__codelineno-29-4"></a><a href="#__codelineno-29-4"><span class="linenos" data-linenos="4 "></span></a>      2) &quot;orange&quot;
+</code></pre></div>
+<p>Alice 成功地认领了消息，她现在可以处理消息并确认它，并向前推进，即使原始消费者没有恢复。</p>
+<p>从上面的示例可以清楚地看到，作为成功声明给定消息的副作用，<code>XCLAIM</code>命令也会返回该消息。然而，这不是强制性的。可以使用<strong>JUSTID</strong>选项仅返回成功认领的消息的 id。如果您希望减少客户端和服务器之间使用的带宽(以及命令的性能)，并且您对消息不感兴趣，因为您的使用者的实现方式将不时重新扫描挂起的消息的历史，那么这是很有用的。</p>
+<p>认领也可以由单独的流程实现:该流程只检查挂起的消息列表，并将空闲消息分配给看起来活跃的使用者。使用 Redis 流的可观测性特征之一可以获得活动消费者。这是下一节的主题。</p>
+<h2 id="_7">自动认领</h2>
+<p>在 Redis 6.2 中添加的<code>XAUTOCLAIM</code>命令实现了我们上面描述的认领过程。
+<code>XPENDING</code>和<code>XCLAIM</code>为不同类型的恢复机制提供了基本的构建块。
+该命令通过让 Redis 管理通用流程来优化它，并为大多数恢复需求提供了一个简单的解决方案。</p>
+<p><code>XAUTOCLAIM</code>识别空闲的挂起消息并将其所有权转移给使用者。
+命令的签名如下所示:</p>
+<p><code>`XAUTOCLAIM &lt;key&gt; &lt;group&gt; &lt;consumer&gt; &lt;min-idle-time&gt; &lt;start&gt; [COUNT COUNT] [JUSTID]</code>'</p>
+<p>所以，在上面的例子中，我可以使用自动声明来声明一条消息，就像这样:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><a href="#__codelineno-30-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XAUTOCLAIM mystream mygroup Alice 3600000 0-0 COUNT 1
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a><a href="#__codelineno-30-2"><span class="linenos" data-linenos="2 "></span></a>1) 1526569498055-0
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a><a href="#__codelineno-30-3"><span class="linenos" data-linenos="3 "></span></a>2) 1) 1526569498055-0
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a><a href="#__codelineno-30-4"><span class="linenos" data-linenos="4 "></span></a>   2) 1) &quot;message&quot;
+<a id="__codelineno-30-5" name="__codelineno-30-5"></a><a href="#__codelineno-30-5"><span class="linenos" data-linenos="5 "></span></a>      2) &quot;orange&quot;
+</code></pre></div>
+<p>与<code>XCLAIM</code>类似，该命令用声明的消息数组进行响应，但它也返回一个流 ID，允许迭代挂起的条目。
+流 ID 是一个游标，我可以在下一个调用中使用它来继续声明空闲的挂起消息:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a><a href="#__codelineno-31-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XAUTOCLAIM mystream mygroup Lora 3600000 1526569498055-0 COUNT 1
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a><a href="#__codelineno-31-2"><span class="linenos" data-linenos="2 "></span></a>1) 0-0
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a><a href="#__codelineno-31-3"><span class="linenos" data-linenos="3 "></span></a>2) 1) 1526569506935-0
+<a id="__codelineno-31-4" name="__codelineno-31-4"></a><a href="#__codelineno-31-4"><span class="linenos" data-linenos="4 "></span></a>   2) 1) &quot;message&quot;
+<a id="__codelineno-31-5" name="__codelineno-31-5"></a><a href="#__codelineno-31-5"><span class="linenos" data-linenos="5 "></span></a>      2) &quot;strawberry&quot;
+</code></pre></div>
+<p>当<code>XAUTOCLAIM</code>返回<code>0-0</code>流 ID 作为游标时，这意味着它到达了消费组待处理条目列表的末尾。
+这并不意味着没有新的空闲挂起消息，因此流程从流的开始调用<code>XAUTOCLAIM</code>继续。</p>
+<h2 id="_8">认领和交付计数</h2>
+<p>您在<code>XPENDING</code>输出中观测到的计数器是每条消息的交付数量。计数器以两种方式递增:当通过<code>XCLAIM</code>成功声明消息时，或当使用<code>XREADGROUP</code>调用以访问挂起消息的历史记录时。</p>
+<p>当出现失败时，通常会多次传递消息，但最终它们通常会得到处理和确认。然而，在处理某些特定消息时可能会出现问题，因为它被损坏或以触发处理代码中的错误的方式制作。在这种情况下，发生的情况是消费者将不断地无法处理这条特定的消息。因为我们有传递尝试的计数器，所以我们可以使用该计数器来检测由于某种原因不可处理的消息。因此，一旦交付计数器达到您所选择的一个给定的大数字，可能更明智的做法是将这些消息放在另一个流中，并向系统管理员发送通知。这基本上是 Redis Streams 实现<em>dead letter</em>概念的方式。</p>
+<h2 id="_9">流可观测性</h2>
+<p>缺乏可观测性的消息传递系统非常难以使用。
+不知道谁在使用消息、什么消息挂起、给定流中活动的消费组，这使得一切都变得不透明。
+因此，Redis Streams 和消费组有不同的观测方式。
+我们已经讨论了<code>XPENDING</code>，它允许我们检查在给定时刻正在处理的消息列表，以及它们的空闲时间和传递数量。</p>
+<p>然而，我们可能想做更多的事情，<code>XINFO</code>命令是一个可观测性接口，可以与子命令一起使用，以获取关于流或消费组的信息。</p>
+<p>这个命令使用子命令来显示关于流及其消费组状态的不同信息。例如，<strong>XINFO STREAM <key></strong>报告流本身的信息。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><a href="#__codelineno-32-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XINFO STREAM mystream
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a><a href="#__codelineno-32-2"><span class="linenos" data-linenos=" 2 "></span></a> 1) &quot;length&quot;
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a><a href="#__codelineno-32-3"><span class="linenos" data-linenos=" 3 "></span></a> 2) (integer) 2
+<a id="__codelineno-32-4" name="__codelineno-32-4"></a><a href="#__codelineno-32-4"><span class="linenos" data-linenos=" 4 "></span></a> 3) &quot;radix-tree-keys&quot;
+<a id="__codelineno-32-5" name="__codelineno-32-5"></a><a href="#__codelineno-32-5"><span class="linenos" data-linenos=" 5 "></span></a> 4) (integer) 1
+<a id="__codelineno-32-6" name="__codelineno-32-6"></a><a href="#__codelineno-32-6"><span class="linenos" data-linenos=" 6 "></span></a> 5) &quot;radix-tree-nodes&quot;
+<a id="__codelineno-32-7" name="__codelineno-32-7"></a><a href="#__codelineno-32-7"><span class="linenos" data-linenos=" 7 "></span></a> 6) (integer) 2
+<a id="__codelineno-32-8" name="__codelineno-32-8"></a><a href="#__codelineno-32-8"><span class="linenos" data-linenos=" 8 "></span></a> 7) &quot;last-generated-id&quot;
+<a id="__codelineno-32-9" name="__codelineno-32-9"></a><a href="#__codelineno-32-9"><span class="linenos" data-linenos=" 9 "></span></a> 8) &quot;1638125141232-0&quot;
+<a id="__codelineno-32-10" name="__codelineno-32-10"></a><a href="#__codelineno-32-10"><span class="linenos" data-linenos="10 "></span></a> 9) &quot;max-deleted-entryid&quot;
+<a id="__codelineno-32-11" name="__codelineno-32-11"></a><a href="#__codelineno-32-11"><span class="linenos" data-linenos="11 "></span></a>10) &quot;0-0&quot;
+<a id="__codelineno-32-12" name="__codelineno-32-12"></a><a href="#__codelineno-32-12"><span class="linenos" data-linenos="12 "></span></a>11) &quot;entries-added&quot;
+<a id="__codelineno-32-13" name="__codelineno-32-13"></a><a href="#__codelineno-32-13"><span class="linenos" data-linenos="13 "></span></a>12) (integer) 2
+<a id="__codelineno-32-14" name="__codelineno-32-14"></a><a href="#__codelineno-32-14"><span class="linenos" data-linenos="14 "></span></a>13) &quot;groups&quot;
+<a id="__codelineno-32-15" name="__codelineno-32-15"></a><a href="#__codelineno-32-15"><span class="linenos" data-linenos="15 "></span></a>14) (integer) 1
+<a id="__codelineno-32-16" name="__codelineno-32-16"></a><a href="#__codelineno-32-16"><span class="linenos" data-linenos="16 "></span></a>15) &quot;first-entry&quot;
+<a id="__codelineno-32-17" name="__codelineno-32-17"></a><a href="#__codelineno-32-17"><span class="linenos" data-linenos="17 "></span></a>16) 1) &quot;1638125133432-0&quot;
+<a id="__codelineno-32-18" name="__codelineno-32-18"></a><a href="#__codelineno-32-18"><span class="linenos" data-linenos="18 "></span></a>    2) 1) &quot;message&quot;
+<a id="__codelineno-32-19" name="__codelineno-32-19"></a><a href="#__codelineno-32-19"><span class="linenos" data-linenos="19 "></span></a>       2) &quot;apple&quot;
+<a id="__codelineno-32-20" name="__codelineno-32-20"></a><a href="#__codelineno-32-20"><span class="linenos" data-linenos="20 "></span></a>17) &quot;last-entry&quot;
+<a id="__codelineno-32-21" name="__codelineno-32-21"></a><a href="#__codelineno-32-21"><span class="linenos" data-linenos="21 "></span></a>18) 1) &quot;1638125141232-0&quot;
+<a id="__codelineno-32-22" name="__codelineno-32-22"></a><a href="#__codelineno-32-22"><span class="linenos" data-linenos="22 "></span></a>    2) 1) &quot;message&quot;
+<a id="__codelineno-32-23" name="__codelineno-32-23"></a><a href="#__codelineno-32-23"><span class="linenos" data-linenos="23 "></span></a>       2) &quot;banana&quot;
+</code></pre></div>
+<p>输出显示了关于流内部如何编码的信息，还显示了流中的第一条和最后一条消息。
+另一个可用的信息是与此流相关联的消费组的数量。
+我们可以进一步调查，询问更多关于消费组的信息。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><a href="#__codelineno-33-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XINFO GROUPS mystream
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a><a href="#__codelineno-33-2"><span class="linenos" data-linenos=" 2 "></span></a>1)  1) &quot;name&quot;
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a><a href="#__codelineno-33-3"><span class="linenos" data-linenos=" 3 "></span></a>    2) &quot;mygroup&quot;
+<a id="__codelineno-33-4" name="__codelineno-33-4"></a><a href="#__codelineno-33-4"><span class="linenos" data-linenos=" 4 "></span></a>    3) &quot;consumers&quot;
+<a id="__codelineno-33-5" name="__codelineno-33-5"></a><a href="#__codelineno-33-5"><span class="linenos" data-linenos=" 5 "></span></a>    4) (integer) 2
+<a id="__codelineno-33-6" name="__codelineno-33-6"></a><a href="#__codelineno-33-6"><span class="linenos" data-linenos=" 6 "></span></a>    5) &quot;pending&quot;
+<a id="__codelineno-33-7" name="__codelineno-33-7"></a><a href="#__codelineno-33-7"><span class="linenos" data-linenos=" 7 "></span></a>    6) (integer) 2
+<a id="__codelineno-33-8" name="__codelineno-33-8"></a><a href="#__codelineno-33-8"><span class="linenos" data-linenos=" 8 "></span></a>    7) &quot;last-delivered-id&quot;
+<a id="__codelineno-33-9" name="__codelineno-33-9"></a><a href="#__codelineno-33-9"><span class="linenos" data-linenos=" 9 "></span></a>    8) &quot;1638126030001-0&quot;
+<a id="__codelineno-33-10" name="__codelineno-33-10"></a><a href="#__codelineno-33-10"><span class="linenos" data-linenos="10 "></span></a>    9) &quot;entries-read&quot;
+<a id="__codelineno-33-11" name="__codelineno-33-11"></a><a href="#__codelineno-33-11"><span class="linenos" data-linenos="11 "></span></a>   10) (integer) 2
+<a id="__codelineno-33-12" name="__codelineno-33-12"></a><a href="#__codelineno-33-12"><span class="linenos" data-linenos="12 "></span></a>   11) &quot;lag&quot;
+<a id="__codelineno-33-13" name="__codelineno-33-13"></a><a href="#__codelineno-33-13"><span class="linenos" data-linenos="13 "></span></a>   12) (integer) 0
+<a id="__codelineno-33-14" name="__codelineno-33-14"></a><a href="#__codelineno-33-14"><span class="linenos" data-linenos="14 "></span></a>2)  1) &quot;name&quot;
+<a id="__codelineno-33-15" name="__codelineno-33-15"></a><a href="#__codelineno-33-15"><span class="linenos" data-linenos="15 "></span></a>    2) &quot;some-other-group&quot;
+<a id="__codelineno-33-16" name="__codelineno-33-16"></a><a href="#__codelineno-33-16"><span class="linenos" data-linenos="16 "></span></a>    3) &quot;consumers&quot;
+<a id="__codelineno-33-17" name="__codelineno-33-17"></a><a href="#__codelineno-33-17"><span class="linenos" data-linenos="17 "></span></a>    4) (integer) 1
+<a id="__codelineno-33-18" name="__codelineno-33-18"></a><a href="#__codelineno-33-18"><span class="linenos" data-linenos="18 "></span></a>    5) &quot;pending&quot;
+<a id="__codelineno-33-19" name="__codelineno-33-19"></a><a href="#__codelineno-33-19"><span class="linenos" data-linenos="19 "></span></a>    6) (integer) 0
+<a id="__codelineno-33-20" name="__codelineno-33-20"></a><a href="#__codelineno-33-20"><span class="linenos" data-linenos="20 "></span></a>    7) &quot;last-delivered-id&quot;
+<a id="__codelineno-33-21" name="__codelineno-33-21"></a><a href="#__codelineno-33-21"><span class="linenos" data-linenos="21 "></span></a>    8) &quot;1638126028070-0&quot;
+<a id="__codelineno-33-22" name="__codelineno-33-22"></a><a href="#__codelineno-33-22"><span class="linenos" data-linenos="22 "></span></a>    9) &quot;entries-read&quot;
+<a id="__codelineno-33-23" name="__codelineno-33-23"></a><a href="#__codelineno-33-23"><span class="linenos" data-linenos="23 "></span></a>   10) (integer) 1
+<a id="__codelineno-33-24" name="__codelineno-33-24"></a><a href="#__codelineno-33-24"><span class="linenos" data-linenos="24 "></span></a>   11) &quot;lag&quot;
+<a id="__codelineno-33-25" name="__codelineno-33-25"></a><a href="#__codelineno-33-25"><span class="linenos" data-linenos="25 "></span></a>   12) (integer) 1
+</code></pre></div>
+<p>正如您在此输出和前面的输出中所看到的，<code>XINFO</code>命令输出一系列字段值项。
+因为它是一个可观测性命令，这允许人类用户立即了解报告了什么信息，并允许该命令在未来通过添加更多字段来报告更多的信息，而不破坏与旧客户机的兼容性。
+其他一些带宽效率更高的命令，比如<code>XPENDING</code>，只报告没有字段名的信息。</p>
+<p>上面的示例(其中使用了<strong>GROUPS</strong>子命令)的输出应该很清楚，可以观测字段名。
+通过检查在组中注册的消费者，我们可以更详细地检查特定消费组的状态。</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a><a href="#__codelineno-34-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XINFO CONSUMERS mystream mygroup
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a><a href="#__codelineno-34-2"><span class="linenos" data-linenos=" 2 "></span></a>1) 1) name
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a><a href="#__codelineno-34-3"><span class="linenos" data-linenos=" 3 "></span></a>   2) &quot;Alice&quot;
+<a id="__codelineno-34-4" name="__codelineno-34-4"></a><a href="#__codelineno-34-4"><span class="linenos" data-linenos=" 4 "></span></a>   3) pending
+<a id="__codelineno-34-5" name="__codelineno-34-5"></a><a href="#__codelineno-34-5"><span class="linenos" data-linenos=" 5 "></span></a>   4) (integer) 1
+<a id="__codelineno-34-6" name="__codelineno-34-6"></a><a href="#__codelineno-34-6"><span class="linenos" data-linenos=" 6 "></span></a>   5) idle
+<a id="__codelineno-34-7" name="__codelineno-34-7"></a><a href="#__codelineno-34-7"><span class="linenos" data-linenos=" 7 "></span></a>   6) (integer) 9104628
+<a id="__codelineno-34-8" name="__codelineno-34-8"></a><a href="#__codelineno-34-8"><span class="linenos" data-linenos=" 8 "></span></a>2) 1) name
+<a id="__codelineno-34-9" name="__codelineno-34-9"></a><a href="#__codelineno-34-9"><span class="linenos" data-linenos=" 9 "></span></a>   2) &quot;Bob&quot;
+<a id="__codelineno-34-10" name="__codelineno-34-10"></a><a href="#__codelineno-34-10"><span class="linenos" data-linenos="10 "></span></a>   3) pending
+<a id="__codelineno-34-11" name="__codelineno-34-11"></a><a href="#__codelineno-34-11"><span class="linenos" data-linenos="11 "></span></a>   4) (integer) 1
+<a id="__codelineno-34-12" name="__codelineno-34-12"></a><a href="#__codelineno-34-12"><span class="linenos" data-linenos="12 "></span></a>   5) idle
+<a id="__codelineno-34-13" name="__codelineno-34-13"></a><a href="#__codelineno-34-13"><span class="linenos" data-linenos="13 "></span></a>   6) (integer) 83841983
+</code></pre></div>
+<p>如果你不记得命令的语法，就向命令本身寻求帮助:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a><a href="#__codelineno-35-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XINFO HELP
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a><a href="#__codelineno-35-2"><span class="linenos" data-linenos=" 2 "></span></a>1) XINFO &lt;subcommand&gt; [&lt;arg&gt; [value] [opt] ...]. Subcommands are:
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a><a href="#__codelineno-35-3"><span class="linenos" data-linenos=" 3 "></span></a>2) CONSUMERS &lt;key&gt; &lt;groupname&gt;
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a><a href="#__codelineno-35-4"><span class="linenos" data-linenos=" 4 "></span></a>3)     Show consumers of &lt;groupname&gt;.
+<a id="__codelineno-35-5" name="__codelineno-35-5"></a><a href="#__codelineno-35-5"><span class="linenos" data-linenos=" 5 "></span></a>4) GROUPS &lt;key&gt;
+<a id="__codelineno-35-6" name="__codelineno-35-6"></a><a href="#__codelineno-35-6"><span class="linenos" data-linenos=" 6 "></span></a>5)     Show the stream consumer groups.
+<a id="__codelineno-35-7" name="__codelineno-35-7"></a><a href="#__codelineno-35-7"><span class="linenos" data-linenos=" 7 "></span></a>6) STREAM &lt;key&gt; [FULL [COUNT &lt;count&gt;]
+<a id="__codelineno-35-8" name="__codelineno-35-8"></a><a href="#__codelineno-35-8"><span class="linenos" data-linenos=" 8 "></span></a>7)     Show information about the stream.
+<a id="__codelineno-35-9" name="__codelineno-35-9"></a><a href="#__codelineno-35-9"><span class="linenos" data-linenos=" 9 "></span></a>8) HELP
+<a id="__codelineno-35-10" name="__codelineno-35-10"></a><a href="#__codelineno-35-10"><span class="linenos" data-linenos="10 "></span></a>9)     Prints this help.
+</code></pre></div>
+<h2 id="kafka-tm">与 Kafka (TM)分区的区别</h2>
+<p>Redis 流中的消费组可能在某些方面类似于基于 Kafka (TM)分区的消费组，但是请注意，Redis 流在实际中是非常不同的。
+分区只有<em>logical</em>，消息只是放在一个单独的 Redis 键中，因此不同客户机的服务方式取决于谁准备处理新消息，而不是客户机从哪个分区读取。
+例如，如果消费者 C3 在某个时刻永久失效，Redis 将继续为到达的所有新消息提供 C1 和 C2 服务，就像现在只有两个<em>logical</em>分区一样。</p>
+<p>类似地，如果一个给定的消费者处理消息的速度比其他消费者快得多，那么这个消费者在相同的时间单位内将按比例收到更多的消息。
+这是可能的，因为 Redis 显式地跟踪所有未确认的消息，并记住谁收到了哪条消息，以及第一条消息的 ID 从未交付给任何消费者。</p>
+<p>然而，这也意味着在 Redis 中，如果你真的想将同一流中的消息划分到多个 Redis 实例中，你必须使用多个键和一些分片系统，如 Redis Cluster 或其他特定于应用程序的分片系统。
+单个 Redis 流不会自动分区到多个实例。</p>
+<p>我们可以简单地说以下是正确的:</p>
+<ul>
+<li>如果您使用 1 个流 -&gt; 1 个消费者，则您将按顺序处理消息。</li>
+<li>如果使用 N 个流和 N 个消费者，那么只有一个给定的消费者触及 N 个流的子集，您可以扩展上面的 1 个流模型 -&gt; 1 消费者。</li>
+<li>如果您使用 1 个流 -&gt; N 个消费者，那么您将负载均衡到 N 个消费者，然而，在这种情况下，关于相同逻辑项的消息可能会被打乱顺序使用，因为给定的消费者处理消息 3 的速度可能比另一个消费者处理消息 4 的速度快。</li>
+</ul>
+<p>因此，基本上 Kafka 分区更类似于使用 N 个不同的 Redis 键，而 Redis 消费组是一个服务器端负载平衡系统，将消息从给定流发送到 N 个不同的消费者。</p>
+<h2 id="_10">限制流</h2>
+<p>许多应用程序不希望永远将数据收集到流中。
+有时，在流中拥有最多给定数量的条目是有用的，其他时候，一旦达到了给定的大小，将数据从 Redis 移动到一个不在内存中、速度不那么快但适合存储历史的存储空间是有用的，可能是未来几十年。
+Redis 流对此有一些支持。
+一个是<code>XADD</code>命令的<strong>MAXLEN</strong>选项。这个选项使用起来非常简单:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a><a href="#__codelineno-36-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XADD mystream MAXLEN 2 * value 1
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a><a href="#__codelineno-36-2"><span class="linenos" data-linenos=" 2 "></span></a>1526654998691-0
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a><a href="#__codelineno-36-3"><span class="linenos" data-linenos=" 3 "></span></a>&gt; XADD mystream MAXLEN 2 * value 2
+<a id="__codelineno-36-4" name="__codelineno-36-4"></a><a href="#__codelineno-36-4"><span class="linenos" data-linenos=" 4 "></span></a>1526654999635-0
+<a id="__codelineno-36-5" name="__codelineno-36-5"></a><a href="#__codelineno-36-5"><span class="linenos" data-linenos=" 5 "></span></a>&gt; XADD mystream MAXLEN 2 * value 3
+<a id="__codelineno-36-6" name="__codelineno-36-6"></a><a href="#__codelineno-36-6"><span class="linenos" data-linenos=" 6 "></span></a>1526655000369-0
+<a id="__codelineno-36-7" name="__codelineno-36-7"></a><a href="#__codelineno-36-7"><span class="linenos" data-linenos=" 7 "></span></a>&gt; XLEN mystream
+<a id="__codelineno-36-8" name="__codelineno-36-8"></a><a href="#__codelineno-36-8"><span class="linenos" data-linenos=" 8 "></span></a>(integer) 2
+<a id="__codelineno-36-9" name="__codelineno-36-9"></a><a href="#__codelineno-36-9"><span class="linenos" data-linenos=" 9 "></span></a>&gt; XRANGE mystream - +
+<a id="__codelineno-36-10" name="__codelineno-36-10"></a><a href="#__codelineno-36-10"><span class="linenos" data-linenos="10 "></span></a>1) 1) 1526654999635-0
+<a id="__codelineno-36-11" name="__codelineno-36-11"></a><a href="#__codelineno-36-11"><span class="linenos" data-linenos="11 "></span></a>   2) 1) &quot;value&quot;
+<a id="__codelineno-36-12" name="__codelineno-36-12"></a><a href="#__codelineno-36-12"><span class="linenos" data-linenos="12 "></span></a>      2) &quot;2&quot;
+<a id="__codelineno-36-13" name="__codelineno-36-13"></a><a href="#__codelineno-36-13"><span class="linenos" data-linenos="13 "></span></a>2) 1) 1526655000369-0
+<a id="__codelineno-36-14" name="__codelineno-36-14"></a><a href="#__codelineno-36-14"><span class="linenos" data-linenos="14 "></span></a>   2) 1) &quot;value&quot;
+<a id="__codelineno-36-15" name="__codelineno-36-15"></a><a href="#__codelineno-36-15"><span class="linenos" data-linenos="15 "></span></a>      2) &quot;3&quot;
+</code></pre></div>
+<p>使用<strong>MAXLEN</strong>，当达到指定的长度时，旧的条目将被自动删除，因此流将保持恒定的大小。
+目前还没有选项告诉流只保留不超过给定周期的项，因为这样的命令，为了一致地运行，可能会阻塞很长时间以驱逐项目。
+想象一下，如果有一个插入高峰，然后是一个很长的暂停，然后是另一个插入，所有这些都有相同的最长时间，会发生什么。
+流将阻塞以驱逐在暂停期间变得太旧的数据。
+因此，用户需要做一些计划，并了解所需的最大流长度。
+此外，尽管流的长度与所使用的内存成正比，但按时间进行修剪就不那么容易控制和预测了:它取决于插入率，而插入率通常会随时间变化(当它不变化时，那么仅按大小进行修剪是微不足道的)。</p>
+<p>然而，使用<strong>MAXLEN</strong>进行修剪可能会非常昂贵:流通过宏节点表示为基树，以非常高效的内存。
+改变由几十个元素组成的单个宏节点不是最优的。
+因此，可以以以下特殊形式使用该命令:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a><a href="#__codelineno-37-1"><span class="linenos" data-linenos="1 "></span></a>XADD mystream MAXLEN ~ 1000 * ... entry fields here ...
+</code></pre></div>
+<p><strong>MAXLEN</strong>选项和实际计数之间的<code>~</code>参数意味着，我并不真的需要它恰好是 1000 项。它可以是 1000 或 1010 或 1030，只要确保至少保存 1000 个项目。
+使用此参数，只有在可以删除整个节点时才执行修剪。
+这使它更有效，这通常是您想要的。</p>
+<p>还有<code>XTRIM</code>命令，它执行的操作与上面的<strong>MAXLEN</strong>选项非常相似，只不过它可以自己运行:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a><a href="#__codelineno-38-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XTRIM mystream MAXLEN 10
+</code></pre></div>
+<p>或者，对于<code>XADD</code>选项:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1"></a><a href="#__codelineno-39-1"><span class="linenos" data-linenos="1 "></span></a>&gt; XTRIM mystream MAXLEN ~ 10
+</code></pre></div>
+<p>然而，<code>XTRIM</code>被设计为接受不同的修剪策略。
+另一种删除策略是<strong>MINID</strong>，它删除 id 低于指定值的项。</p>
+<p>由于<code>XTRIM</code>是一个显式命令，用户应该知道不同的裁剪策略可能存在的缺点。</p>
+<p>另一个有用的删除策略可能会在未来添加到<code>XTRIM</code>，是通过一系列 id 删除，以方便使用<code>XRANGE</code>和<code>XTRIM</code>将数据从 Redis 移动到其他存储系统，如果需要的话。</p>
+<h2 id="api-id">流 API 中的特殊 id</h2>
+<p>您可能已经注意到，在 Redis API 中可以使用几个特殊的 id。
+这里有一个简短的回顾，以便将来能更有意义。</p>
+<p>前两个特殊 id 是<code>-</code>和<code>+</code>，在使用<code>XRANGE</code>命令进行范围查询时使用。
+这两个 ID 分别表示可能的最小 ID(基本上是<code>0-1</code>)和可能的最大 ID(即<code>18446744073709551615-18446744073709551615</code>)。
+如你所见，写<code>-</code>和<code>+</code>比写那些数字要简洁得多。</p>
+<p>还有一些 api，我们想说，流中 ID 最大的项的 ID。
+这就是<code>$</code>的含义。
+因此，例如，如果我只想要有<code>XREADGROUP</code>的新条目，我使用这个 ID 来表示我已经有了所有现有的条目，而不是未来将插入的新条目。
+类似地，当我创建或设置消费组的 ID 时，我可以将最后交付的项目设置为<code>$</code>，以便只向组中的消费者交付新条目。</p>
+<p>正如你所看到的，<code>$</code>并不意味着<code>+</code>，它们是两个不同的东西，因为<code>+</code>是每一个可能的流中可能的最大 ID，而<code>$</code>是包含给定条目的给定流中的最大 ID。
+此外，api 通常只理解<code>+</code>或<code>$</code>，但避免加载具有多种含义的给定符号是有用的。</p>
+<p>另一个特殊 ID 是<code>&gt;</code>，这是一个仅与消费组相关的特殊含义，且仅当使用<code>XREADGROUP</code>命令时。
+这个特殊 ID 意味着我们只想要到目前为止从未交付给其他消费者的条目。
+所以基本上<code>&gt;</code>ID 是消费组的 <em>最后一个发送的 ID</em>。</p>
+<p>最后，特殊 ID <code>*</code>只能与<code>XADD</code>命令一起使用，它意味着为新条目自动选择一个 ID。</p>
+<p>所以我们有<code>-</code>，<code>+</code>，<code>$</code>，<code>&gt;</code>和<code>*</code>，它们都有不同的含义，大多数情况下，可以在不同的上下文中使用。</p>
+<h2 id="_11">持久性、复制和消息安全性</h2>
+<p>像任何其他 Redis 数据结构一样，流被异步复制到副本并持久保存到 AOF 和 RDB 文件中。
+然而，可能不那么明显的是，消费组的完整状态也被传播到 AOF、RDB 和副本，因此，如果一条消息在主服务器中挂起，副本也将具有相同的信息。类似地，在重新启动之后，AOF 将恢复消费组的状态。</p>
+<p>但是请注意，Redis 流和消费组是使用 Redis 默认复制持久化和复制的，所以:</p>
+<ul>
+<li>如果消息的持久性在你的应用中很重要，AOF 必须与强 fsync 策略一起使用。</li>
+<li>默认情况下，异步复制不会保证复制<code>XADD</code>命令或消费组状态更改:在故障转移之后，可能会丢失一些东西，这取决于副本从主服务器接收数据的能力。</li>
+<li>可以使用<code>WAIT</code>命令强制将更改传播到一组副本。
+  然而，请注意，虽然这使得数据不太可能丢失，但由 Sentinel 或 Redis Cluster 操作的 Redis 故障转移过程只执行 <em>最大努力检查</em>，以故障转移到更新最快的副本，在某些特定的故障条件下，可能会促使缺乏一些数据的副本。</li>
+</ul>
+<p>因此，当使用 Redis 流和消费组设计应用程序时，确保理解应用程序在故障期间应该具有的语义属性，并相应地进行配置，评估它是否足够安全。</p>
+<h2 id="_12">从流中删除单个项</h2>
+<p>流还有一个用于从流中间删除项的特殊命令，仅通过 ID。
+通常，对于仅附加数据结构，这可能看起来像一个奇怪的特性，但它实际上对涉及(例如隐私规则)的应用程序很有用。
+该命令被称为<code>XDEL</code>，接收流的名称和要删除的 id:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1"></a><a href="#__codelineno-40-1"><span class="linenos" data-linenos=" 1 "></span></a>&gt; XRANGE mystream - + COUNT 2
+<a id="__codelineno-40-2" name="__codelineno-40-2"></a><a href="#__codelineno-40-2"><span class="linenos" data-linenos=" 2 "></span></a>1) 1) 1526654999635-0
+<a id="__codelineno-40-3" name="__codelineno-40-3"></a><a href="#__codelineno-40-3"><span class="linenos" data-linenos=" 3 "></span></a>   2) 1) &quot;value&quot;
+<a id="__codelineno-40-4" name="__codelineno-40-4"></a><a href="#__codelineno-40-4"><span class="linenos" data-linenos=" 4 "></span></a>      2) &quot;2&quot;
+<a id="__codelineno-40-5" name="__codelineno-40-5"></a><a href="#__codelineno-40-5"><span class="linenos" data-linenos=" 5 "></span></a>2) 1) 1526655000369-0
+<a id="__codelineno-40-6" name="__codelineno-40-6"></a><a href="#__codelineno-40-6"><span class="linenos" data-linenos=" 6 "></span></a>   2) 1) &quot;value&quot;
+<a id="__codelineno-40-7" name="__codelineno-40-7"></a><a href="#__codelineno-40-7"><span class="linenos" data-linenos=" 7 "></span></a>      2) &quot;3&quot;
+<a id="__codelineno-40-8" name="__codelineno-40-8"></a><a href="#__codelineno-40-8"><span class="linenos" data-linenos=" 8 "></span></a>&gt; XDEL mystream 1526654999635-0
+<a id="__codelineno-40-9" name="__codelineno-40-9"></a><a href="#__codelineno-40-9"><span class="linenos" data-linenos=" 9 "></span></a>(integer) 1
+<a id="__codelineno-40-10" name="__codelineno-40-10"></a><a href="#__codelineno-40-10"><span class="linenos" data-linenos="10 "></span></a>&gt; XRANGE mystream - + COUNT 2
+<a id="__codelineno-40-11" name="__codelineno-40-11"></a><a href="#__codelineno-40-11"><span class="linenos" data-linenos="11 "></span></a>1) 1) 1526655000369-0
+<a id="__codelineno-40-12" name="__codelineno-40-12"></a><a href="#__codelineno-40-12"><span class="linenos" data-linenos="12 "></span></a>   2) 1) &quot;value&quot;
+<a id="__codelineno-40-13" name="__codelineno-40-13"></a><a href="#__codelineno-40-13"><span class="linenos" data-linenos="13 "></span></a>      2) &quot;3&quot;
+</code></pre></div>
+<p>然而，在当前实现中，直到宏节点完全为空时才真正回收内存，因此不应滥用此特性。</p>
+<h2 id="_13">零长度流</h2>
+<p>流和其他 Redis 数据结构的不同之处在于，当其他数据结构不再有任何元素时，作为调用删除元素命令的副作用，键本身将被删除。
+例如，当调用<code>ZREM</code>将删除排序集中的最后一个元素时，排序集将被完全删除。另一方面，流被允许保持零元素，这是使用计数为零的<strong>MAXLEN</strong>选项(<code>XADD</code>和<code>XTRIM</code>命令)的结果，或者是因为调用了<code>XDEL</code>。</p>
+<p>存在这种不对称的原因是因为流可能有关联的消费组，而我们不希望仅仅因为流中不再有任何项目而失去消费组定义的状态。
+目前，即使流没有关联的消费组，也不会被删除。</p>
+<h2 id="_14">使用消息的总延迟</h2>
+<p>像<code>XRANGE</code>和<code>XREAD</code>或<code>XREADGROUP</code>这样没有 BLOCK 选项的非阻塞流命令像其他任何 Redis 命令一样是同步服务的，所以讨论此类命令的延迟是没有意义的:在 Redis 文档中检查命令的时间复杂度更有趣。
+可以这样说，在提取范围时，流命令至少和排序的集合命令一样快，而<code>XADD</code>非常快，如果使用流，它可以很容易地在一台普通机器中每秒插入 50 万到 100 万项。</p>
+<p>但是，如果我们想了解在阻塞消费组中的消费者的情况下，从通过<code>XADD</code>产生消息的时刻到由于<code>XREADGROUP</code>与消息一起返回而由消费者获取消息的时刻，延迟就成为一个有趣的参数。</p>
+<h2 id="_15">如何服务被屏蔽的消费者</h2>
+<p>在提供所执行测试的结果之前，了解 Redis 使用什么模型来路由流消息是很有趣的(实际上，在一般情况下，任何等待数据的阻塞操作是如何管理的)。</p>
+<ul>
+<li>被阻塞的客户端在一个哈希表中被引用，该哈希表将至少有一个阻塞消费者的键映射到一个正在等待该键的消费者列表。
+  通过这种方式，给定一个接收数据的键，我们就可以解析正在等待此类数据的所有客户机。</li>
+<li>当写入发生时，在本例中，当<code>XADD</code>命令被调用时，它调用<code>signalKeyAsReady()</code>函数。
+  这个函数将把键放入需要处理的键列表中，因为这些键可能有被阻塞的使用者的新数据。
+  注意，这样的 <em>就绪</em> 键稍后将被处理，因此在同一个事件循环周期中，键可能会接收到其他写操作。</li>
+<li>最后，在返回到事件循环之前，最后处理 <em>就绪</em> 键。
+  对于每个键，将扫描等待数据的客户端列表，如果适用，这样的客户端将接收到达的新数据。
+  在流的情况下，数据是消费者请求的适用范围内的消息。</li>
+</ul>
+<p>正如你所看到的，基本上，在返回到事件循环之前，调用<code>XADD</code>的客户端和被阻塞消费消息的客户端都将在输出缓冲区中有它们的回复，所以<code>XADD</code>的调用者应该在消费者将收到新消息的同时从 Redis 收到回复。</p>
+<p>该模型是 <em>基于推</em> 的，因为向消费者缓冲区添加数据将由调用 <code>XADD</code> 的操作直接执行，因此延迟往往是相当可预测的。</p>
+<h2 id="_16">延迟测试结果</h2>
+<p>为了检查这些延迟特征，我们使用多个 Ruby 程序实例来执行一个测试，这些 Ruby 程序推送的消息有一个附加字段，即计算机毫秒时间，Ruby 程序从消费组读取消息并处理它们。
+消息处理步骤包括比较当前计算机时间和消息时间戳，以便了解总延迟。</p>
+<p>结果:</p>
+<div class="highlight"><span class="filename">Text Only</span><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1"></a><a href="#__codelineno-41-1"><span class="linenos" data-linenos="1 "></span></a>Processed between 0 and 1 ms -&gt; 74.11%
+<a id="__codelineno-41-2" name="__codelineno-41-2"></a><a href="#__codelineno-41-2"><span class="linenos" data-linenos="2 "></span></a>Processed between 1 and 2 ms -&gt; 25.80%
+<a id="__codelineno-41-3" name="__codelineno-41-3"></a><a href="#__codelineno-41-3"><span class="linenos" data-linenos="3 "></span></a>Processed between 2 and 3 ms -&gt; 0.06%
+<a id="__codelineno-41-4" name="__codelineno-41-4"></a><a href="#__codelineno-41-4"><span class="linenos" data-linenos="4 "></span></a>Processed between 3 and 4 ms -&gt; 0.01%
+<a id="__codelineno-41-5" name="__codelineno-41-5"></a><a href="#__codelineno-41-5"><span class="linenos" data-linenos="5 "></span></a>Processed between 4 and 5 ms -&gt; 0.02%
+</code></pre></div>
+<p>所以 99.9%的请求延迟&lt;= 2 毫秒，异常值仍然非常接近平均值。</p>
+<p>向流中添加几百万条未确认的消息并不会改变基准测试的要点，大多数查询仍然以非常短的延迟处理。</p>
+<p>几点备注:</p>
+<ul>
+<li>这里我们每次迭代最多处理 10k 消息，这意味着<code>XREADGROUP</code>的<code>COUNT</code>参数被设置为 10000。
+  这增加了大量的延迟，但这是为了允许速度较慢的使用者能够跟上消息流而需要的。
+  所以现实世界的延迟会小得多。</li>
+<li>与今天的标准相比，用于此基准测试的系统非常慢。</li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            回到页面顶部
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../nestjs-redis-streams/" class="md-footer__link md-footer__link--prev" aria-label="上一页: @tamimaj/nestjs-redis-streams" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              @tamimaj/nestjs-redis-streams
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top"], "search": "../../../assets/javascripts/workers/search.5e67fbfe.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      
+    
+  </body>
+</html>
